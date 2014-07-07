@@ -1,0 +1,11 @@
+/* user's css */
+.orgs {
+    background-image:url( ../img/role.png ) !important;
+}
+.orgs-32 {
+    background-image:url( ../img/32/role.png ) !important;
+}
+
+.graycell {
+    color: #979797;    
+}

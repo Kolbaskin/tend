@@ -1,0 +1,1 @@
+../../../../static/admin/modules/orgs/model/OrgsModel.js

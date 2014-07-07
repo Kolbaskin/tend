@@ -1,0 +1,6 @@
+{ 
+    "name": "Организации", 
+    "iconCls": "orgs", 
+    "module": "orgs", 
+    "controller": "Gvsu.modules.orgs.controller.Main" 
+}
