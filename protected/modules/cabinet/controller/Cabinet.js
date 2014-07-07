@@ -2,11 +2,21 @@ Ext.define('Gvsu.modules.cabinet.controller.Cabinet',{
     extend: "Core.Controller"
     
     ,dashboard: function(params, cb) {
-        var me = this;
+        var me = this
+            ,data = {status: false, user: {}};
+            
         [
-            function() {
-console.log('param:', params)                
-                me.tplApply('.cabinet', {status: false, user: {}}, cb)        
+            // Getting user profile
+            function(next) {
+                params.cookies.auth = '?'
+                me.callModel('Gvsu.modules.users.model.User.getInfo', params.cookies, function(user) {
+                    data.user = user
+                    next()
+                })
+            }
+            
+            ,function() {
+                me.tplApply('.cabinet', data, cb)        
             }
         ].runEach()
         

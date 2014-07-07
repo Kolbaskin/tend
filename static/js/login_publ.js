@@ -40,7 +40,7 @@ $(document).ready(function() {
             p = $("#pass").val();
             
         if(l!='' && p!='') {    
-            $.post("/Gvsu.modules.orgs.controller.Orgs.login/", {
+            $.post("/Gvsu.modules.users.controller.User.login/", {
                 login: l,
                 pass: p
             }, function(r) {

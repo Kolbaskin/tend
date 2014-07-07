@@ -1,6 +1,10 @@
+API_URL = '/Gvsu.modules.users.controller.User.registration/'
+
 var mess = {
     req: 'Обязательное поле'    
 }
+
+
 ko.validation.rules.pattern.message = 'Invalid.';
 ko.validation.configure({
     registerExtenders: true,
@@ -33,7 +37,8 @@ var viewModel = {
             for(var i in viewModel.v) {
                 out[i] = viewModel.v[i]()    
             }
-            $.post('/Gvsu.modules.orgs.controller.Orgs.registration/', out, function(data) {
+            
+            $.post(API_URL, out, function(data) {
                 if(data && data.response) {
                     for(var i in data.response) {
                         if(!!viewModel.v[i]) {
