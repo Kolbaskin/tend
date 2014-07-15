@@ -34,6 +34,10 @@ Ext.define('Gvsu.modules.users.view.PublUsersForm', {
             xtype: 'checkbox',
             fieldLabel: D.t('Активирован')
         },{
+            name: 'status',
+            xtype: 'checkbox',
+            fieldLabel: D.t('Участник торгов')
+        },{
             name: 'login',
             fieldLabel: D.t('Логин')
         },{
@@ -54,9 +58,7 @@ Ext.define('Gvsu.modules.users.view.PublUsersForm', {
         },{
             name: 'company',
             fieldLabel: D.t('Компания')
-        }
-        
-        ,{
+        },{
             name: 'email',
             fieldLabel: D.t('Email')
         },{
@@ -77,8 +79,7 @@ Ext.define('Gvsu.modules.users.view.PublUsersForm', {
         },{
             name: 'position',
             fieldLabel: D.t('Должность')
-        }
-        ]
+        }]
     }
     
 })

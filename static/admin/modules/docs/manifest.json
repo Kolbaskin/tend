@@ -1,0 +1,6 @@
+{ 
+    "name": "Типы документов", 
+    "iconCls": "docstypes", 
+    "module": "docstypes", 
+    "controller": "Gvsu.modules.docs.controller.DocTypes" 
+}

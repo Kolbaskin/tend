@@ -1,0 +1,19 @@
+<script src="/js/organisation.js"></script>
+<script>
+    viewModel.v.name('{name}')
+    viewModel.v.fullname('{fullname}')
+    viewModel.v.headers('{headers}')
+    viewModel.v.founders('{founders}')
+    viewModel.v.inn('{inn}')
+    viewModel.v.kpp('{kpp}')
+    viewModel.v.ogrn('{ogrn}')
+    viewModel.v.legal_address('{legal_address}')
+    viewModel.v.fact_address('{fact_address}')
+    viewModel.v.www('{www}')
+    viewModel.v.contact_person('{contact_person}')
+    viewModel.v.headers_phones('{headers_phones}')
+    viewModel.v.phone('{phone}')
+    viewModel.v.email('{email}')
+    viewModel.v.sro('{sro}')
+    viewModel.v.info('{info}')
+</script>

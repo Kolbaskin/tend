@@ -34,5 +34,13 @@
                 "pass": "kolobok0076"
             }
         }
+    },
+
+    "userDocDir": "/home/maxim/www/nodeproject/git/yode-ext/node_modules/gvsu-tend/docs",
+
+    "convertors": {
+        "office2pdf": "soffice --norestore --headless --convert-to pdf --outdir \"{distPath}\" \"{srcPath}\"",
+        "pdf2img": "convert -verbose -density 150 -trim \"{srcPath}\" \"{distPath}\"",
+        "img": "convert -verbose -density 150 -trim \"{srcPath}\" \"{distPath}\""
     }
 }

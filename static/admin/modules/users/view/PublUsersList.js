@@ -47,10 +47,16 @@ Ext.define('Gvsu.modules.users.view.PublUsersList', {
                     dataIndex: 'phone',
                     renderer: setStyle
                 },{
-                    text: D.t("Status"),
+                    text: D.t("Активирован"),
                     width: 60,
                     sortable: true,
                     dataIndex: 'activated',
+                    renderer: setStyle
+                },{
+                    text: D.t("Участник"),
+                    width: 60,
+                    sortable: true,
+                    dataIndex: 'status',
                     renderer: setStyle
                 }
             ]        

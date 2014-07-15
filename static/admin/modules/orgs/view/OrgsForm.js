@@ -113,13 +113,12 @@ Ext.define('Gvsu.modules.orgs.view.OrgsForm', {
         return {
             xtype: 'panel',
             title: D.t('Документы'),
-            defaults: {
-                xtype: 'textfield',
-                margin: '5',
-                width: 500,
-                labelWidth: 200
-            },
-            items: []
+            layout: 'border',
+            childModule: {
+                controller: 'Gvsu.modules.docs.controller.OrgDocs',
+                outKey: '_id',
+                inKey: 'org'
+            }
         }
     }
     

@@ -8,8 +8,8 @@
 <form onsubmit="return false;">
     <table id="step1">
     
-    <tr><td>Login</td><td class="input"><input id="login" value="" /></td></tr>
-    <tr><td>Password</td><td class="input"><input type="password" id="pass" value="" /></td></tr>
+    <tr><td>Login</td><td class="input"><input id="login" value="tester" /></td></tr>
+    <tr><td>Password</td><td class="input"><input type="password" id="pass" value="Aa222222" /></td></tr>
     <tr><td></td><td><button id="submit">Enter</button>&nbsp;&nbsp;<!--<button onclick="location='registration.htm'">Registration</button>--></td></tr>
     
     <tr><td></td><td id="error" style="display:none">Error in login or password</td></tr>

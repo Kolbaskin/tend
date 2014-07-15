@@ -113,4 +113,37 @@ Ext.define('Gvsu.modules.users.model.User', {
             cb(d)
         })
     }
+    
+    ,changePassword: function(params, cb) {
+        var me = this;
+        [
+            function(next) {
+                if(!params.auth) cb({success: false})
+                else next()
+            }
+            ,function(next) {
+                me.src.db.collection('gvsu_users').findOne({_id: params.auth}, {password: 1}, function(e, d) {
+                    next(d.password)    
+                })   
+            }
+            ,function(pass, next) {
+                me.passwordField.getValueToSave(params.oldPassword, function(oldPass) {
+                    if(pass == oldPass) {
+                        next()
+                    }
+                    else cb({success: false})
+                })    
+            }
+            ,function(next) {
+                me.passwordField.getValueToSave(params.newPassword, function(newPass) {
+                    next(newPass)
+                })
+            }
+            ,function(newPass) {
+                me.src.db.collection('gvsu_users').update({_id: params.auth}, {$set: {password: newPass}}, function(e, pass) {
+                    cb(null)    
+                })    
+            }
+        ].runEach()
+    }
 })

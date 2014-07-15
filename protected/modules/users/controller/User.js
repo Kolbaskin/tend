@@ -76,6 +76,14 @@ Ext.define('Gvsu.modules.users.controller.User',{
         }).sendJSON()        
     }
     
-    
+    ,$changePassword: function(params, cb) {
+        var me = this;
+        if(me.params.gpc && me.params.gpc.oldPassword && me.params.gpc.newPassword) {
+            me.params.gpc.auth = '?'
+            me.callModel('.User.changePassword', me.params.gpc).sendJSON()
+        } else {
+            me.sentJSON({success: false})
+        }    
+    }
         
 })

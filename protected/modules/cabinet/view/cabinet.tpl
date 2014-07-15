@@ -2,7 +2,7 @@
 
 <div>
     
-    <tpl if="status==false">
+    <tpl if="user.status==false">
         <p>Статус: не активен</p>
         <p>Для участия в тендере необходимо заполнить следующую информацию:</p>
         <ul>
@@ -11,7 +11,7 @@
             <li><a href="./workscat/">Категории и виды работ</a></li>
         </ul>
     </tpl>
-    <tpl if="status==true">
+    <tpl if="user.status==true">
         <p>Статус: активен</p>
     </tpl>    
 </div>

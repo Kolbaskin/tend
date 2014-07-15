@@ -88,5 +88,11 @@ Ext.define('Gvsu.modules.users.model.PublUsersModel', {
         filterable: true,
         editable: false,
         visable: true
+    },{
+        name: 'status',
+        type: 'boolean',
+        filterable: true,
+        editable: true,
+        visable: true
     }]
 })

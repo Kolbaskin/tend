@@ -18,7 +18,7 @@
 <form method="post" data-bind="submit: submit_password">
 <input type="password" placeholder="Старый пароль"  data-bind="value: p.old_password" /><br>
 <input type="password" placeholder="Новый пароль"  data-bind="value: p.password" /><br>
-<input type="password" placeholder="Подтверждение пароля"  data-bind="value: password_confirm" /><br>
+<input type="password" placeholder="Подтверждение пароля"  data-bind="value: p.password_confirm" /><br>
 <button type="submit">Сохранить</button>
 </form>
 

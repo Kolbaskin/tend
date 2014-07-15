@@ -112,4 +112,11 @@ Ext.define('Gvsu.modules.orgs.model.OrgsModel', {
         visable: true
     }
     ]
+    
+    ,afterSave: function(data, cb) {
+        var me = this;
+        me.src.db.collection('gvsu_users').update({org: data._id}, {$set: {status: data.active}}, function(e,d) {
+            cb(data)
+        })
+    }
 })

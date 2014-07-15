@@ -5,6 +5,13 @@
 .orgs-32 {
     background-image:url( ../img/32/role.png ) !important;
 }
+.docstypes {
+    background-image:url( ../img/file_extension_doc.png ) !important;
+}
+.docstypes-32 {
+    background-image:url( ../img/32/file_extension_doc.png ) !important;
+}
+
 
 .graycell {
     color: #979797;    

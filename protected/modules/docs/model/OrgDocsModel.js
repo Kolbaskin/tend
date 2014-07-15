@@ -1,0 +1,1 @@
+../../../../static/admin/modules/docs/model/OrgDocsModel.js
