@@ -2,7 +2,7 @@ var fs = require('fs')
     ,exec = require('child_process').exec
 
 Ext.define('Gvsu.modules.docs.model.Docs', {    
-     extend: "Core.AbstractModel"
+     extend: "Core.data.DataModel"
      
      ,getTypes: function(params, cb) {
          this.src.db.collection('gvsu_docstypes').find({}).sort({indx: 1}).toArray(function(e, data) {
@@ -11,13 +11,30 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
      }
      
      ,list: function(params, cb) {
-         var me = this;
+         var me = this
+             ,docTypes
+             ,org;
          [
             function(next) {
                 me.getTypes(null, next)
             }
-            ,function(data, next) {
-                cb(data)
+            
+            ,function(types, next) {
+                docTypes = types;
+                me.src.db.collection('gvsu_users').findOne({_id: params.auth}, {org: 1}, function(e, user) {
+                    org = user.org
+                    next()
+                })
+            }
+            
+            ,function(next) {
+                me.src.db.collection('gvsu_userdocs').find({org: org}, {}, function(e, docs) {
+                    next(docs)
+                })
+            }
+            
+            ,function(docs, next) {
+                cb(docs)
             }
          ].runEach()
      }
@@ -81,13 +98,17 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
                         file_name: params.files.file.name,
                         status: 0
                     }, function(e, data) {
+
                         if(data && data[0]) {
+                            me.changeModelData('Gvsu.modules.docs.model.OrgDocsModel', 'ins', data[0])
                             next(files, data[0])    
                         } else {
                             cb({success: false})
                         }
-                    })    
-                }
+                    }) 
+                    
+                } else 
+                    cb({success: false})
             }
             
             // создаем каталог
@@ -218,6 +239,9 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
         [
             function(next) {
                 exec(me.config.convertors.office2pdf.replace('{srcPath}', file.path).replace('{distPath}', file.path + '_pdf'), function(e, stdout, stderr) {
+//console.log('e:', e)  
+//console.log('stdout:', stdout)  
+//console.log('stderr:', stderr)  
                     next()
                 })
             }

@@ -1,4 +1,4 @@
-<form method="post" enctype='multipart/form-data'>
+<form action="./" method="post" enctype='multipart/form-data'>
 
 Выберите тип документа:<br>
 <select name="type" data-bind="options: docs, optionsText: 'name', optionsValue: '_id', value: type"></select>

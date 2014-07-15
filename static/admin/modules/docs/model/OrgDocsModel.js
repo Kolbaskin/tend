@@ -56,4 +56,48 @@ Ext.define('Gvsu.modules.docs.model.OrgDocsModel', {
         editable: true,
         visable: true
     }]
+    
+    ,getDocPreview: function(data, cb) {
+        this.runOnServer('getDocPreviewCount', data, cb)    
+    }
+    
+    ,afterRemove: function(ids, cb) {
+        var me = this
+            ,exec = require('child_process').exec;
+        
+        var func = function(i) {
+            if(i>=ids.length) {
+                cb(true)
+                return;
+            }
+            exec('rm -R ' + me.config.userDocDir + '/' + ids[i], function() {
+                func(i+1)    
+            })
+        }
+        func(0)
+    }
+    
+    ,$getDocPreviewCount: function(data, cb) {
+        if(!data || !data._id) {
+            cb({pages: 0})
+            return;
+        }
+        var fs = require('fs')
+            ,me = this
+            ,pages = 0
+            ,dir = me.config.userDocDir + '/' + data._id + '/';
+            
+        var func = function(i) {
+            fs.exists(dir + i + '.png', function(exists) {
+                if(exists) {
+                    pages++;
+                    func(i+1)
+                } else
+                    cb({pages: pages})
+            })    
+        }
+        func(0)
+    }
+    
+    
 })

@@ -6,12 +6,14 @@
  */
 
 Ext.define('Gvsu.modules.orgs.controller.Orgs', {
-    extend: 'Core.controller.Controller',
-    id:'orgs-win',
+    extend: 'Core.controller.Controller'
+    ,id:'orgs-win'
 
-    launcher: {
+    ,launcher: {
         text: D.t('Организации'),
         iconCls:'orgs'
     }
+    
+    
 });
 
