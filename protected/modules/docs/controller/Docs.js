@@ -29,8 +29,6 @@ Ext.define('Gvsu.modules.docs.controller.Docs',{
                     me.docsList(params, cb)
             }
         ].runEach()
-        
-        
     }
     
     ,docsList: function(params, cb) {
@@ -39,6 +37,13 @@ Ext.define('Gvsu.modules.docs.controller.Docs',{
             function(next) {
                 params.cookies.auth = '?'
                 me.callModel('Gvsu.modules.docs.model.Docs.list', params.cookies, function(data) {
+                    data.each(function(item) {
+                        if(item.date_add) 
+                            item.date_add = Ext.Date.format(item.date_add, 'd.m.Y')
+                        if(item.date_fin) 
+                            item.date_fin = Ext.Date.format(item.date_fin, 'd.m.Y')
+                        return item;
+                    }, true)
                     me.tplApply('.documents', {list: data}, cb)
                 })
             }

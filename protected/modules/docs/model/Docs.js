@@ -34,9 +34,37 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
             }
             
             ,function(docs, next) {
+                docs.each(function(doc) {
+                    for(var i=0;i<docTypes.length;i++) {
+                        if(docTypes[i]._id == doc.doc_type) {
+                            doc.required = docTypes[i].required;
+                            doc.days = me.calcDays(doc, docTypes[i].duration);
+                            docTypes.splice(i,1)
+                            break;
+                        }
+                    }
+                    return doc;
+                }, true)
+                next(docs)
+            }
+            
+            ,function(docs) {
+                docTypes.each(function(dtype) {
+                    docs.push({
+                        doc_name: dtype.name,
+                        required: dtype.required,
+                        status: -1
+                    })    
+                })
                 cb(docs)
             }
          ].runEach()
+     }
+     
+     ,calcDays: function(doc, duration) {
+        var tm = (new Date(doc.date_fin)).getTime() - (new Date()).getTime()
+        if(tm<=0) return 0;
+        return parseInt(tm/(3600000*24))  
      }
      
      ,getFileExt: function(fname) {
@@ -52,7 +80,8 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
      ,add: function(params, cb) {
         var me = this
             ,dirsToRemove
-            ,orgId;
+            ,orgId
+            ,date_fin = '';
         
         [
             function(next) {
@@ -71,6 +100,18 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
                     } else 
                         cb({success: false, mess: 'The organisation is not found.'})
                 })
+            }
+            
+            // ищем тип документа и определеяем срок действия
+            ,function(next) {
+                me.src.db.collection('gvsu_docstypes').findOne({_id: params.gpc.type}, {duration: 1}, function(e, d) {
+                    if(d && d.duration) {
+                        var date = new Date();
+                        date.setTime(date.getTime() + (d.duration * 24 * 3600 * 1000));
+                        date_fin = date
+                    } 
+                    next();
+                })    
             }
             
             // Пробуем создать картинки для документов
@@ -93,6 +134,7 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
                         uid: params.auth,
                         org: orgId,
                         date_add: new Date(),
+                        date_fin: date_fin,
                         doc_type: params.gpc.type,
                         doc_name: params.gpc.name,
                         file_name: params.files.file.name,

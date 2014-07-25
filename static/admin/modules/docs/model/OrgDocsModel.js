@@ -99,5 +99,35 @@ Ext.define('Gvsu.modules.docs.model.OrgDocsModel', {
         func(0)
     }
     
+    ,markAsModerated: function(id) {
+        this.runOnServer('markAsModerated', {id:id}, function() {})    
+    }
+    
+    ,$markAsModerated: function(data, cb) {
+        var me = this;
+        [
+            function(next) {
+                if(!data.id)
+                    me.error(404)
+                else 
+                    next()
+            }
+            ,function(next) {
+                me.getPermissions(function(permis) {
+                    if(permis.modify) 
+                        next()
+                    else
+                        me.error(401)
+                        
+                })
+            }
+            ,function(next) {
+                var id = me.src.db.fieldTypes.ObjectID.StringToValue(data.id)
+                me.src.db.collection(me.collection).update({_id: id}, {$set: {status: 1}}, function() {
+                    cb({success: true})    
+                })
+            }
+        ].runEach()
+    }
     
 })

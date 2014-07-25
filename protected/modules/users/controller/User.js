@@ -72,7 +72,7 @@ Ext.define('Gvsu.modules.users.controller.User',{
             find: {login: me.params.gpc.login}, 
             password: me.params.gpc.pass,
             passField: 'password',
-            lifetime: 6000
+            lifetime: 60000
         }).sendJSON()        
     }
     

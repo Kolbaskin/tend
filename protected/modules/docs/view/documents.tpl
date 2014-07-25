@@ -6,6 +6,7 @@
     <th>Дата загрузки</th>
     <th>Дата завершения</th>
     <th>Осталось дней</th>
+    <th>Требуется для участия в торгах</th>
     <th>Статус</th>
     <th>Загрузить</th>
 </tr>    
@@ -14,8 +15,12 @@
     <tr>
         <td>{doc_name}</td>
         <td>{date_add}</td>
-        <td>{date_fin}</td>
+        <td>
+            <tpl if="date_fin">{date_fin}</tpl>
+            <tpl if="!date_fin && date_add">бессрочный</tpl>
+        </td>
         <td>{days}</td>
+        <td><tpl if="required">Требуется</tpl></td>
         <td>
             <tpl if="status==0">ожидает модерацию</tpl>
             <tpl if="status==1">на модерации</tpl>

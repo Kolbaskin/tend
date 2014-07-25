@@ -14,6 +14,13 @@ Ext.define('Gvsu.modules.docs.controller.OrgDocs', {
         iconCls:'docstypes'        
     }
     
+    ,beforeModify: function(form, data) {
+        if(data.status == 0) {
+            this.model.markAsModerated(data._id)  
+            data.status = 1;
+        }
+    }
+    
     ,afterModify: function(form, data) {
         var me = this
             ,id = localStorage.getItem('uid')

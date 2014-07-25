@@ -47,20 +47,30 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
             layout: 'hbox',
             defaults: {
                 xtype: 'datefield',
+                submitFormat: 'c',
+                altFormats: 'c',
+                format: D.t('d.m.Y'),
                 labelWidth: 150
                     
             },
             items: [{
-                name: 'doc_add',
+                name: 'date_add',
                 fieldLabel: D.t('Дата добавления'),
                 margins: '0 20 0 0'
             },{
-                name: 'doc_fin',
+                name: 'date_fin',
                 fieldLabel: D.t('Дата завершения')
             }]
         },{
+            
             name: 'status',
-            xtype: 'numberfield',
+            xtype: 'combo',
+            store: Ext.create('Ext.data.ArrayStore', {
+                fields: ['id', 'name'],
+                data: [[0, 'новый документы'], [1, 'на модерации'], [2, 'одобрен'], [3, 'отклонен']]
+            }),
+            valueField: 'id',
+            displayField: 'name',
             fieldLabel: D.t('Статус')
         }]
     }

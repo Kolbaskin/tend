@@ -1,0 +1,6 @@
+{ 
+    "name": "Направления", 
+    "iconCls": "distinations", 
+    "module": "distinations", 
+    "controller": "Gvsu.modules.distinations.controller.Distinations" 
+}

@@ -12,6 +12,12 @@
     background-image:url( ../img/32/file_extension_doc.png ) !important;
 }
 
+.distinations {
+    background-image:url( ../img/arrow_branch.png ) !important;
+}
+.distinations-32 {
+    background-image:url( ../img/32/arrow_branch.png ) !important;
+}
 
 .graycell {
     color: #979797;    
