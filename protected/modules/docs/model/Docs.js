@@ -51,8 +51,11 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
             ,function(docs) {
                 docTypes.each(function(dtype) {
                     docs.push({
+                        doc_type: dtype._id,
                         doc_name: dtype.name,
                         required: dtype.required,
+                        date_fin: '',
+                        date_add: '',
                         status: -1
                     })    
                 })
@@ -162,7 +165,7 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
             }
             
             // Копируем исходный файл
-            ,function(files, dir, next) {   
+            ,function(files, dir, next) {  
                 fs.rename(params.files.file.path, dir + params.files.file.name, function(e, d) {
                     next(files, dir) 
                 })
@@ -280,7 +283,10 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
         var me = this;
         [
             function(next) {
-                exec(me.config.convertors.office2pdf.replace('{srcPath}', file.path).replace('{distPath}', file.path + '_pdf'), function(e, stdout, stderr) {
+                
+                var cmd = me.config.convertors.office2pdf.replace('{srcPath}', file.path).replace('{distPath}', file.path + '_pdf') 
+                
+                exec(cmd, function(e, stdout, stderr) {
 //console.log('e:', e)  
 //console.log('stdout:', stdout)  
 //console.log('stderr:', stderr)  

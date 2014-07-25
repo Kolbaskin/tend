@@ -1,0 +1,6 @@
+{ 
+    "name": "Справочники", 
+    "iconCls": "refs", 
+    "module": "refs", 
+    "controller": "Gvsu.modules.refs.controller.Menu" 
+}
