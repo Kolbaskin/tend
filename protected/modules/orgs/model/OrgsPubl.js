@@ -108,7 +108,7 @@ Ext.define('Gvsu.modules.orgs.model.OrgsPubl', {
             }
             ,function(org, log, next) {
                 var vals = {status: false}
-                if(log) vals.org = org
+                if( log ) vals.org = org
                 me.src.db.collection('gvsu_users').update({_id: params.auth}, {$set: vals}, function(e,d) {
                     next(org)
                 })    
