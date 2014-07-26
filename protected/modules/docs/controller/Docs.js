@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 Ext.define('Gvsu.modules.docs.controller.Docs',{
     extend: "Core.Controller"
     
@@ -151,6 +153,54 @@ Ext.define('Gvsu.modules.docs.controller.Docs',{
         ].runEach()
     }
     
-    
+    ,$getDocSrc: function() {
+        var me = this;
+        
+        var error = function() {
+            me.error(404)    
+        };
+        
+        [
+            function(next) {
+                me.checkAuthorization(me.params.gpc, function(id) {
+                    if(id) {
+                        next(id)
+                    } else
+                        error(null)
+                })    
+            }
+            
+            ,function(id, next) {
+                me.getPermissions(id, function(perm) {
+                    if(perm)  
+                        next()
+                    else
+                        error(null)
+                })   
+            }
+            
+            ,function(next) {
+                me.src.db.collection('gvsu_userdocs').findOne({_id: me.params.gpc.doc}, {file_name: 1}, function(e,d) {
+                    if(d && d.file_name) {
+                        var path = me.config.userDocDir + '/' + me.params.gpc.doc + '/' + d.file_name;
+                        fs.exists(path, function(l) {
+                            if(l) {
+                                next(path, d.file_name)    
+                            }
+                        })
+                    }
+                })    
+            }
+            
+            ,function(path, fn) {
+                fs.readFile(path, function(e, data) {
+                    me.headers['Content-Disposition'] = 'attachment; filename="'+encodeURIComponent(fn)+'"'
+                    me.headers['Content-Length'] = data.length
+                    me.end(data)
+                })
+            }
+            
+        ].runEach();
+    }
     
 })

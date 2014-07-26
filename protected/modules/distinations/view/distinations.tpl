@@ -6,17 +6,25 @@
     <table>
         <tpl for="items">
             <tr>
-                <th colspan="2">{name}</th>
+                <th colspan="4">{name}</th>
             </tr>
             <tpl for="works">
                 <tr>
                     <td>{name}</td>
                     <td><input type="checkbox" name="works" value="{_id}" <tpl if="checked">checked</tpl>></td>
+                    <td>
+                        <tpl if="status==1">проверка</tpl>
+                        <tpl if="status==2">одобрено</tpl>
+                        <tpl if="status==3">ошибка</tpl>
+                    </td>
+                    <td>
+                        <tpl if="notes">{notes}</tpl>
+                    </td>
                 </tr>
             </tpl>
         </tpl>
     </table>
-
+    <input type="hidden" name="works" value='' />
     <button type="submit">сохранить</button>
 
 </form>

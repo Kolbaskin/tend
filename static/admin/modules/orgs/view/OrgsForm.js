@@ -46,6 +46,7 @@ Ext.define('Gvsu.modules.orgs.view.OrgsForm', {
             items: [{
                 name: 'active',
                 xtype: 'checkbox',
+                uncheckedValue: 0,
                 fieldLabel: D.t('Активирован')
             },{
                 name: 'name',
@@ -135,10 +136,15 @@ Ext.define('Gvsu.modules.orgs.view.OrgsForm', {
             xtype: 'panel',
             title: D.t('Виды работ'),
             layout: 'border',
-            items: this.worksSelector()            
+            childModule: {
+                controller: 'Gvsu.modules.distinations.controller.SelWorks',
+                outKey: '_id',
+                inKey: 'pid'
+            }            
         }
     }
     
+    /*
     ,worksSelector: function() {
         
         var ds = Ext.create('Core.data.ComboStore',{
@@ -167,5 +173,5 @@ Ext.define('Gvsu.modules.orgs.view.OrgsForm', {
                     }
                 }    
     }
-    
+    */
 })

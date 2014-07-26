@@ -145,7 +145,12 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
                     }, function(e, data) {
 
                         if(data && data[0]) {
-                            me.changeModelData('Gvsu.modules.docs.model.OrgDocsModel', 'ins', data[0])
+                            
+                            // сигналим, что изменился набор документов
+                            me.changeModelData('Gvsu.modules.docs.model.OrgDocsModel', 'ins', data[0])    
+                            // блокируем организацию
+                            me.callModel('Gvsu.modules.orgs.model.OrgsPubl.markAsModerate', {org: orgId}, function(permis) {})
+                            
                             next(files, data[0])    
                         } else {
                             cb({success: false})

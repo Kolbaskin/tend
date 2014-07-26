@@ -14,6 +14,15 @@ Ext.define('Gvsu.modules.docs.controller.OrgDocs', {
         iconCls:'docstypes'        
     }
     
+    ,addFormControls: function(win) {
+        var me = this
+        me.control(win,{
+            "[action=print]": {click: function() {me.printDoc(win)}},
+            "[action=download]": {click: function() {me.downloadDoc(win)}}
+        })
+        me.callParent(arguments)
+    }
+    
     ,beforeModify: function(form, data) {
         if(data.status == 0) {
             this.model.markAsModerated(data._id)  
@@ -24,15 +33,37 @@ Ext.define('Gvsu.modules.docs.controller.OrgDocs', {
     ,afterModify: function(form, data) {
         var me = this
             ,id = localStorage.getItem('uid')
-            ,token = localStorage.getItem('token')
+            ,token = localStorage.getItem('token');
+        
+        form.docID = data._id
         
         me.model.getDocPreview(data, function(res) {
             var str = ''
+            var domain = location.href.split('/')
+            domain = domain[0] + '//' + domain[2]
             for(var i=0;i<res.pages;i++) {
-                str += '<img src="/Gvsu.modules.docs.controller.Docs.getDocPreview/doc.png?doc='+data._id+'&page='+i+'&&id='+id+'&token='+token+'" width="100%" />'    
+                str += '<img src="' + domain + '/Gvsu.modules.docs.controller.Docs.getDocPreview/doc.png?doc='+data._id+'&page='+i+'&id='+id+'&token='+token+'" width="100%" />'    
             }
             form.down('[name=previewPanel]').body.update(str)            
         })
+    }
+    
+    ,printDoc: function(form) {
+        var w = window.open('about:blank')
+        var html = form.down('[name=previewPanel]').body.getHTML()
+        html = '<div style="width:720px;">' + html + '</div>'
+        w.document.body.innerHTML = html
+        w.print()
+    }
+    
+    ,downloadDoc: function(form) {
+        var me = this
+            ,doc = form.down('[name=_id]').value
+            ,id = localStorage.getItem('uid')
+            ,token = localStorage.getItem('token');
+            
+        if(doc) 
+           location = '/Gvsu.modules.docs.controller.Docs.getDocSrc/?doc=' + doc + '&id='+id+'&token='+token
     }
     
 });

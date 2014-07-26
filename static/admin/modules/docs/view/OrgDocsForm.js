@@ -82,6 +82,14 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
             region: 'center',
             layout: 'fit',
             bodyStyle: 'overflow: auto;padding: 10px;',
+            tbar: [{
+                text: D.t('Печать'),
+                action: 'print'
+            },'-',{
+                text: D.t('Скачать оригинал'),
+                action: 'download'
+            }       
+            ],
             html: ''
         }    
     }

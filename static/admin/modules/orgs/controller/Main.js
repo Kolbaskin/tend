@@ -21,6 +21,10 @@ Ext.define('Gvsu.modules.orgs.controller.Main', {
                 text: D.t('Пользователи'),
                 iconCls:'user-publ',
                 controller: 'Gvsu.modules.users.controller.PublUsers'
+            },{
+                text: D.t('Привязка к видам работ'),
+                iconCls:'orgs',
+                controller: 'Gvsu.modules.distinations.controller.SelWorks'
             }]
         }
     }

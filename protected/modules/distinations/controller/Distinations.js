@@ -5,7 +5,8 @@ Ext.define('Gvsu.modules.distinations.controller.Distinations',{
         var me = this;
         [
             function(next) {
-                if(params.gpc.works) {
+
+                if(params.gpc.works !== undefined) {
                     params.gpc.auth = '?'
                     params.gpc.uid = params.cookies.uid
                     params.gpc.token = params.cookies.token

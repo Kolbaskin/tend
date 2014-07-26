@@ -115,4 +115,29 @@ Ext.define('Gvsu.modules.orgs.model.OrgsPubl', {
             }
         ].runEach()
     }
+    
+    ,markAsModerate: function(params, cb) {
+        var me = this;
+        
+        [
+            function(next) {
+                if(params && params.org) {
+                    me.src.db.collection('gvsu_orgs').findOne({_id: params.org}, {}, function(e,org) {
+                        next(org)
+                    })
+                } else if(!!cb) cb()
+            }
+            
+            ,function(org, next) {
+                me.src.db.collection('gvsu_orgs').update({_id: org._id}, {$set:{active: 0}}, function(e,d) {
+                    org.active = 0
+console.log('org:', org)
+                    me.changeModelData('Gvsu.modules.orgs.model.OrgsModel', 'ins', org)
+                    if(!!cb) cb()
+                })
+            }
+            
+        ].runEach()
+  
+    }
 })
