@@ -121,7 +121,7 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
             ,function(next) {
                 var ex = me.getFileExt(params.files.file.name);
                 if(['zip', 'gz', 'tar', 'rar', '7z'].indexOf(ex) != -1) {
-                    me.unArchivate(params.files.file, function(files) {
+                    me.unArchivate(params.files.file, ex, function(files) {
                         me.convert(files, next)
                     })
                 } else {
@@ -206,9 +206,101 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
         ].runEach();
      }
      
-     ,unArchivate: function(file, cb) {
+     ,readCatalog: function(path, cb) {
+        var me = this;
+        fs.readdir(path, function(e, files) {
+            var out = [];
+            var f = function(i) {
+                if(i>=files.length) {
+                    cb(out)
+                    return;
+                }
+                fs.stat(path + '/' + files[i], function(e, s) {
+                    if(s) {
+                        if(s.isDirectory()) {
+                            me.readCatalog(path + '/' + files[i], function(res) {
+                                res.each(function(r) {out.push(r)})  
+                                f(i+1)
+                            })
+                        } else {
+                            out.push({
+                                path: path + '/' + files[i],
+                                name: files[i]
+                            })
+                            f(i+1)
+                        }
+                    } else {
+                        f(i+1)    
+                    }
+                })
+            }
+            f(0)    
+        })   
+     }
+     
+     ,unArchivate: function(file, ex, cb) {
+        var me = this
+            ,dir = file.path + '_dir';
+         
+        [
+            function(next) {
+                if(!!me.unPack[ex]) {
+                    fs.mkdir(dir, function(e,d) {
+                        me.unPack[ex](file, dir,  next) 
+                    })
+                }
+            }
+            
+            ,function(next) {
+                fs.exists(dir, function(e) {
+                    if(e)
+                        next()
+                    else
+                        cb([])
+                })   
+            }
+            
+            ,function(next) {
+                me.readCatalog(dir, next)    
+            }
+            
+            ,function(aFiles, next) {
+                cb(aFiles)        
+            }
+        ].runEach()
+         
+        
+     }
+     
+     ,unPack: {
+         'zip': function(file, dir, cb) {
+             exec('unzip ' + file.path, function(e, stdout, stderr) {
+                cb()
+             }) 
+         }
+         ,'rar': function(file, dir, cb) {
+             exec('unrar ' + file.path, function(e, stdout, stderr) {
+                cb()
+             })
+         }
+         ,'gz': function(file, dir, cb) {
+             exec('tar -xf ' + file.path + ' -C ' + dir, function(e, stdout, stderr) {
+                cb()
+             })
+         }
+         ,'tar': function(file, dir, cb) {
+             exec('tar -xf ' + file.path + ' -C ' + dir, function(e, stdout, stderr) {
+                cb()
+             })
+         }
+         ,'7z': function(file, dir, cb) {
+             exec('7z ' + file.path, function(e, stdout, stderr) {
+                cb()
+             })
+         }
          
      }
+       
      
      ,convert: function(files, cb) {
         var me = this

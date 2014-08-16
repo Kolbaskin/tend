@@ -1,19 +1,26 @@
-<h2>Личный кабинет</h2>
-
 <div>
     
-    <tpl if="user.status==false">
-        <p>Статус: не активен</p>
-        <p>Для участия в тендере необходимо заполнить следующую информацию:</p>
-        <ul>
-            <li><a href="./company/">Информацию об организации</a></li>
+    <tpl if="user.status">
+        <div class="tndr_alert act">
+            <p id="tndr_alert_status">Статус: <span>Активен</span></p>
+        	<p>Вы можете принимать участие в <a href="#">тендерах</a>.</p>
+        	<p>Помните о своевременном оформлении документов. Дней до обновления: <b>12345</b></p>
+        </div>
+    </tpl>
+    
+    <tpl if="!user.status">
+        <div class="tndr_alert">
+        	<p id="tndr_alert_status">Статус: <span>Не активен</span></p>
+        	<p>Для участия в тендерах вам необходимо заполнить следующую информацию:</p>
+        <ol>
+        	<li><a href="./company/">Информацию об организации</a></li>
             <li><a href="./documents/">Документы</a></li>
             <li><a href="./workscat/">Категории и виды работ</a></li>
-        </ul>
+        </ol>
+        </div>
+
     </tpl>
-    <tpl if="user.status==true">
-        <p>Статус: активен</p>
-    </tpl>    
+ 
 </div>
 
 <div class="tndr_cabinet_detail">

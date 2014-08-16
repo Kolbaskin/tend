@@ -17,7 +17,7 @@
         "database": "gvsutenddb",
         "host": "localhost",
         "user": "root",
-        "password": ""
+        "password": "kolobok"
     },
 
     "messages": {

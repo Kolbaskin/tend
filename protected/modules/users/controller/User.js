@@ -12,7 +12,7 @@ Ext.define('Gvsu.modules.users.controller.User',{
             }
         ].runEach();
     }
-    
+            
     ,$saveProfile: function() {
         var me = this;
         this.params.gpc.auth = '?'
@@ -55,14 +55,44 @@ Ext.define('Gvsu.modules.users.controller.User',{
      */
     ,login: function(params, cb) {
         var me = this;
-        if(params.gpc && params.gpc._id && params.gpc.token) {
-            me.callModel('.User.activate', params.gpc, function(res) {
-                me.tplApply('.loginForm', res, cb)
-            })
-        } else {
-            me.tplApply('.loginForm', {success: false}, cb)
-        }
+        
+        [
+            function(next) {
+                if(params.gpc && params.gpc._id && params.gpc.token) {
+                    me.callModel('.User.activate', params.gpc, function(res) {
+                        me.tplApply('.loginForm', res, cb)
+                    })
+                } else
+                    next()
+            }
+            
+            ,function(next) {
+                if(params.gpc.exit) {
+                    me.callModel('.User.exit', params.cookies, function() {
+                        params.pageData.user = {}
+                        next()
+                    })
+                } else 
+                    next()
+            }
+            
+            ,function() {
+                me.tplApply('.loginForm', {success: false}, cb)
+            }
+            
+        ].runEach()
     }
+       
+    ,getLoginStatus: function(pageData, cb) {
+        var me = this;
+        pageData.params.cookies.auth = '?'
+        me.callModel('.User.getInfo', pageData.params.cookies, function(user) {
+            pageData.user = user  
+            cb(pageData)
+        })
+    }   
+       
+    // Public methods -------------------------------------------------
     
     ,$login: function() {
         var me = this; 

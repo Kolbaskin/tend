@@ -114,6 +114,8 @@ Ext.define('Gvsu.modules.users.model.User', {
         })
     }
     
+    
+    
     ,changePassword: function(params, cb) {
         var me = this;
         [
@@ -145,5 +147,20 @@ Ext.define('Gvsu.modules.users.model.User', {
                 })    
             }
         ].runEach()
+    }
+    
+    ,exit: function(params, cb) {
+        var me = this;
+        if(params.uid && params.token) { 
+            me.src.mem.get(params.token, function(e, r){
+                if(r == params.uid) {    
+                    me.src.mem.delete(params.token, function(e, rr){     
+                        cb(true);
+                    });
+                } else 
+                    cb(null);                
+            });
+        } else 
+            cb(null);    
     }
 })

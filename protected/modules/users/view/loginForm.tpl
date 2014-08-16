@@ -35,6 +35,12 @@
 </ul>
 <a href="/registration/">Регистрация</a>-->
 <!-- / Registration text block -->
+<tpl if="success">
+    <div class="tndr_alert">
+        <p><b>Ваша учетная запись успешно активирована.</b></p>
+    	<p>Для продолжения работы зайдите в личный кабинет и введите данные об организации.</p>
+    </div>
+</tpl>
 
 <script type="text/javascript" src="/js/login_publ.js"></script>
 

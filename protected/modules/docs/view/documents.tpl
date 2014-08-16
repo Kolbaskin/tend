@@ -1,5 +1,3 @@
-<h2>Список документов</h2>
-
 <table class="tndr_table">
 <tr>
     <th>№</th>
@@ -14,7 +12,7 @@
 
 <tpl for="list">
     <tr>
-        <td></td>
+        <td>{#}</td>
         <td>{doc_name}</td>
         <td>{date_add}</td>
         <td>

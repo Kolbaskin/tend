@@ -68,7 +68,11 @@
 
 <div id="submenu">
 <div id="submenu_in">
-<a href="/">Главная</a> / <a href="#">Второстепенная</a> / <a href="#">Ещё какая-то</a>
+<a href="/">Главная</a>
+<tpl for="crumbs">
+    / <a href="{dir}">{name}</a>
+</tpl>
+ / {name}
 </div>
 <span></span>
 </div>
@@ -80,16 +84,11 @@
 <div id="left_col_in">
 
 <div id="print"><a href="#">версия для печати</a></div>
-<h1 class="page_header"></h1>
-<h2 class="page_header">Система электронных тендеров</h2>
+<h1 class="page_header">Система электронных тендеров</h1>
+<h2 class="page_header">{name}</h2>
 
 <div id="tndr_left">
 <div id="tndr_left_in">
-
-<div class="tndr_alert">
-	<p><b>Ваша учетная запись успешно активирована.</b></p>
-	<p>Для продолжения работы зайдите в личный кабинет и введите данные об организации.</p>
-</div>
 
 <tpl if="blocks[1]">
     <tpl for="blocks[1]">
@@ -100,18 +99,24 @@
 </div>
 </div><!--/tndr_left-->
 
-<div id="tndr_right">
-<div id="tndr_right_in">
-
-<ul>
-    <tpl for="menu">
-        <li>{title}</li>
-    </tpl>
-</ul>
-
-</div>
-</div><!--/tndr_right-->
-
+<tpl if="user.login">
+    <div id="tndr_right">
+    <div id="tndr_right_in">
+    
+        <p id="tndr_user"><b>Пользователь:</b> {user.fname} {user.name} <a href="/login/?exit">Выход</a></p>
+        
+        <div id="tndr_menu">
+        <a href="/cabinet/user/#" class="tndr_btn">Персональные данные</a>
+        <a href="/cabinet/company/" class="tndr_btn">Информация об организации</a>
+        <a href="/cabinet/documents/" class="tndr_btn">Документы</a>
+        <a href="/cabinet/workscat/" class="tndr_btn">Категории и виды работы</a>
+        <a href="/help/" class="tndr_btn">Помощь</a>
+        </div>
+    
+    
+    </div>
+    </div><!--/tndr_right-->
+</tpl>
 
 <div class="clear"></div>
 
