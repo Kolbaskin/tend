@@ -1,14 +1,13 @@
 <!DOCTYPE HTML>
+
 <html>
 <head>
-	<title>ОАО ХК ГВСУ «Центр» - Тендеры - {[values.metatitle? values.metatitle:values.name]}</title>
+	<title>ОАО Холдинговая компания ГВСУ «Центр»</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta name="keywords" content="">
 	<meta name="description" content="">
 	<meta http-equiv="imagetoolbar" content="no">
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js" type="text/javascript"></script>
-	<script src="/js/jquery.cookie.js"></script>
-    <script src="/js/ko.js"></script>
 	<script src="/js/code.js" type="text/javascript"></script>
 	<script src="/js/swfobject.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="/style/inner.css" type="text/css" media="screen">
@@ -20,9 +19,9 @@
 	window.attachEvent('onload', function() {
 		$('body').prepend('<div id="ie_alert">Для просмотра сайта вам необходимо установить модуль Google Chrome Frame</div>');
 		CFInstall.check({
-            mode: 'inline',
-            node: 'prompt'
-        });
+    mode: 'inline',
+    node: 'prompt'
+});
 	});
 	</script>
 	<![endif]-->
@@ -75,27 +74,56 @@
 
 <div id="shame"><!-- i --></div>
 
-
 <div id="left_col">
 <div id="left_col_in">
 
 <div id="print"><a href="#">версия для печати</a></div>
-<h1 class="page_header"></h1>
-<h2 class="page_header">Система электронных тендеров</h2>
+<h1 class="page_header">Система электронных тендеров</h1>
+<h2 class="page_header">Информация об открытом тендере</h2>
 
 <div id="tndr_left">
 <div id="tndr_left_in">
 
-<div class="tndr_alert">
-	<p><b>Ваша учетная запись успешно активирована.</b></p>
-	<p>Для продолжения работы зайдите в личный кабинет и введите данные об организации.</p>
-</div>
+<h2>Стеллажи полочные, консольные, для хранения комплектующих</h2>
 
-<tpl if="blocks[1]">
-    <tpl for="blocks[1]">
-        <div>{.}</div>
-    </tpl>
-</tpl>
+<table class="tndr_table">
+<tr>
+	<td width="114">Номер тендера</td>
+	<td>845</td>
+</tr>
+<tr>
+	<td width="114">Название тендера</td>
+	<td>Стеллажи полочные, консольные, для хранения комплектующих</td>
+</tr>
+<tr>
+	<td width="114">Категория тендера</td>
+	<td>Строительные материалы</td>
+</tr>
+<tr>
+	<td width="114">Вид работ по тендеру</td>
+	<td>Поставка и монтаж оборудования</td>
+</tr>
+<tr>
+	<td width="114">Статус тендера</td>
+	<td>Открыт</td>
+</tr>
+<tr>
+	<td width="114">Объект</td>
+	<td>Наро-Фоминский район, деревня Котово, территория ДСК Град</td>
+</tr>
+<tr>
+	<td width="114">Дата окончания приема заявок</td>
+	<td>04.08.2014</td>
+</tr>
+</table>
+
+<form action="xyz">
+<ul class="inlined simple_form">
+	<li><label><input type="checkbox"> с <a href="#">правилами проведения тендера и порядком участия в тендере</a> согласен</label></li>
+	<li><button type="submit"><span class="tndr_btn">создать заявку на тендер</span></button></li>
+</ul>
+</form>
+
 
 </div>
 </div><!--/tndr_left-->
@@ -103,15 +131,14 @@
 <div id="tndr_right">
 <div id="tndr_right_in">
 
-<ul>
-    <tpl for="menu">
-        <li>{title}</li>
-    </tpl>
-</ul>
+<p><b>Помощь по работе в системе тендеров</b></p>
+
+<a href="#">Условия участия в тендерах</a><br>
+<a href="#">Термины и определения</a><br>
+<a href="#">Анкета компании (файл для скачивания)</a><br>
 
 </div>
 </div><!--/tndr_right-->
-
 
 <div class="clear"></div>
 
@@ -133,4 +160,3 @@
 </div><!--/page_wrapper -->
 </body>
 </html>
-

@@ -1,33 +1,63 @@
 <script src="/js/ko.validate.js"></script>
 
-<h2>Организация</h2>
+<p>Внимание! При изменении атрибутов компании происходит автоматическая блокировка доступа к торгам. Доступ будет возобновлен после одобрения Службы безопасности.</p>
 
-<p style="color: red">Внимание! При изменении атрибутов компании происходит автоматическая блокировка доступа к торгам. Доступ будет возобновлен после одобрения Службы безопасности.</p>
-
+<div class="tndr_form org_form">
+<h2>Изменение информации об организации</h2>
 <form method="post" data-bind="submit: submit">
+	<ul class="inlined">
+		<li class="form_text">Краткое название</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.name"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
 
-<input placeholder="Краткое название" data-bind="value: v.name" /><br>
-<input placeholder="Полное название"  data-bind="value: v.fullname" /><br>
+		<li class="form_text">Полное название</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.fullname"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
 
-<textarea placeholder="Руководители, ФИО"  data-bind="value: v.headers" /></textarea><br>
-<textarea placeholder="Учредители, ФИО"  data-bind="value: v.founders" /></textarea><br>
+		<li class="form_text">Руководители</li><li class="form270"><div class="input_wrap"><textarea data-bind="value: v.headers"></textarea></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
 
-<input placeholder="ИНН"  data-bind="value: v.inn" /><br>
-<input placeholder="КПП"  data-bind="value: v.kpp" /><br>
-<input placeholder="ОГРН"  data-bind="value: v.ogrn" /><br>
-<input placeholder="Юридический адрес"  data-bind="value: v.legal_address" /><br>
-<input placeholder="Фактический адрес"  data-bind="value: v.fact_address" /><br>
-<input placeholder="Адрес сайта"  data-bind="value: v.www" /><br>
-<input placeholder="Телефоны руководителей"  data-bind="value: v.headers_phones" /><br>
+		<li class="form_text">Учредители</li><li class="form270"><div class="input_wrap"><textarea data-bind="value: v.founders"></textarea></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
 
-<input placeholder="Контактное лицо"  data-bind="value: v.contact_person" /><br>
-<input placeholder="Контактный телефон"  data-bind="value: v.phone" /><br>
-<input placeholder="Электронная почта"  data-bind="value: v.email" /><br>
-<input placeholder="Предельная стоимость договора СРО (в рублях)"  data-bind="value: v.sro" /><br>
-<textarea placeholder="Как узнали о торговой площадке?"  data-bind="value: v.info" ></textarea><br>
+		<li class="form_text">ИНН</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.inn"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
 
-<button type="submit">Отправить</button>
+		<li class="form_text">КПП</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.kpp"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text">ОГРН</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.ogrn"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text">Юридический адрес</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.legal_address"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text">Фактический адрес</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.fact_address"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text">Адрес сайта</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.www"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text two_lines">Контактные телефоны руководителей</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.headers_phones"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text">Контактное лицо</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.contact_person"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text">Телефон для связи</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.phone"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text two_lines">Адрес <br>электронной почты</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.email"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text two_lines">Предельная стоимость договора СРО</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.sro"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text">Как узнали об электронной площадке</li><li class="form270"><div class="input_wrap"><textarea data-bind="value: v.info"></textarea></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text"></li><li><button type="submit"><span class="tndr_btn">изменить информацию об организации</span></button></li>
+	</ul>
 </form>
+</div>
 
 <!-- Data Model -->
 {{include "orgdata.inc"}}

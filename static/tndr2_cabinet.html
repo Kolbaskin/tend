@@ -1,14 +1,13 @@
 <!DOCTYPE HTML>
+
 <html>
 <head>
-	<title>ОАО ХК ГВСУ «Центр» - Тендеры - {[values.metatitle? values.metatitle:values.name]}</title>
+	<title>ОАО Холдинговая компания ГВСУ «Центр»</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta name="keywords" content="">
 	<meta name="description" content="">
 	<meta http-equiv="imagetoolbar" content="no">
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js" type="text/javascript"></script>
-	<script src="/js/jquery.cookie.js"></script>
-    <script src="/js/ko.js"></script>
 	<script src="/js/code.js" type="text/javascript"></script>
 	<script src="/js/swfobject.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="/style/inner.css" type="text/css" media="screen">
@@ -20,9 +19,9 @@
 	window.attachEvent('onload', function() {
 		$('body').prepend('<div id="ie_alert">Для просмотра сайта вам необходимо установить модуль Google Chrome Frame</div>');
 		CFInstall.check({
-            mode: 'inline',
-            node: 'prompt'
-        });
+    mode: 'inline',
+    node: 'prompt'
+});
 	});
 	</script>
 	<![endif]-->
@@ -80,38 +79,90 @@
 <div id="left_col_in">
 
 <div id="print"><a href="#">версия для печати</a></div>
-<h1 class="page_header"></h1>
-<h2 class="page_header">Система электронных тендеров</h2>
+<h1 class="page_header">Система электронных тендеров</h1>
+<h2 class="page_header">Личный кабинет</h2>
 
 <div id="tndr_left">
 <div id="tndr_left_in">
 
-<div class="tndr_alert">
-	<p><b>Ваша учетная запись успешно активирована.</b></p>
-	<p>Для продолжения работы зайдите в личный кабинет и введите данные об организации.</p>
+<div class="tndr_alert act">
+	<p id="tndr_alert_status">Статус: <span>Активен</span></p>
+	<p>Вы можете принимать участие в <a href="#">тендерах</a>.</p>
+	<p>Помните о своевременном оформлении документов. Дней до обновления: <b>12345</b></p>
 </div>
 
-<tpl if="blocks[1]">
-    <tpl for="blocks[1]">
-        <div>{.}</div>
-    </tpl>
-</tpl>
+<div class="tndr_alert">
+	<p id="tndr_alert_status">Статус: <span>Не активен</span></p>
+	<p>Для участия в тендерах вам необходимо заполнить следующую информацию:</p>
+<ol>
+	<li><a href="#">Информация об организации</a></li>
+	<li><a href="#">Документы</a></li>
+	<li><a href="#">Категории и виды работ</a></li>
+</ol>
+</div>
+
+<div class="tndr_cabinet_detail">
+<h2>Персональные данные</h2>
+<table class="tndr_table">
+<tr>
+	<td width="114">Логин</td>
+	<td>Куликова</td>
+</tr>
+<tr>
+	<td width="114">Рабочий телефон</td>
+	<td>+7 499 934 5983 (добавочный: 408)</td>
+</tr>
+<tr>
+	<td width="114">E-mail</td>
+	<td>kulikova_ag@gmail.com</td>
+</tr>
+<tr>
+	<td width="114">ФИО</td>
+	<td>Куликова Анастасия Геннадиевна</td>
+</tr>
+<tr>
+	<td width="114">Должность</td>
+	<td>Менеджер</td>
+</tr>
+</table>
+<a href="#" class="tndr_btn">изменить персональные данные</a>
+</div>
+
+<div class="tndr_cabinet_detail">
+<h2>Информация об организации</h2>
+<p>Информация об организации заполнена не полностью. <a href="#">Заполнить?</a></p>
+<a href="#" class="tndr_btn">изменить информацию об организации</a>
+</div>
+
+<div class="tndr_cabinet_detail">
+<h2>Документы</h2>
+<p>Загружены не все документы. <a href="#">Загрузить?</a></p>
+<a href="#" class="tndr_btn">загрузить новые документы</a>
+</div>
+
+<div class="tndr_cabinet_detail">
+<h2>Категории и виды работ</h2>
+<p>Категории и виды работ не выбраны. <a href="#">Выбрать?</a></p>
+<a href="#" class="tndr_btn">выбрать категории и виды работ</a>
+</div>
 
 </div>
 </div><!--/tndr_left-->
 
 <div id="tndr_right">
 <div id="tndr_right_in">
+<p id="tndr_user"><b>Пользователь:</b> Куликова <a href="#">Выход</a></p>
 
-<ul>
-    <tpl for="menu">
-        <li>{title}</li>
-    </tpl>
-</ul>
+<div id="tndr_menu">
+<a href="#" class="tndr_btn">Персональные данные</a>
+<a href="#" class="tndr_btn">Информация об организации</a>
+<a href="#" class="tndr_btn">Документы</a>
+<a href="#" class="tndr_btn">Категории и виды работы</a>
+<a href="#" class="tndr_btn">Помощь</a>
+</div>
 
 </div>
 </div><!--/tndr_right-->
-
 
 <div class="clear"></div>
 
@@ -133,4 +184,3 @@
 </div><!--/page_wrapper -->
 </body>
 </html>
-

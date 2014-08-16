@@ -16,32 +16,47 @@
     </tpl>    
 </div>
 
-<h3>Персональные данные</h3>
-
-<table>
-    <tr><td>Логин</td><td>{user.login}</td></tr>
-    <tr><td>Рабочий телефон</td><td>{user.phone}</td></tr>
-    <tr><td>E-mail</td><td>{user.email}</td></tr>
-    <tr><td>ФИО</td><td>{user.fname} {user.name} {user.sname}</td></tr>
-    <tr><td>Должность</td><td>{user.position}</td></tr>
+<div class="tndr_cabinet_detail">
+<h2>Персональные данные</h2>
+<table class="tndr_table">
+<tr>
+    <td width="114">Логин</td>
+    <td>{user.login}</td>
+</tr>
+<tr>
+    <td width="114">Рабочий телефон</td>
+    <td>{user.phone}</td>
+</tr>
+<tr>
+    <td width="114">E-mail</td>
+    <td>{user.email}</td>
+</tr>
+<tr>
+    <td width="114">ФИО</td>
+    <td>{user.fname} {user.name} {user.sname}</td>
+</tr>
+<tr>
+    <td width="114">Должность</td>
+    <td>{user.position}</td>
+</tr>
 </table>
+<a href="./user/" class="tndr_btn">изменить персональные данные</a>
+</div>
 
-<a href="./user/">Изменить личные данные</a>
-
-<h3>Данные об организации</h3>
-
+<div class="tndr_cabinet_detail">
+<h2>Информация об организации</h2>
 <p>Данные об организации заполнены не полностью. <a href="./company/">Заполнить?</a></p>
+<a href="./company/" class="tndr_btn">изменить информацию об организации</a>
+</div>
 
-<a href="./company/">Изменить информацию об организации</a>
-
-<h3>Документы</h3>
-
+<div class="tndr_cabinet_detail">
+<h2>Документы</h2>
 <p>Загружены не все документы. <a href="./documents/">Загрузить?</a></p>
+<a href="./documents/" class="tndr_btn">загрузить новые документы</a>
+</div>
 
-<a href="./documents/">Прислать документы</a>
-
-<h3>Категории и виды работ</h3>
-
+<div class="tndr_cabinet_detail">
+<h2>Категории и виды работ</h2>
 <p>Категории не выбраны. <a href="./documents/">Выбрать?</a></p>
-
-<a href="./workscat/">Выбор категорий и видов работ</a>
+<a href="./workscat/" class="tndr_btn">выбрать категории и виды работ</a>
+</div>

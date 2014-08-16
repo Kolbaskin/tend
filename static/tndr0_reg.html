@@ -1,14 +1,13 @@
 <!DOCTYPE HTML>
+
 <html>
 <head>
-	<title>ОАО ХК ГВСУ «Центр» - Тендеры - {[values.metatitle? values.metatitle:values.name]}</title>
+	<title>ОАО Холдинговая компания ГВСУ «Центр»</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta name="keywords" content="">
 	<meta name="description" content="">
 	<meta http-equiv="imagetoolbar" content="no">
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js" type="text/javascript"></script>
-	<script src="/js/jquery.cookie.js"></script>
-    <script src="/js/ko.js"></script>
 	<script src="/js/code.js" type="text/javascript"></script>
 	<script src="/js/swfobject.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="/style/inner.css" type="text/css" media="screen">
@@ -20,9 +19,9 @@
 	window.attachEvent('onload', function() {
 		$('body').prepend('<div id="ie_alert">Для просмотра сайта вам необходимо установить модуль Google Chrome Frame</div>');
 		CFInstall.check({
-            mode: 'inline',
-            node: 'prompt'
-        });
+    mode: 'inline',
+    node: 'prompt'
+});
 	});
 	</script>
 	<![endif]-->
@@ -80,22 +79,54 @@
 <div id="left_col_in">
 
 <div id="print"><a href="#">версия для печати</a></div>
-<h1 class="page_header"></h1>
-<h2 class="page_header">Система электронных тендеров</h2>
+<h1 class="page_header">Система электронных тендеров</h1>
+<h2 class="page_header">Регистрация</h2>
 
 <div id="tndr_left">
 <div id="tndr_left_in">
 
-<div class="tndr_alert">
-	<p><b>Ваша учетная запись успешно активирована.</b></p>
-	<p>Для продолжения работы зайдите в личный кабинет и введите данные об организации.</p>
-</div>
+<div class="tndr_form">
+<form action="xyz">
+	<ul class="inlined">
+		<li class="form_text">Логин</li><li class="form270"><div class="input_wrap"><input type="text"></div></li>
+		<li class="form_alert" style="display: none;">Такой логин уже занят</li><br>
 
-<tpl if="blocks[1]">
-    <tpl for="blocks[1]">
-        <div>{.}</div>
-    </tpl>
-</tpl>
+		<li class="form_text">E-mail</li><li class="form270"><div class="input_wrap"><input type="text"></div></li>
+		<li class="form_alert" style="display: none;">Неправильный почтовый адрес</li><br>
+
+		<li class="form_text">Пароль</li><li class="form270"><div class="input_wrap"><input type="password"></div></li>
+		<li class="form_alert" style="display: none;">Пароль должен содержать не менее 6 символов</li><br>
+
+		<li class="form_text two_lines">Подтверждение пароля</li><li class="form270"><div class="input_wrap"><input type="password"></div></li>
+		<li class="form_alert" style="display: none;">Пароли не совпадают</li><br>
+
+		<li class="form_text">Фамилия</li><li class="form270"><div class="input_wrap"><input type="text"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text">Имя</li><li class="form270"><div class="input_wrap"><input type="text"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text">Отчество</li><li class="form270"><div class="input_wrap"><input type="text"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text">Рабочий телефон</li><li class="form270"><div class="input_wrap"><input type="text"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text">Мобильный телефон</li><li class="form270"><div class="input_wrap"><input type="text"></div></li>
+		<li class="form_alert"></li><br>
+
+		<li class="form_text">Должность</li><li class="form270"><div class="input_wrap"><input type="text"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text">Название компании</li><li class="form270"><div class="input_wrap"><input type="text"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+
+		<li class="form_text">Введите символы с картинки</li><li class="form120"><img src="http://lorempixel.com/120/60/abstract"></li><li class="form132"><div class="input_wrap"><input type="text"></div></li>
+		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+		<li class="form_text"></li><li class="form120"><button type="submit"><span class="tndr_btn">регистрация</span></button></li>
+	</ul>
+</form>
+</div>
 
 </div>
 </div><!--/tndr_left-->
@@ -103,15 +134,8 @@
 <div id="tndr_right">
 <div id="tndr_right_in">
 
-<ul>
-    <tpl for="menu">
-        <li>{title}</li>
-    </tpl>
-</ul>
-
 </div>
 </div><!--/tndr_right-->
-
 
 <div class="clear"></div>
 
@@ -133,4 +157,3 @@
 </div><!--/page_wrapper -->
 </body>
 </html>
-

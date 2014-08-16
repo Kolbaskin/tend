@@ -1,14 +1,13 @@
 <!DOCTYPE HTML>
+
 <html>
 <head>
-	<title>ОАО ХК ГВСУ «Центр» - Тендеры - {[values.metatitle? values.metatitle:values.name]}</title>
+	<title>ОАО Холдинговая компания ГВСУ «Центр»</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta name="keywords" content="">
 	<meta name="description" content="">
 	<meta http-equiv="imagetoolbar" content="no">
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js" type="text/javascript"></script>
-	<script src="/js/jquery.cookie.js"></script>
-    <script src="/js/ko.js"></script>
 	<script src="/js/code.js" type="text/javascript"></script>
 	<script src="/js/swfobject.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="/style/inner.css" type="text/css" media="screen">
@@ -20,9 +19,9 @@
 	window.attachEvent('onload', function() {
 		$('body').prepend('<div id="ie_alert">Для просмотра сайта вам необходимо установить модуль Google Chrome Frame</div>');
 		CFInstall.check({
-            mode: 'inline',
-            node: 'prompt'
-        });
+    mode: 'inline',
+    node: 'prompt'
+});
 	});
 	</script>
 	<![endif]-->
@@ -80,38 +79,65 @@
 <div id="left_col_in">
 
 <div id="print"><a href="#">версия для печати</a></div>
-<h1 class="page_header"></h1>
-<h2 class="page_header">Система электронных тендеров</h2>
+<h1 class="page_header">Система электронных тендеров</h1>
+<h2 class="page_header">Персональные данные</h2>
 
 <div id="tndr_left">
 <div id="tndr_left_in">
 
 <div class="tndr_alert">
-	<p><b>Ваша учетная запись успешно активирована.</b></p>
-	<p>Для продолжения работы зайдите в личный кабинет и введите данные об организации.</p>
+	<p id="tndr_alert_status">Статус: <span>Не активен</span></p>
+	<p>Для участия в тендерах вам необходимо заполнить следующую информацию:</p>
+<ol>
+	<li><a href="#">Информация об организации</a></li>
+	<li><a href="#">Документы</a></li>
+	<li><a href="#">Категории и виды работ</a></li>
+</ol>
 </div>
 
-<tpl if="blocks[1]">
-    <tpl for="blocks[1]">
-        <div>{.}</div>
-    </tpl>
-</tpl>
+<div class="tndr_form">
+<h2>Изменение персональных данных</h2>
+<form action="xyz">
+	<ul class="inlined">
+		<li class="form_text">Логин</li><li class="form270"><div class="input_wrap"><input type="text"></div></li><br>
+		<li class="form_text">E-mail</li><li class="form270"><div class="input_wrap"><input type="text"></div></li><br>
+		<li class="form_text">Фамилия</li><li class="form270"><div class="input_wrap"><input type="text"></div></li><br>
+		<li class="form_text">Имя</li><li class="form270"><div class="input_wrap"><input type="text"></div></li><br>
+		<li class="form_text">Отчество</li><li class="form270"><div class="input_wrap"><input type="text"></div></li><br>
+		<li class="form_text">Рабочий телефон</li><li class="form270"><div class="input_wrap"><input type="text"></div></li><br>
+		<li class="form_text">Мобильный телефон</li><li class="form270"><div class="input_wrap"><input type="text"></div></li><br>
+		<li class="form_text">Должность</li><li class="form270"><div class="input_wrap"><input type="text"></div></li><br>
+		<li class="form_text">Название компании</li><li class="form270"><div class="input_wrap"><input type="text"></div></li><br>
+		<li class="form_text"></li><li><button type="submit"><span class="tndr_btn">изменить персональные данные</span></button></li>
+	</ul>
+<br>
+<h2>Изменение пароля</h2>
+	<ul class="inlined">
+		<li class="form_text">Старый пароль</li><li class="form270"><div class="input_wrap"><input type="password"></div></li><br>
+		<li class="form_text">Новый пароль</li><li class="form270"><div class="input_wrap"><input type="password"></div></li><br>
+		<li class="form_text two_lines">Подтверждение пароля</li><li class="form270"><div class="input_wrap"><input type="password"></div></li><br>
+		<li class="form_text"></li><li><button type="submit"><span class="tndr_btn">изменить пароль</span></button></li>
+	</ul>
+</form>
+</div>
 
 </div>
 </div><!--/tndr_left-->
 
 <div id="tndr_right">
 <div id="tndr_right_in">
+<p id="tndr_user"><b>Пользователь:</b> Куликова <a href="#">Выход</a></p>
 
-<ul>
-    <tpl for="menu">
-        <li>{title}</li>
-    </tpl>
-</ul>
+<div id="tndr_menu">
+<a href="#" class="tndr_btn cur">Персональные данные</a>
+<a href="#" class="tndr_btn">Информация об организации</a>
+<a href="#" class="tndr_btn">Документы</a>
+<a href="#" class="tndr_btn">Категории и виды работы</a>
+<a href="#" class="tndr_btn">Помощь</a>
+</div>
 
 </div>
 </div><!--/tndr_right-->
-
 
 <div class="clear"></div>
 
@@ -133,4 +159,3 @@
 </div><!--/page_wrapper -->
 </body>
 </html>
-
