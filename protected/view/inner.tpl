@@ -51,18 +51,18 @@
 		<a href="/"><span>Главная</span></a>
 	</li>
 	<li>
-		<a href="#"><span>Мои тендеры</span></a>
+		<a href="/tenders/"><span>Мои тендеры</span></a>
 	</li>
 	<li>
-		<a href="#"><span>Личный кабинет</span></a>
+		<a href="/cabinet/"><span>Личный кабинет</span></a>
 		<div>
-			<a href="#">Персональные данные</a>
-			<a href="#">Информация об организации</a>
-			<a href="#">Документы</a>
-			<a href="#">Категории и виды работ</a>
+			<a href="/cabinet/user/">Персональные данные</a>
+            <a href="/cabinet/company/">Информация об организации</a>
+            <a href="/cabinet/documents/">Документы</a>
+            <a href="/cabinet/workscat/">Категории и виды работы</a>
 		</div>
 	</li>
-	<li class="special"><a href="#"><span>ХК ГВСУ «Центр»</span></a></li>
+	<li class="special"><a href="http://www.gvsu.ru"><span>ХК ГВСУ «Центр»</span></a></li>
 </ul>
 </div>
 
@@ -72,7 +72,7 @@
 <tpl for="crumbs">
     / <a href="{dir}">{name}</a>
 </tpl>
- / {name}
+<tpl if="name != 'Home'"> / {name}</tpl>
 </div>
 <span></span>
 </div>
@@ -103,7 +103,7 @@
     <div id="tndr_right">
     <div id="tndr_right_in">
     
-        <p id="tndr_user"><b>Пользователь:</b> {user.fname} {user.name} <a href="/login/?exit">Выход</a></p>
+        <p id="tndr_user"><b>Пользователь:</b> {user.fname} {user.name} <a href="/login/?exit=1">Выход</a></p>
         
         <div id="tndr_menu">
         <a href="/cabinet/user/#" class="tndr_btn">Персональные данные</a>

@@ -25,7 +25,8 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
             items: [
                 me.tenderForm(),
                 me.bldSubjectsTab(),
-                me.bldInvitesTab()
+                me.bldInvitesTab(),
+                me.bldBidTab()
             ]
         }]
     }
@@ -143,6 +144,19 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
             layout: 'border',
             childModule: {
                 controller: 'Gvsu.modules.tender.controller.Subjects',
+                outKey: '_id',
+                inKey: 'pid'
+            }
+        }
+    }
+    
+    ,bldBidTab: function() {
+        return {
+            xtype: 'panel',
+            title: D.t('Заявки участников'),
+            layout: 'border',
+            childModule: {
+                controller: 'Gvsu.modules.tender.controller.Bid',
                 outKey: '_id',
                 inKey: 'pid'
             }

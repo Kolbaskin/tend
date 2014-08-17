@@ -634,6 +634,7 @@ h2.page_header {
 	top: -34px;
 	right: 14px;
 	font-size: 11px;
+    z-index: 100;
 }
 
 #tndr_user a {margin: 0 0 0 12px;}

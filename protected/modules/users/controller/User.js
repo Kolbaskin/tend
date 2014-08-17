@@ -76,6 +76,13 @@ Ext.define('Gvsu.modules.users.controller.User',{
                     next()
             }
             
+            ,function(next) {
+                if(params.pageData.user && params.pageData.user.login)
+                    cb('')
+                else
+                    next()
+            }
+            
             ,function() {
                 me.tplApply('.loginForm', {success: false}, cb)
             }

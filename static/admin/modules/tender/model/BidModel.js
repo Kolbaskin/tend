@@ -1,7 +1,7 @@
-Ext.define('Gvsu.modules.tender.model.SubjectsModel', {    
+Ext.define('Gvsu.modules.tender.model.BidModel', {    
      extend: "Core.data.DataModel"
     
-    ,collection: 'gvsu_tendersubj'
+    ,collection: 'gvsu_tenderbid'
     
     ,fields: [{
         name: '_id',
@@ -14,34 +14,16 @@ Ext.define('Gvsu.modules.tender.model.SubjectsModel', {
         editable: true,
         visable: true
     },{
-        name: 'name',
-        type: 'string',
-        filterable: true,
-        editable: true,
-        visable: true
-    },{
-        name: 'customer',
-        type: 'string',
-        editable: true,
-        filterable: true,
-        visable: true
-    },{
-        name: 'object',
-        type: 'string',
-        editable: true,
-        filterable: true,
-        visable: true
-    },{
-        name: 'dist', 
+        name: 'orgid',
         type: 'int',
-        editable: true,
         filterable: true,
+        editable: true,
         visable: true
     },{
-        name: 'price',
+        name: 'orgname',
         type: 'string',
-        editable: true,
         filterable: true,
+        editable: true,
         visable: true
     },{
         name: 'date_start',
@@ -56,10 +38,28 @@ Ext.define('Gvsu.modules.tender.model.SubjectsModel', {
         filterable: false,
         visable: true
     },{
-        name: 'requires',
-        type: 'string',
+        name: 'price_pos',
+        type: 'float',
         editable: true,
-        filterable: false,
+        filterable: true,
+        visable: true
+    },{
+        name: 'price_full',
+        type: 'float',
+        editable: true,
+        filterable: true,
+        visable: true
+    },{
+        name: 'conditions_advance',
+        type: 'string',
+        filterable: true,
+        editable: true,
+        visable: true
+    },{
+        name: 'max_contract_val',
+        type: 'float',
+        filterable: true,
+        editable: true,
         visable: true
     },{
         name: 'notes',
@@ -68,21 +68,16 @@ Ext.define('Gvsu.modules.tender.model.SubjectsModel', {
         filterable: false,
         visable: true
     },{
-        name: 'indx',
-        type: 'sortfield',
-        sort: 1,
-        filterable: true,
+        name: 'file_descript',
+        type: 'string',
         editable: true,
+        filterable: false,
         visable: true
-    }
-    ]
-    
-    /*
-    ,afterSave: function(data, cb) {
-        var me = this;
-        me.src.db.collection('gvsu_users').update({org: data._id}, {$set: {status: data.active}}, function(e,d) {
-            cb(data)
-        })
-    }
-    */
+    },{
+        name: 'winner',
+        type: 'boolean',
+        editable: true,
+        filterable: true,
+        visable: true
+    }]
 })

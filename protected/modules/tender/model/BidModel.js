@@ -1,0 +1,1 @@
+../../../../static/admin/modules/tender/model/BidModel.js

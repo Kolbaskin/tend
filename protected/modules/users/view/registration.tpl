@@ -1,4 +1,3 @@
-<h2>Регистрация</h2>
 
 <div class="tndr_form">
 <form method="post" data-bind="submit: submit">
@@ -36,7 +35,9 @@
 		<li class="form_text">Название компании</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.company" /></div></li>
 		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
 
-		<li class="form_text">Введите символы с картинки</li><li class="form120"><img src="http://lorempixel.com/120/60/abstract"></li><li class="form132"><div class="input_wrap"><input type="text"></div></li>
+		<!--
+        <li class="form_text">Введите символы с картинки</li><li class="form120"><img src="http://lorempixel.com/120/60/abstract"></li><li class="form132"><div class="input_wrap"><input type="text"></div></li>
+        -->
 		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
 		<li class="form_text"></li><li class="form120"><button type="submit"><span class="tndr_btn">регистрация</span></button></li>
 	</ul>
