@@ -8,6 +8,8 @@
 Ext.define('Gvsu.modules.docs.controller.OrgDocs', {
     extend: 'Core.controller.Controller',
     id:'docstypes-win',   
+    
+    dirPrefix: '',
 
     launcher: {
         text: D.t('Документы организации'),
@@ -42,8 +44,9 @@ Ext.define('Gvsu.modules.docs.controller.OrgDocs', {
             var domain = location.href.split('/')
             domain = domain[0] + '//' + domain[2]
             for(var i=0;i<res.pages;i++) {
-                str += '<img src="' + domain + '/Gvsu.modules.docs.controller.Docs.getDocPreview/doc.png?doc='+data._id+'&page='+i+'&id='+id+'&token='+token+'" width="100%" />'    
+                str += '<img src="' + domain + '/Gvsu.modules.docs.controller.Docs.getDocPreview/doc.png?doc=' + me.dirPrefix + data._id + '&page=' + i + '&id=' + id + '&token=' + token + '" width="100%" />'    
             }
+            
             form.down('[name=previewPanel]').body.update(str)            
         })
     }
@@ -60,10 +63,11 @@ Ext.define('Gvsu.modules.docs.controller.OrgDocs', {
         var me = this
             ,doc = form.down('[name=_id]').value
             ,id = localStorage.getItem('uid')
-            ,token = localStorage.getItem('token');
-            
+            ,token = localStorage.getItem('token')
+            ,fn = form.down('[name=file_name]').value;
+        
         if(doc) 
-           location = '/Gvsu.modules.docs.controller.Docs.getDocSrc/?doc=' + doc + '&id='+id+'&token='+token
+           location = '/Gvsu.modules.docs.controller.Docs.getDocSrc/?doc=' + me.dirPrefix + doc + '&id='+id+'&token='+token+'&fn='+encodeURIComponent(fn)
     }
     
 });

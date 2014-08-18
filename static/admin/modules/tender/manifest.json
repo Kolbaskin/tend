@@ -2,5 +2,5 @@
     "name": "Тендеры", 
     "iconCls": "tender", 
     "module": "tender", 
-    "controller": "Gvsu.modules.tender.controller.Tender" 
+    "controller": "Gvsu.modules.tender.controller.Main" 
 }

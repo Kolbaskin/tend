@@ -50,17 +50,14 @@ Ext.define('Gvsu.modules.tender.controller.Tender',{
     
     ,getTender: function(params, cb) {
         var me = this;
+        var id = parseInt(params.pageData.page);
+        if(isNaN(id)) {cb('');return;};
         
         [
             function(next) {
-                var id = parseInt(params.pageData.page)
-
-                if(isNaN(id)) cb('')
-                else {
-                    me.callModel('.TenderPubl.getTender', {_id: id}, function(data) {
-                        next(data)
-                    })
-                }
+                me.callModel('.TenderPubl.getTender', {_id: id}, function(data) {
+                    next(data)
+                })
             }
             
             ,function(data, next) {
@@ -81,13 +78,40 @@ Ext.define('Gvsu.modules.tender.controller.Tender',{
                 })    
             }
             
-            ,function(data) {
+            ,function(data, next) {
                 if(params.gpc.date_start && data.allowed)
                     me.callModel('.TenderPubl.saveBid', params, function(bidData) {
                         data.bid = bidData
-                        me.tplApply('.TenderOneEasyForm', data, cb)
+                        next(data)
                     })
-                else if(params.gpc.accept)
+                else 
+                    next(data)
+            }
+            
+            // Поищем готовую заявку этой организации на этот тендер
+            ,function(data, next) {
+                if(data.allowed) {
+                    
+                    me.callModel('.TenderPubl.getMyBid', {
+                        tender: data._id,
+                        org: params.pageData.user.org
+                    },function(bid) {
+                        if(bid) {
+                            data.bid = {}
+                            for(var i in bid) data.bid[i] = encodeURIComponent(bid[i])
+                            data.bid.date_start = Ext.Date.format(bid.date_start, 'Y-m-d')
+                            data.bid.date_fin = Ext.Date.format(bid.date_fin, 'Y-m-d')
+                            me.tplApply('.TenderOneEasyForm', data, cb)
+                        } else
+                            next(data)
+                    })
+                } else
+                    next(data)
+            }
+            
+            ,function(data) {
+                data.bid = {}
+                if(params.gpc.accept)
                     me.tplApply('.TenderOneEasyForm', data, cb)
                 else    
                     me.tplApply('.TenderOne', data, cb)

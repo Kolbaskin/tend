@@ -1,3 +1,6 @@
+var fs = require("fs")
+    ,exec = require('child_process').exec;
+
 Ext.define('Gvsu.modules.tender.model.TenderPubl', {    
      extend: "Core.data.DataModel"
      
@@ -163,6 +166,15 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
                 else next()
              }
              
+             // Проверим по датам
+             ,function(next) {
+                 var cd = new Date()
+                 if(params.tender.date_doc < cd || params.tender.date_fin < cd || params.tender.date_start > cd)
+                    cb(false)
+                 else
+                    next()
+             }
+             
              // сверим размеры СРО организации и тендера
              ,function(next) {
                  me.src.db.collection('gvsu_orgs').findOne({_id: params.user.org}, {sro: 1}, function(e, org) {
@@ -232,6 +244,8 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
                     ,notes: params.gpc.notes
                     ,file_descript: params.gpc.file_descript     
                 }
+                if(params.files && params.files.file)
+                    bid.file_name = params.files.file.name
                 next()
             }
             
@@ -243,6 +257,7 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
             }
             
             ,function( next) {
+                bid.status = 0
                 me.src.db.collection('gvsu_tenderbid').findOne({pid: tenderId, orgid: params.pageData.user.org}, {_id: 1}, function(e,d) {
                     if(d && d._id) {
                         me.src.db.collection('gvsu_tenderbid').update({_id: d._id}, {$set: bid}, function(e,dd) {
@@ -265,7 +280,7 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
             }
             
             ,function(next) {
-                if(params.files && params.files.file)
+                if(params.files && params.files.file && params.files.file.size)
                     me.saveBidFile(bid._id, params.files.file, next)
                 else
                     next()
@@ -278,7 +293,11 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
     }
     
     ,saveBidFile: function(bidId, file, cb) {
-        var me = this;
+        
+        var me = this
+            ,filesTmp
+            ,dirTmp
+            ,dir = me.config.userDocDir + '/bid-' + bidId;
          
         var docs = Ext.create('Gvsu.modules.docs.model.Docs', {src: me.src, config: me.config});
          
@@ -294,10 +313,70 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
                 }
             }
             
+            // Почистим старые файлы заявки (если есть)
             ,function(files, dirToClear, next) {
+                filesTmp = files;
+                dirTmp = dirToClear;
+                fs.exists(dir, function(ex) {
+                    if(ex) {
+                        exec('rm -R ' + dir, function() {
+                            next()    
+                        })    
+                    } else {
+                        next()
+                    }
+                })
+            }
+            
+            // создаем каталог для файлов заявки
+            ,function(next) {
+                fs.mkdir(dir, function(e, d) {
+                    next()
+                })                
+            }
+            
+            // копируем исходный файл
+            ,function(next) {
+                fs.rename(file.path, dir + '/' + file.name, function(e, d) {
+                    next() 
+                })               
+            }
+            
+            // копируем файлы превью
+            ,function(next) {   
+                var func = function(i) {
+                    if(i>=filesTmp.length) {
+                        next() 
+                        return;
+                    }
+                    fs.rename(filesTmp[i], dir + '/' + i + '.png', function(e, d) {
+                        func(i+1)    
+                    })
+                }
+                func(0)
+            }
+            
+            // почитсим временный каталог
+            ,function() {
+                if(dirTmp && dirTmp.length) {
+                    var func = function(i) {
+                        if(i>=dirTmp.length) return;
+                        exec('rm -R ' + dirTmp[i], function() {
+                            func(i+1)    
+                        })
+                    }
+                    func(0)
+                }
                 cb()
             }
+            
         ].runEach();
+    }
+    
+    ,getMyBid: function(params, cb) {
+        this.src.db.collection('gvsu_tenderbid').findOne({pid: params.tender, orgid: params.org}, {}, function(e,d) {
+            cb(d)    
+        })
     }
      
     ,getWinners: function(params, cb) {

@@ -88,6 +88,9 @@ Ext.define('Gvsu.modules.tender.view.BidForm', {
         {
             name: 'pid',
             inputType: 'hidden'
+        },{
+            name: 'file_name',
+            inputType: 'hidden'
         }]
     }
     

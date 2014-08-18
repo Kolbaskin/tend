@@ -5,22 +5,22 @@
  * 
  */
 
-Ext.define('Gvsu.modules.orgs.controller.Main', {
+Ext.define('Gvsu.modules.tender.controller.Main', {
     extend: 'Core.controller.MenuController',
     
     launcher: {
-        text: D.t('Организации'),
-        iconCls:'orgs',
+        text: D.t('Тендеры'),
+        iconCls:'tender',
         menu: {
             items: [                    
             {
-                text: D.t('Список организаций'),
-                iconCls:'orgs',
-                controller: 'Gvsu.modules.orgs.controller.Orgs'
+                text: D.t('Тендеры'),
+                iconCls:'tender',
+                controller: 'Gvsu.modules.tender.controller.Tender'
             },{
-                text: D.t('Пользователи'),
-                iconCls:'user-publ',
-                controller: 'Gvsu.modules.users.controller.PublUsers'
+                text: D.t('Заявки'),
+                iconCls:'tender',
+                controller: 'Gvsu.modules.tender.controller.Bid'
             }]
         }
     }

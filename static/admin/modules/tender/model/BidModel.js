@@ -1,7 +1,9 @@
 Ext.define('Gvsu.modules.tender.model.BidModel', {    
-     extend: "Core.data.DataModel"
+     extend: "Gvsu.modules.docs.model.OrgDocsModel"
     
     ,collection: 'gvsu_tenderbid'
+    
+    ,dirPrefix: 'bid-'
     
     ,fields: [{
         name: '_id',
@@ -21,6 +23,12 @@ Ext.define('Gvsu.modules.tender.model.BidModel', {
         visable: true
     },{
         name: 'orgname',
+        type: 'string',
+        filterable: true,
+        editable: true,
+        visable: true
+    },{
+        name: 'file_name',
         type: 'string',
         filterable: true,
         editable: true,
@@ -78,6 +86,12 @@ Ext.define('Gvsu.modules.tender.model.BidModel', {
         type: 'boolean',
         editable: true,
         filterable: true,
+        visable: true
+    },{
+        name: 'status',
+        type: 'int',
+        filterable: true,
+        editable: true,
         visable: true
     }]
 })

@@ -6,9 +6,11 @@
  */
 
 Ext.define('Gvsu.modules.tender.controller.Bid', {
-    extend: 'Core.controller.Controller'
+    extend: 'Gvsu.modules.docs.controller.OrgDocs'
     ,id:'tender-bid-win'
-
+    
+    ,dirPrefix: 'bid-'
+    
     ,launcher: {
         text: D.t('Заявки участников'),
         iconCls:'tender'

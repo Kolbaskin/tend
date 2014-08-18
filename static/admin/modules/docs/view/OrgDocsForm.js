@@ -72,6 +72,9 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
             valueField: 'id',
             displayField: 'name',
             fieldLabel: D.t('Статус')
+        },{
+            name: 'file_name',
+            inputType: 'hidden'
         }]
     }
     

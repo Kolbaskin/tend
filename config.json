@@ -36,7 +36,7 @@
         }
     },
 
-    "userDocDir": "/var/gvsu/node_modules/gvsu-tend/docs",
+    "userDocDir": "/home/maxim/www/nodeproject/git/yode-ext/node_modules/gvsu-tend/docs",
 
     "convertors": {
         "office2pdf": "soffice --norestore --headless --convert-to pdf --outdir \"{distPath}\" \"{srcPath}\"",

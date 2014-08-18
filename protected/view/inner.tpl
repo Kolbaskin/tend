@@ -13,6 +13,8 @@
 	<script src="/js/swfobject.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="/style/inner.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="/style/print.css" type="text/css" media="print">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 	<!--[if lte IE 7]>
 	<link rel="stylesheet" type="text/css" media="all" href="/style/ie_old.css">
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>

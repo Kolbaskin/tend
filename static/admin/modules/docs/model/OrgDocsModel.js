@@ -3,6 +3,8 @@ Ext.define('Gvsu.modules.docs.model.OrgDocsModel', {
     
     ,collection: 'gvsu_userdocs'
     
+    ,dirPrefix: ''
+    
     ,fields:[{
         name: '_id',
         type: 'ObjectID',
@@ -70,7 +72,7 @@ Ext.define('Gvsu.modules.docs.model.OrgDocsModel', {
                 cb(true)
                 return;
             }
-            exec('rm -R ' + me.config.userDocDir + '/' + ids[i], function() {
+            exec('rm -R ' + me.config.userDocDir + '/' + me.dirPrefix + ids[i], function() {
                 func(i+1)    
             })
         }
@@ -85,7 +87,7 @@ Ext.define('Gvsu.modules.docs.model.OrgDocsModel', {
         var fs = require('fs')
             ,me = this
             ,pages = 0
-            ,dir = me.config.userDocDir + '/' + data._id + '/';
+            ,dir = me.config.userDocDir + '/' + me.dirPrefix + data._id + '/';
             
         var func = function(i) {
             fs.exists(dir + i + '.png', function(exists) {

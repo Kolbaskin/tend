@@ -180,16 +180,16 @@ Ext.define('Gvsu.modules.docs.controller.Docs',{
             }
             
             ,function(next) {
-                me.src.db.collection('gvsu_userdocs').findOne({_id: me.params.gpc.doc}, {file_name: 1}, function(e,d) {
-                    if(d && d.file_name) {
-                        var path = me.config.userDocDir + '/' + me.params.gpc.doc + '/' + d.file_name;
+                //me.src.db.collection('gvsu_userdocs').findOne({_id: me.params.gpc.doc}, {file_name: 1}, function(e,d) {
+                    if(me.params.gpc && me.params.gpc.fn) {
+                        var path = me.config.userDocDir + '/' + me.params.gpc.doc + '/' + me.params.gpc.fn;
                         fs.exists(path, function(l) {
                             if(l) {
-                                next(path, d.file_name)    
+                                next(path, me.params.gpc.fn)    
                             }
                         })
                     }
-                })    
+                //})    
             }
             
             ,function(path, fn) {

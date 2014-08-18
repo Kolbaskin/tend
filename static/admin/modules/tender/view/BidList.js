@@ -7,48 +7,65 @@ Ext.define('Gvsu.modules.tender.view.BidList', {
     //sortManually: true,
     
     buildColumns: function() {
+        var setStyle = function(v,m,r) {
+            m.tdCls = (r.data.status? '':'graycell')
+            return v;
+        }
         return [
                 {
                     text: D.t("Организация"),
                     flex: 1,
                     sortable: true,
-                    dataIndex: 'orgname'
+                    dataIndex: 'orgname',
+                    renderer: setStyle
                 },{
                     text: D.t("Дата начала работ"),
                     xtype: 'datecolumn',
                     width: 100,
                     sortable: true,
-                    dataIndex: 'date_start'
+                    dataIndex: 'date_start',
+                    renderer: setStyle
                 },{
                     text: D.t("Дата завершения работ"),
                     xtype: 'datecolumn',
                     width: 100,
                     sortable: true,
-                    dataIndex: 'date_fin'
+                    dataIndex: 'date_fin',
+                    renderer: setStyle
                 },{
                     text: D.t("Цена за ед."),
                     width: 80,
                     sortable: true,
-                    dataIndex: 'price_pos'
+                    dataIndex: 'price_pos',
+                    renderer: setStyle
                 },{
                     text: D.t("Цена полн."),
                     width: 80,
                     sortable: true,
-                    dataIndex: 'price_full'
+                    dataIndex: 'price_full',
+                    renderer: setStyle
                 },{
                     text: D.t("Макс. стоим. контр."),
                     width: 100,
                     sortable: true,
-                    dataIndex: 'max_contract_val'
+                    dataIndex: 'max_contract_val',
+                    renderer: setStyle
                 },{
                     text: D.t("Победитель"),
                     width: 70,
                     sortable: true,
                     dataIndex: 'winner',
-                    renderer: function(v) {
+                    renderer: function(v,m,r) {
+                        setStyle(v,m,r)
                         if(v) return D.t('Да')
                         else return ''
                     }
+                },{
+                    text: D.t("Стат."),
+                    width: 30,
+                    sortable: true,
+                    dataIndex: 'status',
+                    renderer: setStyle
                 }
             ]        
     }
