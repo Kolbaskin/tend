@@ -380,6 +380,89 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
     }
      
     ,getWinners: function(params, cb) {
-        cb([])    
+        var me = this;
+        
+        [
+            // Прочитаем последних 10 победителей
+            function(next) {
+                me.src.db.collection('gvsu_tenderbid').find({winner: 1}, {pid: 1, orgname: 1}).sort({mtime: -1}).limit(10).toArray(function(e, winners) {
+                    if(winners) next(winners)
+                    else cb([])
+                })
+            }
+            
+            // Прочитаем тендеры победителей
+            ,function(winners, next) {
+                var ids = []
+                winners.each(function(w) {ids.push(w.pid)})
+                me.src.db.collection('gvsu_tender').find({_id: {$in: ids}}, {_id: 1, name: 1}).toArray(function(e, tenders) {
+                    if(tenders)  {
+                        winners.each(function(w) {
+                            for(var i=0;i<tenders.length;i++) {
+                                if(tenders[i]._id == w.pid) {
+                                    w.name = tenders[i].name;
+                                    break;
+                                }
+                            }
+                            w.dist = []
+                            w.object = []
+                            return w;
+                        }, true)
+                        next(winners, ids)
+                    } else cb([])
+                })
+            }
+            
+            // прочитаем объекты и коды направлений и видов работы
+            // Выберем предметы активных тендеров
+            ,function(winners, ids, next) {
+                me.src.db.collection('gvsu_tendersubj').find({pid: {$in: ids}}, {pid: 1, object: 1, dist: 1})
+                .sort({indx: 1})
+                .toArray(function(e, data) {
+                    if(data && data.length) next(winners, data)
+                    else cb([])
+                })
+            }
+            
+            // Соединим предметы с тендерами
+            ,function(winners, subjects, next) {
+                winners.each(function(w) {
+                    for(var i=0;i<subjects.length;i++) {
+                        if(subjects[i].pid == w.pid) {
+                            w.object.push(subjects[i].object);
+                            w.dist.push(subjects[i].dist);
+                            break;
+                        }
+                    }
+                    return w;
+                }, true) 
+                next(winners)
+            }
+            
+            ,function(winners, next) {
+                me.getDistinations(function(works) {
+                    winners.each(function(w) {
+                        w.cat_name = []
+                        w.work_name = []
+                        w.dist.each(function(d) {
+                            if(works[d]) {
+                                if(w.cat_name.indexOf(works[d].dist) == -1)
+                                    w.cat_name.push(works[d].dist);
+                                if(w.work_name.indexOf(works[d].work) == -1)
+                                    w.work_name.push(works[d].work);
+                            }
+                        })
+                        return w;
+                    }, true)  
+                    next(winners)
+                })    
+            }
+            
+            
+            ,function(winners) {
+                cb(winners)
+            }
+        ].runEach()
+        
     }
 });

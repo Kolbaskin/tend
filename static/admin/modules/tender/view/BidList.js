@@ -24,6 +24,7 @@ Ext.define('Gvsu.modules.tender.view.BidList', {
                     width: 100,
                     sortable: true,
                     dataIndex: 'date_start',
+                    format: 'd.m.Y',
                     renderer: setStyle
                 },{
                     text: D.t("Дата завершения работ"),
@@ -31,6 +32,7 @@ Ext.define('Gvsu.modules.tender.view.BidList', {
                     width: 100,
                     sortable: true,
                     dataIndex: 'date_fin',
+                    format: 'd.m.Y',
                     renderer: setStyle
                 },{
                     text: D.t("Цена за ед."),

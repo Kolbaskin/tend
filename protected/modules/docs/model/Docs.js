@@ -403,8 +403,35 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
                 //})    
             }
         ].runEach()
-        
-         
     }
      
+    ,getDocDays: function(params, cb) {
+        var me = this;
+        
+        [
+            function(next) {
+                if(params.auth) 
+                    next()
+                else
+                    cb(null)
+            }
+            
+            ,function(next) {
+                me.src.db.collection('gvsu_userdocs').find({uid: params.auth, status: 2}, {date_fin: 1})
+                .sort({date_fin: 1})
+                .limit(1)
+                .toArray(function(e,d) {
+                    if(d && d[0]) next(d[0].date_fin)
+                    else cb(null)
+                })
+            }
+            
+            ,function(d) {
+                cb(parseInt((Ext.Date.format(d, 'U') - Ext.Date.format(new Date(), 'U')) / (3600 * 24)))
+            }
+            
+        ].runEach()
+        
+        
+    }
 })
