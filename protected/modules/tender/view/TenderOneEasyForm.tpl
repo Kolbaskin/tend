@@ -14,9 +14,11 @@
 
 		<li class="form_text two_lines">Предлагаемая <br>полная цена</li><li class="form240"><div class="input_wrap"><input type="text" name="price_full" data-bind="value: v.price_full"></div></li>
 		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
-
-		<li class="form_text">Условие аванса</li><li class="form240"><div class="input_wrap"><input type="text" name="conditions_advance" data-bind="value: v.conditions_advance"></div></li>
-		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+        
+        <tpl if="avance_comp">
+    		<li class="form_text">Условие аванса</li><li class="form240"><div class="input_wrap"><input type="text" name="conditions_advance" data-bind="value: v.conditions_advance"></div></li>
+    		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+        </tpl>
 
 		<li class="form_text two_lines">Максимальная стоимость договора, указанная в СРО</li><li class="form240"><div class="input_wrap"><input type="text" name="max_contract_val" data-bind="value: v.max_contract_val"></div></li>
 		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
@@ -25,6 +27,8 @@
 		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
 
 		<li class="form_text two_lines">Скан заявки на тендер <br>по типовой форме</li><li class="form240"><div class="input_wrap file_wrap"><input type="file" name="file"><div class="file_dummy">Выберите файл...</div></div></li><br>
+        
+        <li class="form_text two_lines">Предложение </li><li class="form240"><div class="input_wrap file_wrap"><input type="file" name="file1"><div class="file_dummy">Выберите файл...</div></div></li><br>
         
 		<li class="form_text">Описание файла</li><li class="form240"><div class="input_wrap"><textarea name="file_descript" data-bind="value: v.file_descript"></textarea></div></li>
 		<li class="form_alert" style="display: none;">Обязательное поле</li><br>

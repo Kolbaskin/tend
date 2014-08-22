@@ -114,34 +114,76 @@ Ext.define('Gvsu.modules.orgs.model.OrgsPubl', {
                 })    
             }
             ,function(org) {
-                me.markAsModerate({org: org})
+                me.markAsModerate({org: org}, null, 0)
                 cb(res)
             }
         ].runEach()
     }
     
-    ,markAsModerate: function(params, cb) {
+    ,markAsModerate: function(params, cb, active) {
         var me = this;
         
         [
             function(next) {
                 if(params && params.org) {
                     me.src.db.collection('gvsu_orgs').findOne({_id: params.org}, {}, function(e,org) {
+                        if(active === null) active = org.active;
                         next(org)
                     })
                 } else if(!!cb) cb()
             }
             
+            // проверим, все ли документы в наличии и не устарели
             ,function(org, next) {
-                me.src.db.collection('gvsu_orgs').update({_id: org._id}, {$set:{active: 0}}, function(e,d) {
-                    org.active = 0
-console.log('changeModelData:', org)
+                me.callModel('Gvsu.modules.docs.model.Docs.checkOrgDocs', {org: org._id}, function(log) {
+                    org.docsComplite = log
+                    next(org)
+                })
+            }
+            
+            // проверим выбрано ли хотя бы одно направление
+            ,function(org, next) {
+                me.callModel('Gvsu.modules.distinations.model.DistinationsPubl.checkOrgDist', {org: org._id}, function(log) {
+                    org.distComplite = log
+                    next(org)
+                })
+            }
+            
+            ,function(org, next) {
+                me.src.db.collection('gvsu_orgs').update({_id: org._id}, {$set:{active: active}}, function(e,d) {
+                    org.active = active
                     me.changeModelData('Gvsu.modules.orgs.model.OrgsModel', 'ins', org)
                     if(!!cb) cb()
+                    next(org)
                 })
+            }
+            
+            ,function(org) {
+                if(org.docsComplite && org.distComplite) {
+                    me.sendMessageToModerator(org)    
+                }
             }
             
         ].runEach()
   
     }
+    
+    ,sendMessageToModerator: function(org) {
+        var me = this;
+
+        org.url = 'http://' + me.request.headers.host + '/admin/#' + encodeURIComponent(JSON.stringify({
+           controller: 'Gvsu.modules.orgs.controller.Orgs',
+           data: {
+               _id: org._id,
+               name: org.name
+           }
+        }))
+       
+        me.callModel('Gvsu.modules.mail.controller.Mailer.orgActivateRequest', org, function() {
+
+        })  
+        
+    }
+    
+    
 })

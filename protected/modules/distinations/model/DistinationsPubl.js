@@ -78,6 +78,7 @@ Ext.define('Gvsu.modules.distinations.model.DistinationsPubl', {
             
             ,function() {
                 me.changeModelData('Gvsu.modules.distinations.model.SelWorksModel', 'ins', {})
+                me.callModel('Gvsu.modules.orgs.model.OrgsPubl.markAsModerate', {org: org}, function() {})
                 cb()
             }
         ].runEach()
@@ -156,6 +157,12 @@ Ext.define('Gvsu.modules.distinations.model.DistinationsPubl', {
             }
             
         ].runEach()
+    }
+    
+    ,checkOrgDist: function(data, cb) {
+        this.src.db.collection('gvsu_worksorg').findOne({pid: data.org, status: {$ne: 3}},{_id:1},function(e, d) {
+            cb(!!d._id)
+        })
     }
 });
      

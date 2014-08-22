@@ -27,7 +27,7 @@ var viewModel = {
         ,date_fin: ko.observable('').extend({ required: {message: mess.req}})
         ,price_pos: ko.observable('').extend({ required: {message: mess.req}})
         ,price_full: ko.observable('').extend({ required: {message: mess.req}})
-        ,conditions_advance: ko.observable('').extend({ required: {message: mess.req}})
+        //,conditions_advance: ko.observable('').extend({ required: {message: mess.req}})
         ,max_contract_val: ko.observable('').extend({ required: {message: mess.req}})
         ,notes: ko.observable('').extend({ required: {message: mess.req}})
         ,file_descript: ko.observable('').extend({ required: {message: mess.req}})

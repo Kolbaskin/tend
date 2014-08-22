@@ -50,6 +50,6 @@
     },    
 
     "crontab": [
-        "* * * * * Gvsu.modules.tender.model.TenderModel.testrun"
+        "* * * * * Gvsu.modules.tender.model.TenderModel.sendMessages"
     ]
 }

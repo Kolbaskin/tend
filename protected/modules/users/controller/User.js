@@ -33,17 +33,6 @@ Ext.define('Gvsu.modules.users.controller.User',{
     ,$registration: function() { 
         var me = this;
         me.callModel('.User.registration', this.params.gpc, function(res) {
-            if(res.success) {
-                res.values.host = me.request.headers.host;
-                me.tplApply('.activateMail', res.values, function(html) {
-                    me.src.mailTransport.sendMail({
-                        from: me.config.messages.activateMailFrom,
-                        to: res.values.email,
-                        subject: me.config.messages.activateMailSubject,
-                        html: html
-                    })
-                })
-            }                    
             me.sendJSON(res.errors)
         }) 
     }

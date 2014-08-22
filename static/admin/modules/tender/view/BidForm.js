@@ -5,6 +5,8 @@ Ext.define('Gvsu.modules.tender.view.BidForm', {
     
     ,titleIndex: 'orgname'
     
+    ,filterbar: true
+    
     ,layout: 'border'    
     ,defaults: {
         margin: '0'
@@ -12,19 +14,42 @@ Ext.define('Gvsu.modules.tender.view.BidForm', {
     ,width: 950
     ,height: 520
     
+    
+    
     ,buildItems: function() {
         var me = this;
-        return [
-            me.buildFormPanel(),
-            me.buldPreviewPanel()
-        ]
+        
+        return [{
+            xtype: 'tabpanel',
+            region: 'center',
+            items: [
+                me.buildFormPanel(),
+                me.buildFile(),
+                me.buildFile1(),
+                me.buildOrgPanel()
+            ]
+        }]
     }
-    
+    /*
+    ,buildBidForm: function() {
+        var me = this;
+        return {
+            xtype: 'panel',
+            title: D.t('Заявка'),
+            layout: 'border',
+            items: [
+                me.buildFormPanel()
+                //me.buildPreviewPanel()
+            ]
+        }
+    }
+    */
     ,buildFormPanel: function() {
         
         return {
+            title: D.t('Заявка'),
             xtype: 'panel',
-            region: 'west',
+            region: 'center',
             width: 350,
             layout: 'anchor',
             bodyStyle: 'padding: 10px;',
@@ -91,11 +116,26 @@ Ext.define('Gvsu.modules.tender.view.BidForm', {
         },{
             name: 'file_name',
             inputType: 'hidden'
+        },{
+            name: 'file1_name',
+            inputType: 'hidden'
         }]
     }
-    
-    ,buldPreviewPanel: function() {
+    /*
+    ,buildPreviewPanel: function() {
         return {
+            xtype: 'tab',
+            region: 'center',
+            items: [
+                this.buildFile(),
+                this.buildFile1()
+            ]
+        }
+    }
+    */
+    ,buildFile: function() {
+        return {
+            title: D.t('Скан заявки'),
             xtype: 'panel',
             name: 'previewPanel',
             region: 'center',
@@ -111,6 +151,39 @@ Ext.define('Gvsu.modules.tender.view.BidForm', {
             ],
             html: ''
         }    
+    }
+    
+    ,buildFile1: function() {
+        return {
+            title: D.t('Предложение'),
+            xtype: 'panel',
+            name: 'previewPanel1',
+            region: 'center',
+            layout: 'fit',
+            bodyStyle: 'overflow: auto;padding: 10px;',
+            tbar: [{
+                text: D.t('Печать'),
+                action: 'print1'
+            },'-',{
+                text: D.t('Скачать оригинал'),
+                action: 'download1'
+            }       
+            ],
+            html: ''
+        }    
+    }
+    
+    ,buildOrgPanel: function() {
+        return {
+            xtype: 'panel',
+            title: D.t('Информация о компании'),
+            layout: 'border',
+            childModule: {
+                controller: 'Gvsu.modules.orgs.controller.OrgsView',
+                outKey: 'orgid',
+                inKey: '_id'
+            }
+        }
     }
     
     

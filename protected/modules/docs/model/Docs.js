@@ -407,7 +407,6 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
      
     ,getDocDays: function(params, cb) {
         var me = this;
-        
         [
             function(next) {
                 if(params.auth) 
@@ -415,7 +414,6 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
                 else
                     cb(null)
             }
-            
             ,function(next) {
                 me.src.db.collection('gvsu_userdocs').find({uid: params.auth, status: 2}, {date_fin: 1})
                 .sort({date_fin: 1})
@@ -425,9 +423,51 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
                     else cb(null)
                 })
             }
-            
             ,function(d) {
                 cb(parseInt((Ext.Date.format(d, 'U') - Ext.Date.format(new Date(), 'U')) / (3600 * 24)))
+            }
+            
+        ].runEach()
+    }
+    
+    ,checkOrgDocs: function(data, cb) {
+        var me = this;
+        
+        [
+            function(next) {
+                me.src.db.collection('gvsu_userdocs').find({org: data.org}, {date_fin: 1, doc_type: 1, status: 1}).toArray(function(e,d) {
+                    if(d)
+                        next(d)
+                    else
+                        cb(false)
+                })
+            }
+            
+            ,function(docs, next) {
+                me.src.db.collection('gvsu_docstypes').find({required: 1}, {_id: 1}).toArray(function(e,d) {
+                    if(d)
+                        next(docs, d)
+                    else
+                        cb(false)
+                })
+            }
+            
+            ,function(docs, types) {
+                var log, dt = new Date();
+                for(var i=0;i<types.length;i++) {
+                    log = false;
+                    for(var j=0;j<docs.length;j++) {
+                        if(docs[j].doc_type == types[i]._id && (new Date(docs[j].date_fin))>=dt && docs[j].status != 3) {
+                            log = true;
+                            break;
+                        }
+                    }
+                    if(!log) {
+                        cb(false);
+                        return;
+                    }
+                }
+                cb(true);
             }
             
         ].runEach()

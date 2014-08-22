@@ -22,12 +22,33 @@ Ext.define('Gvsu.modules.orgs.view.OrgsList', {
                 dataIndex: 'name',
                 renderer: setStyle
             },{
-                text: D.t("Полное название"),
+                dataIndex: 'contact_person',
                 flex: 1,
                 sortable: true,
                 filter: true,
-                dataIndex: 'fullname',
-                renderer: setStyle
+                renderer: setStyle,
+                text: D.t('Контактное лицо')
+            },{
+                dataIndex: 'phone',
+                flex: 1,
+                sortable: true,
+                filter: true,
+                renderer: setStyle,
+                text: D.t('Телефон')
+            },{
+                dataIndex: 'email',
+                flex: 1,
+                sortable: true,
+                filter: true,
+                renderer: setStyle,
+                text: D.t('E-mail')
+            },{
+                dataIndex: 'sro',
+                flex: 1,
+                sortable: true,
+                filter: false,
+                renderer: setStyle,
+                text: D.t('СРО (в рублях)')
             },{
                 text: D.t("Активир."),
                 width: 60,

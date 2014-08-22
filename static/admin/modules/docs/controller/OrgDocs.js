@@ -46,7 +46,6 @@ Ext.define('Gvsu.modules.docs.controller.OrgDocs', {
             for(var i=0;i<res.pages;i++) {
                 str += '<img src="' + domain + '/Gvsu.modules.docs.controller.Docs.getDocPreview/doc.png?doc=' + me.dirPrefix + data._id + '&page=' + i + '&id=' + id + '&token=' + token + '" width="100%" />'    
             }
-            
             form.down('[name=previewPanel]').body.update(str)            
         })
     }

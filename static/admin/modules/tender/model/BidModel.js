@@ -34,6 +34,12 @@ Ext.define('Gvsu.modules.tender.model.BidModel', {
         editable: true,
         visable: true
     },{
+        name: 'file1_name',
+        type: 'string',
+        filterable: true,
+        editable: true,
+        visable: true
+    },{
         name: 'date_start',
         type: 'date',
         editable: true,
@@ -94,4 +100,36 @@ Ext.define('Gvsu.modules.tender.model.BidModel', {
         editable: true,
         visable: true
     }]
+    
+    ,$getDocPreviewCount: function(data, cb) {
+        if(!data || !data._id) {
+            cb({pages: 0})
+            return;
+        }
+        var fs = require('fs')
+            ,me = this
+            ,pages = 0
+            ,dir = me.config.userDocDir + '/bid-' + data._id + '/';
+            
+        var func = function(i, next) {
+            fs.exists(dir + i + '.png', function(exists) {
+                if(exists) {
+                    pages++;
+                    func(i+1, next)
+                } else
+                    next(pages)
+            })    
+        }
+        func(0, function(n) {
+            out = {pages: n, pages1: 0}
+            pages = 0;
+            dir = me.config.userDocDir + '/bid1-' + data._id + '/';
+            func(0, function(n1) {
+                out.pages1 = n1
+                cb(out)    
+            })
+        })
+        
+        
+    }
 })

@@ -44,6 +44,7 @@ Ext.define('Gvsu.modules.docs.view.DocTypesForm', {
         },{
             name: 'required',
             xtype: 'checkbox',
+            uncheckedValue: 0,
             fieldLabel: D.t('Обязательный для участия')
         }]
     }
