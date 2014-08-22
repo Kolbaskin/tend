@@ -77,12 +77,19 @@ Ext.define('Gvsu.modules.users.model.User', {
                     cb(res)
                 })    
             }
-            ,function() {
+            ,function(next) {
                 me.src.db.collection('gvsu_users').update({_id: params.auth}, {$set:res.values}, function(e,d) {
                     res.success = true
+                    next(res)
+                })
+            }
+            
+            ,function(res) {
+                me.callModel('Gvsu.modules.mail.controller.Mailer.orgActivateRequest', res, function() {
                     cb(res)
                 })
             }
+            
         ].runEach()
     }
     

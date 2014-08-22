@@ -5,11 +5,12 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
     
     requires: [
         'Ext.ux.form.ItemSelector',
-         'Ext.ux.form.MultiSelect'
+        'Desktop.core.widgets.UploadField',
+        'Ext.ux.form.MultiSelect'
     ],
     
-    width: 550,
-    height: 400,
+    width: 750,
+    height: 440,
     region: 'center',
     layout: 'border',
     defaults: {
@@ -80,9 +81,16 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
                 xtype: 'numberfield',
                 labelWidth: 250
             },{
+                name: 'file',
+                fieldLabel: D.t('Файл с тех.заданием (doc, docx, xls, xlsx)'),
+                xtype: 'uploadfield',
+                labelWidth: 250,
+                width: 300,
+                buttonText: D.t('Выберите документ...')
+            },{
                 name: 'descript',
                 xtype: 'textarea',
-                height: 80,
+                height: 55,
                 emptyText: D.t('Описание'),
                 hideLabel: true
             }

@@ -246,6 +246,8 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
                 }
                 if(params.files && params.files.file)
                     bid.file_name = params.files.file.name
+                if(params.files && params.files.file1)
+                    bid.file1_name = params.files.file1.name
                 next()
             }
             
@@ -281,7 +283,14 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
             
             ,function(next) {
                 if(params.files && params.files.file && params.files.file.size)
-                    me.saveBidFile(bid._id, params.files.file, next)
+                    me.saveBidFile(bid._id, params.files.file, 'bid-', next)
+                else
+                    next()
+            }
+            
+            ,function(next) {
+                if(params.files && params.files.file1 && params.files.file1.size)
+                    me.saveBidFile(bid._id, params.files.file1, 'bid1-', next)
                 else
                     next()
             }
@@ -292,12 +301,12 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
         ].runEach();
     }
     
-    ,saveBidFile: function(bidId, file, cb) {
+    ,saveBidFile: function(bidId, file, dName, cb) {
         
         var me = this
             ,filesTmp
             ,dirTmp
-            ,dir = me.config.userDocDir + '/bid-' + bidId;
+            ,dir = me.config.userDocDir + '/' + dName + bidId;
          
         var docs = Ext.create('Gvsu.modules.docs.model.Docs', {src: me.src, config: me.config});
          

@@ -8,8 +8,8 @@ Ext.define('Gvsu.modules.orgs.view.OrgsForm', {
          'Ext.ux.form.MultiSelect'
     ],
     
-    width: 550,
-    height: 400,
+    width: 750,
+    height: 500,
     region: 'center',
     layout: 'border',
     defaults: {
@@ -26,7 +26,8 @@ Ext.define('Gvsu.modules.orgs.view.OrgsForm', {
                 me.orgForm(),
                 me.userForm(),
                 me.docsForm(),
-                me.worksForm()
+                me.worksForm(),
+                me.bidList()
             ]
         }]
     }
@@ -140,6 +141,19 @@ Ext.define('Gvsu.modules.orgs.view.OrgsForm', {
                 controller: 'Gvsu.modules.distinations.controller.SelWorks',
                 outKey: '_id',
                 inKey: 'pid'
+            }            
+        }
+    }
+    
+    ,bidList: function() {
+        return {
+            xtype: 'panel',
+            title: D.t('Тендерные заявки'),
+            layout: 'border',
+            childModule: {
+                controller: 'Gvsu.modules.tender.controller.Bid',
+                outKey: '_id',
+                inKey: 'orgid'
             }            
         }
     }

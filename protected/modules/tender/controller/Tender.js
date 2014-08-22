@@ -96,7 +96,7 @@ Ext.define('Gvsu.modules.tender.controller.Tender',{
                         tender: data._id,
                         org: params.pageData.user.org
                     },function(bid) {
-                        if(bid) {
+                        if(bid && bid.price_pos) {
                             data.bid = {}
                             for(var i in bid) data.bid[i] = encodeURIComponent(bid[i])
                             data.bid.date_start = Ext.Date.format(bid.date_start, 'Y-m-d')

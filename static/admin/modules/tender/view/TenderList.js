@@ -41,6 +41,7 @@ Ext.define('Gvsu.modules.tender.view.TenderList', {
                 width: 60,
                 sortable: true,
                 filter: true,
+                format: D.t('d.m.Y'),
                 dataIndex: 'date_start'
             },{
                 text: D.t("Дата завершения"),
@@ -48,6 +49,7 @@ Ext.define('Gvsu.modules.tender.view.TenderList', {
                 width: 60,
                 sortable: true,
                 filter: true,
+                format: D.t('d.m.Y'),
                 dataIndex: 'date_fin'
             },{
                 text: D.t("Публикация"),
