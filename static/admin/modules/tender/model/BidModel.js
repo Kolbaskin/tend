@@ -8,15 +8,18 @@ Ext.define('Gvsu.modules.tender.model.BidModel', {
     ,fields: [{
         name: '_id',
         type: 'ObjectID',
+        exp: false,
         visable: true
     },{
         name: 'pid',
+        exp: false,
         type: 'int',
         filterable: true,
         editable: true,
         visable: true
     },{
         name: 'orgid',
+        exp: false,
         type: 'int',
         filterable: true,
         editable: true,
@@ -29,12 +32,14 @@ Ext.define('Gvsu.modules.tender.model.BidModel', {
         visable: true
     },{
         name: 'file_name',
+        exp: false,
         type: 'string',
         filterable: true,
         editable: true,
         visable: true
     },{
         name: 'file1_name',
+        exp: false,
         type: 'string',
         filterable: true,
         editable: true,
