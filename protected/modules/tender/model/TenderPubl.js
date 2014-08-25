@@ -78,7 +78,8 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
                 subjects.each(function(item) {
                     for(var i=0;i<tenders.length;i++) {
                         if(tenders[i]._id == item.pid) {
-                            if(!item.name) item.name = tenders[i].name;
+                            //if(!item.name) 
+                            item.name = tenders[i].name;
                             item.date_doc = tenders[i].date_doc;
                             break;
                         }
@@ -102,7 +103,20 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
             }
             
             ,function(list, next) {
-                cb(list)
+                var log, out = []
+                for(var i=0;i<list.length;i++) {
+                    for(var j=0;j<out.length;j++) {
+                        if(out[j].pid == list[i].pid) break;    
+                    }
+                    if(j==out.length) {
+                        out.push(list[i])
+                        out[j].c_name = []
+                        out[j].w_name = []
+                    }
+                    out[j].c_name.push(list[i].cat_name)
+                    out[j].w_name.push(list[i].work_name)
+                }
+                cb(out)
             }
             
         ].runEach()

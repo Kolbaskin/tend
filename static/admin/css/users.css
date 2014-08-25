@@ -35,3 +35,8 @@
 .graycell {
     color: #979797;    
 }
+
+.parent-item {
+    font-weight: bold;
+    color: #777;
+}
