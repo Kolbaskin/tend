@@ -82,7 +82,11 @@ Ext.define('Gvsu.modules.tender.controller.Bid', {
     }
     
     ,createXls: function(win) {
-        alert('xls')    
+        var me = this
+            ,store = win.down('grid').getStore()
+        
+        me.model.exportData(store.filters)
+        
     }
     
 });

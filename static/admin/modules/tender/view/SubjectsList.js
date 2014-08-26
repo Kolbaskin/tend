@@ -6,6 +6,8 @@ Ext.define('Gvsu.modules.tender.view.SubjectsList', {
     ,filtrable: true
     ,sortManually: true
     
+    ,requires: ['Core.grid.ComboColumn']
+    
     ,buildColumns: function() {
         
         return [
@@ -15,6 +17,14 @@ Ext.define('Gvsu.modules.tender.view.SubjectsList', {
                 sortable: true,
                 filter: true,
                 dataIndex: 'name'
+            },{
+                text: D.t("Направление"),
+                flex: 1,
+                sortable: true,
+                filter: false,
+                xtype: 'combocolumn',
+                model: 'Gvsu.modules.distinations.model.DistinationsComboModel',
+                dataIndex: 'dist'
             },{
                 text: D.t("Заказчик"),
                 flex: 1,

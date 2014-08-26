@@ -11,11 +11,11 @@
 </tr>
 <tr>
 	<td width="114">Категория тендера</td>
-	<td>{dists}</td>
+	<td><tpl for="dists">{.}<br></tpl></td>
 </tr>
 <tr>
 	<td width="114">Вид работ по тендеру</td>
-	<td>{works}</td>
+	<td><tpl for="works">{.}<br></tpl></td>
 </tr>
 <tr>
 	<td width="114">Статус тендера</td>

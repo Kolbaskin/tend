@@ -14,7 +14,7 @@ Ext.define('Gvsu.modules.orgs.controller.Main', {
         menu: {
             items: [                    
             {
-                text: D.t('Список организаций'),
+                text: D.t('Организации'),
                 iconCls:'orgs',
                 controller: 'Gvsu.modules.orgs.controller.Orgs'
             },{

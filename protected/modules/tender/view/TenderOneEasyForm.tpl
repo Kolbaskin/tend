@@ -32,11 +32,50 @@
         
 		<li class="form_text">Описание файла</li><li class="form240"><div class="input_wrap"><textarea name="file_descript" data-bind="value: v.file_descript"></textarea></div></li>
 		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+    
+    </ul>
+    <h2>Предлагаемые цены по позициям тендера</h2>
+    <ul class="inlined bid_price">
+		<li class="form18">1.</li>
+		<li class="form136">Длинное название позиции этого тендера,<br>ед. изм., количество</li>
+		<li class="form108"><span>за единицу</span><div class="input_wrap"><input type="text"></div></li>
+		<li class="form108"><span>полная цена</span><div class="input_wrap"><input type="text"></div></li>
 
+		<br>
+		<li class="form18"></li>
+		<li class="form136 gray_text">Организация 1</li>
+		<li class="form108 gray_text">12343.00</li>
+		<li class="form108 gray_text">12343.00</li>
+
+		<br>
+		<li class="form18"></li>
+		<li class="form136 gray_text">Организация 2</li>
+		<li class="form108 gray_text">12343.00</li>
+		<li class="form108 gray_text">12343.00</li>
+
+		<br>
+		<li class="form18"></li>
+		<li class="form136 gray_text">Организация 3</li>
+		<li class="form108 gray_text">12343.00</li>
+		<li class="form108 gray_text">12343.00</li>
+
+		<br>
+		<li class="form18"></li>
+		<li class="form136 gray_text">Организация 4</li>
+		<li class="form108 gray_text">12343.00</li>
+		<li class="form108 gray_text">12343.00</li>
+
+	</ul>
+    <ul class="inlined"><li class="form_text">&nbsp;</li><br>
+    
+    
 		<li class="form_text"></li><li class="form120"><button type="submit"><span class="tndr_btn">подать заявку</span></button></li>
 	</ul>
 </form>
 </div>
+
+
+
 
 <!-- Data Model -->
 <script src="/js/ko.validate.js"></script>

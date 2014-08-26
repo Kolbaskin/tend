@@ -14,7 +14,7 @@ Ext.define('Gvsu.modules.refs.controller.Menu', {
         menu: {
             items: [                    
             {
-                text: D.t('Организации-заказчики'),
+                text: D.t('Контрагенты'),
                 iconCls:'refs',
                 controller: 'Gvsu.modules.refs.controller.Customers'
             },{
@@ -22,7 +22,7 @@ Ext.define('Gvsu.modules.refs.controller.Menu', {
                 iconCls:'refs',
                 controller: 'Gvsu.modules.refs.controller.Objects'
             },{
-                text: D.t('Категории и виды работ'),
+                text: D.t('Виды работ'),
                 iconCls:'distinations',
                 controller: 'Gvsu.modules.distinations.controller.Distinations'
             },{

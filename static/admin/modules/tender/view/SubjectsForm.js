@@ -3,6 +3,8 @@ Ext.define('Gvsu.modules.tender.view.SubjectsForm', {
     
     titleIndex: 'name',
     
+    //requires: ['Desktop.core.widgets.TreeCombo'],
+    
     width: 540,
     height: 440,
     region: 'center',
@@ -73,14 +75,22 @@ Ext.define('Gvsu.modules.tender.view.SubjectsForm', {
             name: 'dist',
             fieldLabel: D.t('Направление'),
             xtype: 'combo',
+            tpl: '<tpl for="."><div class="x-boundlist-item <tpl if="_id==0">parent-item</tpl>" >{name}</div></tpl>',
             store: Ext.create('Core.data.ComboStore',{
-                dataModel: 'Gvsu.modules.distinations.model.DistinationsModel',
+                dataModel: 'Gvsu.modules.distinations.model.DistinationsComboModel',
                 fieldSet: '_id,name'
-            }),
+            }),            
             queryMode: 'local',
             displayField: 'name',
             valueField: '_id',
+            listeners: {
+                beforeselect: function(el, rec) {
+                    if(rec.data._id == 0) return false;
+                    return true;
+                }
+            }
         }    
+        
     }
     
     ,bldCustomerCombo: function() {
