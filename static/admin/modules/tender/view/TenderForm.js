@@ -6,7 +6,8 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
     requires: [
         'Ext.ux.form.ItemSelector',
         'Desktop.core.widgets.UploadField',
-        'Ext.ux.form.MultiSelect'
+        'Ext.ux.form.MultiSelect',
+        'Desktop.core.widgets.DateTime'
     ],
     
     width: 750,
@@ -64,10 +65,10 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
             },{
                 name: 'date_doc',
                 fieldLabel: D.t('Дата окончания подачи документов'),
-                xtype: 'datefield',
+                xtype: 'xdatetime',
                 submitFormat: 'c',
                 altFormats: 'c',
-                format: D.t('d.m.Y'),
+                dateFormat: D.t('d.m.Y'),
                 labelWidth: 250,
                 width: 350
             },{

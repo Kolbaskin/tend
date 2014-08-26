@@ -26,6 +26,7 @@ Ext.define('Gvsu.modules.tender.view.BidForm', {
                 me.buildFormPanel(),
                 me.buildFile(),
                 me.buildFile1(),
+                me.buildPosPanel(),
                 me.buildOrgPanel()
             ]
         }]
@@ -186,6 +187,17 @@ Ext.define('Gvsu.modules.tender.view.BidForm', {
         }
     }
     
-    
+    ,buildPosPanel: function() {
+        return {
+            xtype: 'panel',
+            title: D.t('Цены позиций'),
+            layout: 'border',
+            childModule: {
+                controller: 'Gvsu.modules.tender.controller.BidPos',
+                outKey: '_id',
+                inKey: 'bid'
+            }
+        }
+    }
     
 })

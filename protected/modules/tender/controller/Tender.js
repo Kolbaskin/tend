@@ -96,7 +96,7 @@ Ext.define('Gvsu.modules.tender.controller.Tender',{
                         tender: data._id,
                         org: params.pageData.user.org
                     },function(bid) {
-                        if(bid && bid.price_pos) {
+                        if(bid && Object.keys(bid).length) {
                             data.bid = {}
                             for(var i in bid) data.bid[i] = encodeURIComponent(bid[i])
                             data.bid.date_start = Ext.Date.format(bid.date_start, 'Y-m-d')
@@ -119,6 +119,21 @@ Ext.define('Gvsu.modules.tender.controller.Tender',{
             
         ].runEach()
         
+    }
+   
+    ,$getPositions: function() {
+        var me = this;
+        var id = parseInt(me.params.gpc.tender);
+        if(isNaN(id)) {me.sendJSON({});return;};
+       
+        me.callModel('.TenderPubl.getPositions', {
+            tender: id,
+            uid: me.params.cookies.uid,
+            token: me.params.cookies.token,
+            auth: '?'
+        }, function(data) {
+            me.sendJSON(data)    
+        })
     }
     
 });
