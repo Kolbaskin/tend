@@ -140,11 +140,24 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
             
             // Выберем предметы активных тендеров
             ,function(data, next) {
-                me.src.db.collection('gvsu_tendersubj').find({pid: data._id}, {object: 1, dist: 1})
+                me.src.db.collection('gvsu_tendersubj').find({pid: data._id}, {_id: 1, object: 1, dist: 1})
                 .sort({indx: 1})
                 .toArray(function(e, subjects) {
                     if(subjects && subjects.length) next(data, subjects)
                     else cb()
+                })
+            }
+            
+            // Глянем, есть ли позиции у тендера
+            ,function(data, subjects, next) {
+                var ids = []
+                subjects.each(function(s) {
+                    ids.push(s._id)    
+                })
+                me.src.db.collection('gvsu_tenderpos').findOne({pid: {$in: ids}}, {_id:1},function(e,d) {
+                    if(d && d._id) data.positions = true
+                    else data.positions = false
+                    next(data, subjects)
                 })
             }
                         
@@ -309,8 +322,19 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
                     next()
             }
             
+            // Сохраним позиции
+            ,function(next) {
+                if(params.gpc.price1 && params.gpc.price2)
+                    me.saveBidPosPrices(params.pageData.user.org, tenderId, bid._id, params.gpc, next)
+                else
+                    next()
+            }
+            
+            // пролонгируем тендер, если это необходимо
             ,function() {
-                cb(bid)
+                me.checkLeftTime(tenderId, function() {
+                    cb(bid)
+                })
             }
         ].runEach();
     }
@@ -486,6 +510,182 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
                 cb(winners)
             }
         ].runEach()
+    }
+    
+    ,getPositions: function(params, cb) {
+        var me = this, org, tender;
+        [
+            // получить ид организации
+            function(next) {
+                if(!params.auth)
+                    cb()
+                else {
+                    me.src.db.collection('gvsu_users').findOne({_id: params.auth}, {org: 1}, function(e,d) {
+                        if(d && d.org) {
+                            org = d.org
+                            next()
+                        } else
+                            cb()
+                    })
+                }
+            }
+            // получим карточку тендера
+            ,function(next) {
+                me.src.db.collection('gvsu_tender').findOne({_id: params.tender}, {}, function(e,d) {
+                    if(d) {
+                        tender = d
+                        next()
+                    } else
+                        cb()
+                })    
+            }
+            
+            // проверим доступы
+            ,function(next) {
+                me.checkAccess({tender: tender, user: {org: org}}, function(allowed) {
+                    tender.allowed = allowed
+                    next()
+                }) 
+            }
+            
+            // прочитаем позиции
+            ,function(next) {
+                me.src.db.conn.query('SELECT p.* FROM gvsu_tenderpos as p, gvsu_tendersubj as s WHERE s.pid=' + tender._id + ' and p.pid=s._id ORDER BY s.indx, p._id', function(e,d) {                   
+                    if(d && d.length)
+                        next(d)
+                    else
+                        cb()
+                })    
+            }
+            
+            // Найдем  цены на позиции
+            ,function(pos, next) {
+                var ids = []
+                pos.each(function(p) {
+                    ids.push(p._id)
+                    p.otherprices = []
+                    return p;                    
+                }, true)
+                me.src.db.collection('gvsu_userprices').find({pid: {$in: ids}}, {}).toArray(function(e,d) {
+                    if(d && d.length)
+                        next(pos, d)
+                    else
+                        cb(pos)
+                })    
+            }
+            // Распределим цены по позициям
+            ,function(pos, prices, next) {
+                prices.each(function(p) {
+                    for(var i=0;i<pos.length;i++) {
+                        if(pos[i]._id == p.pid) {
+                            if(p.org == org) {
+                                pos[i].price1 = p.price1
+                                pos[i].price2 = p.price2
+                            } else {
+                                pos[i].otherprices.push({
+                                    price1: p.price1,
+                                    price2: p.price2
+                                })
+                            }
+                            break;
+                        }
+                    }
+                }) 
+                next(pos)
+            }
+            
+            // Посмотрим, сколько осталось времени
+            ,function(pos) {
+                cb({
+                    leftTime:  parseInt((tender.date_doc.getTime() - (new Date()).getTime())/1000),
+                    data: pos
+                })
+            }
+        ].runEach()
+    }
+    
+    ,saveBidPosPrices: function(org, tenderId, bid, params, cb) {
+        var me = this;
+        [
+            function(next) {
+                me.src.db.conn.query('SELECT p._id FROM gvsu_tenderpos as p, gvsu_tendersubj as s WHERE s.pid=' + tenderId + ' and p.pid=s._id ', function(e,d) {                   
+                    if(d && d.length)
+                        next(d)
+                    else
+                        cb()
+                })    
+            }
+            
+            ,function(pos, next) {
+                pos.each(function(p) {return p._id+''}, true)
+                var out = []
+                for(var i in params.price1) {
+                    if(pos.indexOf(i) != -1 && params.price2[i]) {
+                        out.push({pid: parseInt(i), price1: params.price1[i], price2: params.price2[i]})
+                    }
+                }               
+                me.src.db.collection('gvsu_userprices').remove({org: org, pid: {$in: pos}}, function() {
+                    next(out)    
+                })
+            }
+            
+            ,function(ins, next) {
+                var x, sum = 0;
+                var f = function(i) {
+                    if(i>=ins.length) {
+                        next(sum)
+                        return;
+                    }
+                    x = parseFloat(ins[i].price2)
+                    if(!isNaN(x)) sum += x;
+                    me.src.db.collection('gvsu_userprices').insert({
+                        pid:ins[i].pid,
+                        price1:ins[i].price1,
+                        price2:ins[i].price2,
+                        org: org,
+                        bid: bid,
+                        dt: new Date()
+                    }, function() {
+                        f(i+1)
+                    })
+                }
+                f(0)    
+            }
+            
+            ,function(sum) {
+                me.src.db.collection('gvsu_tenderbid').update({_id: bid}, {$set: {price_full:sum}}, function() {
+                    cb()    
+                })
+            }
+        ].runEach()
+    }
+    
+    ,checkLeftTime: function(tid, cb) {
+        var me = this;
         
+        [
+            function(next) {
+                me.src.db.collection('gvsu_tender').findOne({_id: tid}, {date_doc: 1, prolong: 1}, function(e,d) {
+                    if(d && d.prolong)
+                        next(d)
+                    else
+                        cb()
+                })
+            }
+            
+            ,function(tender, next) {
+                var newDate = new Date((new Date()).getTime() + tender.prolong * 60 * 1000)
+                if(tender.date_doc < newDate) 
+                    next(newDate)
+                else
+                    cb()
+            }
+            
+            ,function(newDate) {
+                me.src.db.collection('gvsu_tender').update({_id: tid}, {$set: {date_doc: newDate}}, function() {
+                    cb()    
+                })    
+            }
+        ].runEach()
     }
 });

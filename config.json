@@ -22,7 +22,7 @@
 
     "messages": {
         "activateMailSubject": "Регистрация в системе электронных торгов ГВСУ",
-        "activateMailFrom": "tenders@gvsu.ru"
+        "activateMailFrom": "tender@gvsu.ru"
     },
 
     "mail": {
@@ -30,7 +30,7 @@
         "server":{
             "service": "Gmail", 
             "auth": {
-                "user": "g.tusheva@gmail.com",
+                "user": "maximtushev.testmail@gmail.com",
                 "pass": "kolobok0076"
             }
         }

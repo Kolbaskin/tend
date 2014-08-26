@@ -21,6 +21,10 @@ Ext.define('Gvsu.modules.tender.controller.Main', {
                 text: D.t('Заявки'),
                 iconCls:'tender',
                 controller: 'Gvsu.modules.tender.controller.Bid'
+            },{
+                text: D.t('Позиции'),
+                iconCls:'tender',
+                controller: 'Gvsu.modules.tender.controller.BidPos'
             }]
         }
     }

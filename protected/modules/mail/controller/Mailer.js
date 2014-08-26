@@ -23,12 +23,15 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
                             cb()
                             return;
                         }
+    console.log('activate')                    
                         me.src.mailTransport.sendMail({
                             from: me.config.messages.activateMailFrom,
-                            to: emails[i].email,
+                            to: 'maximtushev@gmail.com',//emails[i].email,
                             subject: 'запрос на активацию компании ' + org.name,
                             html: html
-                        }, function() {
+                        }, function(e,d) {
+     console.log('e:',e) 
+      console.log('d:', d) 
                             f(i+1)    
                         })
                     }

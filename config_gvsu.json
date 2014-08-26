@@ -17,7 +17,7 @@
         "database": "gvsutenddb",
         "host": "localhost",
         "user": "root",
-        "password": ""
+        "password": "kolobok"
     },
 
     "messages": {
@@ -28,15 +28,20 @@
     "mail": {
         "type": "SMTP",
         "server":{
-            "service": "Gmail", 
+            "host": "webmail.gvsu.ru", 
+            "port": 25,
             "auth": {
-                "user": "g.tusheva@gmail.com",
-                "pass": "kolobok0076"
-            }
+                "user": "tender@gvsu.ru",
+                "pass": "zxCV1234"
+            },
+            
+            "secure":false,
+            "ignoreTLS":false,
+            "debug":true
         }
     },
 
-    "userDocDir": "/var/gvsu/node_modules/gvsu-tend/docs",
+    "userDocDir": "/home/maxim/www/nodeproject/git/yode-ext/node_modules/gvsu-tend/docs",
 
     "convertors": {
         "office2pdf": "soffice --norestore --headless --convert-to pdf --outdir \"{distPath}\" \"{srcPath}\"",
@@ -50,6 +55,6 @@
     },    
 
     "crontab": [
-        "* * * * * Gvsu.modules.tender.model.TenderModel.testrun"
+        "* * * * * Gvsu.modules.tender.model.TenderModel.sendMessages"
     ]
 }
