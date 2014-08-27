@@ -1,6 +1,9 @@
 {{include 'TenderInfo.tpl'}}
 
+
+
 <div class="tndr_form bid_form">
+    <p><span data-bind="text: finTimePhrase"></span> <span data-bind="text: finTime"></span></p>
 <form method="post"  method="post" data-bind="submit: submit" enctype='multipart/form-data'>
     <ul class="inlined">
 		<li class="form_text">Дата начала работ</li><li class="form240"><div class="input_wrap"><input type="text" name="date_start" data-bind="value: v.date_start"></div></li>
@@ -26,13 +29,15 @@
 
 		<li class="form_text">Примечание</li><li class="form240"><div class="input_wrap"><textarea name="notes" data-bind="value: v.notes"></textarea></div></li>
 		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+        
+        <li class="form_text">Описание файла</li><li class="form240"><div class="input_wrap"><textarea name="file_descript" data-bind="value: v.file_descript"></textarea></div></li>
+    	<li class="form_alert" style="display: none;">Обязательное поле</li><br>
 
 		<li class="form_text two_lines">Скан заявки на тендер <br>по типовой форме</li><li class="form240"><div class="input_wrap file_wrap"><input type="file" name="file"><div class="file_dummy">Выберите файл...</div></div></li><br>
         
         <li class="form_text two_lines">Предложение </li><li class="form240"><div class="input_wrap file_wrap"><input type="file" name="file1"><div class="file_dummy">Выберите файл...</div></div></li><br>
         
-		<li class="form_text">Описание файла</li><li class="form240"><div class="input_wrap"><textarea name="file_descript" data-bind="value: v.file_descript"></textarea></div></li>
-		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+		
     
         <tpl if="positions">
             </ul>
@@ -82,6 +87,5 @@ viewModel.v.notes(decodeURIComponent('{bid.notes}'))
 viewModel.v.file_descript(decodeURIComponent('{bid.file_descript}'))
 
 </script>
-<tpl if="positions">
+
     <script src="/js/auction.js"></script>
-</tpl>

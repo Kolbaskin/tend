@@ -513,7 +513,7 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
     }
     
     ,getPositions: function(params, cb) {
-        var me = this, org, tender;
+        var me = this, org, tender,leftTime;
         [
             // получить ид организации
             function(next) {
@@ -534,6 +534,7 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
                 me.src.db.collection('gvsu_tender').findOne({_id: params.tender}, {}, function(e,d) {
                     if(d) {
                         tender = d
+                        leftTime = parseInt((tender.date_doc.getTime() - (new Date()).getTime())/1000)
                         next()
                     } else
                         cb()
@@ -554,7 +555,10 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
                     if(d && d.length)
                         next(d)
                     else
-                        cb()
+                        cb({
+                            leftTime:  leftTime,
+                            data: []
+                        })
                 })    
             }
             
@@ -570,7 +574,10 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
                     if(d && d.length)
                         next(pos, d)
                     else
-                        cb(pos)
+                        cb({
+                            leftTime:  leftTime,
+                            data: pos
+                        })
                 })    
             }
             // Распределим цены по позициям
@@ -597,7 +604,7 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
             // Посмотрим, сколько осталось времени
             ,function(pos) {
                 cb({
-                    leftTime:  parseInt((tender.date_doc.getTime() - (new Date()).getTime())/1000),
+                    leftTime:  leftTime,
                     data: pos
                 })
             }
