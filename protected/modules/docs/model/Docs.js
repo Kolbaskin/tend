@@ -132,7 +132,7 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
             // Добавляем запись
             ,function(files, dirToClear, next) {
                 dirsToRemove = dirToClear;
-                if(files && files.length) {
+                //if(files && files.length) {
                     me.src.db.collection('gvsu_userdocs').insert({
                         uid: params.auth,
                         org: orgId,
@@ -157,8 +157,8 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
                         }
                     }) 
                     
-                } else 
-                    cb({success: false})
+               // } else 
+               //     cb({success: false})
             }
             
             // создаем каталог
@@ -239,6 +239,10 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
      }
      
      ,unArchivate: function(file, ex, cb) {
+        
+        cb([])
+        return;
+        
         var me = this
             ,dir = file.path + '_dir';
          
@@ -471,7 +475,23 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
             }
             
         ].runEach()
+    }
+    
+    ,delDoc: function(params, cb) {
+        var me = this;
         
-        
+        [
+            function(next) {
+                if(params.auth) 
+                    next()
+                else
+                    cb(null)
+            }
+            ,function(next) {
+                me.src.db.collection('gvsu_userdocs').remove({_id: params.del, uid: params.auth}, function() {
+                    cb()    
+                })
+            }
+        ].runEach()
     }
 })

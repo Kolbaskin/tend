@@ -99,7 +99,9 @@ Ext.define('Gvsu.modules.users.controller.User',{
             password: me.params.gpc.pass,
             passField: 'password',
             lifetime: 60000
-        }).sendJSON()        
+        }, function(data) {
+            me.sendJSON(data)
+        })        
     }
     
     ,$changePassword: function(params, cb) {

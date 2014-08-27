@@ -28,7 +28,12 @@
             <tpl if="status==3">отклонен</tpl>
             <tpl if="status==-1">не&nbsp;загружен</tpl>
         </td>
-        <td><a href="./{doc_type}" class="tndr_btn">Загрузить</a></td>
+        <td>
+            <tpl if="status==0"><a href="./?del={_id}" class="tndr_btn" onclick="return confirm('Удалить этот файл?')">Удалить</a></tpl>
+            <tpl if="status==1"></tpl>
+            <tpl if="status==2"><a href="./{doc_type}" class="tndr_btn">Обновить</a></tpl>
+            <tpl if="status==3 || status==-1"><a href="./{doc_type}" class="tndr_btn">Загрузить</a></tpl>
+        </td>
     </tr>
 </tpl>
 </table>

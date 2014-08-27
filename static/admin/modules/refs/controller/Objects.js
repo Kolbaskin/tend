@@ -7,7 +7,7 @@
 
 Ext.define('Gvsu.modules.refs.controller.Objects', {
     extend: 'Core.controller.Controller',
-    id:'Customers-win',   
+    id:'Objects-win',   
 
     launcher: {
         text: D.t('Объекты'),

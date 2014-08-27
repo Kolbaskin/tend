@@ -29,12 +29,22 @@ Ext.define('Gvsu.modules.users.view.PublUsersList', {
                         return r.data.fname + ' ' + r.data.name + ' ' +  r.data.sname;    
                     }
                 },{
+                    text: D.t("Имя"),
+                    flex: 1,
+                    dataIndex: 'name',
+                    hidden: true
+                },{
+                    text: D.t("Отчество"),
+                    flex: 1,
+                    dataIndex: 'sname',
+                    hidden: true
+                },/*{
                     text: D.t("Организация"),
                     flex: 1,
                     sortable: true,
-                    dataIndex: 'company',
+                    dataIndex: 'org',
                     renderer: setStyle
-                },{
+                },*/{
                     text: D.t("E-mail"),
                     flex: 1,
                     sortable: true,
@@ -52,13 +62,13 @@ Ext.define('Gvsu.modules.users.view.PublUsersList', {
                     sortable: true,
                     dataIndex: 'activated',
                     renderer: setStyle
-                },{
+                }/*,{
                     text: D.t("Участник"),
                     width: 60,
                     sortable: true,
                     dataIndex: 'status',
                     renderer: setStyle
-                }
+                }*/
             ]        
     }
     
