@@ -188,11 +188,20 @@ Ext.define('Gvsu.modules.orgs.model.OrgsPubl', {
     // Проверка статусов организаций
     ,checkOranisationsStatus: function() {
         var me = this;
-        
+        /*
         [
-            
+            function(next) {
+                me.src.db.collection('gvsu_orgs').find({active: 1}, {_id: 1}, function(e,d) {
+                    if(d && d.length) {
+                        next(d)    
+                    }
+                })
+            }
+            ,function(orgs) {
+                
+            }
         ].runEach()
-        
+        */
     }
     
     

@@ -7,6 +7,9 @@
     <li class="form_text"></li><li class="form270"><div class="input_wrap file_wrap"><input type="file" name="file" /><div class="file_dummy">Выберите файл...</div></li><br>
     <li class="form_text"></li><li><button type="submit"><span class="tndr_btn">загрузить документ</span></button></li>
 </ul>
+<p>
+<b>Важно:</b> документ следует загружать одним файлом. Если документ состоит из нескольких отсканированных изображений, упакуйте их в один архивный файл (rar, zip, 7z) или вставьте в один файл doc или pdf.
+</p>
 </form>
 </div>
 {{include 'docs.inc'}}
