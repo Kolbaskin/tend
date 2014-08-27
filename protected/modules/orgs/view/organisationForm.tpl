@@ -12,7 +12,7 @@
 		<li class="form_text">Полное название</li><li class="form270"><div class="input_wrap"><input type="text" data-bind="value: v.fullname"></div></li>
 		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
 
-		<li class="form_text">Руководители</li><li class="form270"><div class="input_wrap"><textarea data-bind="value: v.headers"></textarea></div></li>
+		<li class="form_text">Руководители<br><br>ген.директор и гл.бухгалтер</li><li class="form270"><div class="input_wrap"><textarea data-bind="value: v.headers"></textarea></div></li>
 		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
 
 		<li class="form_text">Учредители</li><li class="form270"><div class="input_wrap"><textarea data-bind="value: v.founders"></textarea></div></li>
