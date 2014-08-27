@@ -46,6 +46,8 @@ viewModel.errors = ko.validation.group(viewModel.v);
 
 viewModel.submit = function () {
     
+    if(!confirm('Внимание!\n\nПри любых изменениях данных доступ к торгам автоматически блокируется!\nДоступ востанавливается после одобрения службы безопасности.\n\nПродолжить?')) return false;
+    
     if (viewModel.errors().length == 0) {
         var out = {}
         for(var i in viewModel.v) {

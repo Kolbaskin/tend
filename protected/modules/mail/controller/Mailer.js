@@ -23,15 +23,12 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
                             cb()
                             return;
                         }
-    console.log('activate')                    
                         me.src.mailTransport.sendMail({
                             from: me.config.messages.activateMailFrom,
-                            to: 'maximtushev@gmail.com',//emails[i].email,
+                            to: emails[i].email,
                             subject: 'запрос на активацию компании ' + org.name,
                             html: html
                         }, function(e,d) {
-     console.log('e:',e) 
-      console.log('d:', d) 
                             f(i+1)    
                         })
                     }
@@ -105,6 +102,57 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
                 f(0)
             }
         ].runEach()
+    }
+    
+    ,winnerLetter: function(data, cb) {
+        var me = this, email;
+        
+        [
+            function(next) {
+                me.src.db.collection('gvsu_tenderbid').findOne({_id: parseInt(data.bid)}, {orgid: 1}, function(e,d) {
+                    if(d && d.orgid)
+                        next(d.orgid)
+                    else
+                        cb()
+                })          
+            }
+            
+            ,function(oid, next) {
+                me.src.db.collection('gvsu_orgs').findOne({_id: oid}, {email: 1}, function(e,d) {
+                    if(d && d.email) {
+                        email = d.email
+                        next()
+                    } else
+                        cb()
+                })          
+            }
+                
+            ,function(next) {
+                me.src.db.collection('gvsu_tender').findOne({_id: parseInt(data.tid)}, {}, function(e,d) {
+                    if(d)
+                        next(b)
+                    else
+                        cb()
+                })          
+            }
+            
+            ,function(tender, next) {
+                me.tplApply('.winnerLetter', tender, next);
+            }
+            
+            ,function(html) {
+                var mess = {
+                    from: me.config.messages.activateMailFrom,
+                    to: email,
+                    subject: 'ГВСУ-Центр сообщает о победе в тендере',
+                    html: html
+                }
+                me.src.mailTransport.sendMail(mess, function() {
+                    cb()    
+                })
+            }
+        ].runEach()
+        cb()
     }
     
 });

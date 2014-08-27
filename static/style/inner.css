@@ -889,3 +889,8 @@ label input {
 	padding: 0 0 4px 8px;
 	font-size: 11px;
 }
+
+#error {
+    color: red!important;
+    font-weight: bold;
+}

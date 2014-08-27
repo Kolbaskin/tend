@@ -44,6 +44,7 @@ $(document).ready(function() {
                 login: l,
                 pass: p
             }, function(r) {
+
                 if(r && r.response) {
                     if(r.response && r.response.dblauth) {
                         $("#step1").css("display","none")

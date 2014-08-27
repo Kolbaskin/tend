@@ -121,8 +121,24 @@ Ext.define('Gvsu.modules.orgs.model.OrgsModel', {
     
     ,afterSave: function(data, cb) {
         var me = this;
-        me.src.db.collection('gvsu_users').update({org: data._id}, {$set: {status: data.active}}, function(e,d) {
-            cb(data)
-        })
+        [
+            function(next) {
+                me.src.db.collection('gvsu_users').update({org: data._id}, {$set: {status: data.active}}, function(e,d) {
+                    next()
+                })
+            }
+            ,function(next) {
+                if(data.active) {
+                    me.src.db.collection('gvsu_userdocs').update({org: data._id, status: {$in:[0,1]}}, {$set: {status: 2}}, function(e,d) {
+                        next()
+                    })
+                } else cb(data)
+            }
+            ,function() {
+                me.src.db.collection('gvsu_userdocs').update({org: data._id, status: {$in:[0,1]}}, {$set: {status: 2}}, function(e,d) {
+                    cb(data)
+                })
+            }
+        ].runEach()
     }
 })

@@ -36,7 +36,6 @@
 <a href="/registration/">Регистрация</a>-->
 <!-- / Registration text block -->
 
-
     
     <tpl if="success">
         <div class="tndr_alert">
@@ -53,6 +52,7 @@
     	<ul class="inlined">
     		<li class="form_text">Логин</li><li class="form180"><div class="input_wrap"><input id="login" type="text" value="" /></div></li><br>
     		<li class="form_text">Пароль</li><li class="form180"><div class="input_wrap"><input type="password" id="pass" value="" /></div></li><li><a href="#">Забыли пароль?</a></li><br>
+            <li class="form_text"></li><li class="form180" style="display: none" id="error">Ошибка в логине или пароле</li><br>
     		<li class="form_text"></li><li><label><input type="checkbox">Запомнить меня</label></li><br>
     		<li class="form_text"></li><li class="form120"><button type="submit" id="submit"><span class="tndr_btn">Войти</span></button></li>
     	</ul>

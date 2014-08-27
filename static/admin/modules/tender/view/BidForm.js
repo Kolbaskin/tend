@@ -65,11 +65,8 @@ Ext.define('Gvsu.modules.tender.view.BidForm', {
     
     ,buildFields: function() {
         return [
+        this.winnerBlock(),
         {
-            xtype: 'checkbox',
-            name: 'winner',
-            fieldLabel: D.t('Победитель')
-        },{
             name: 'orgname',
             fieldLabel: D.t('Организация')
         },{
@@ -197,6 +194,25 @@ Ext.define('Gvsu.modules.tender.view.BidForm', {
                 outKey: '_id',
                 inKey: 'bid'
             }
+        }
+    }
+    
+    ,winnerBlock: function() {
+        return {
+            xtype: 'fieldcontainer',
+            layout: 'hbox',
+            hideLabel: true,
+            items: [{
+                xtype: 'checkbox',
+                name: 'winner',
+                labelWidth: 150,
+                margins: '0 20 0 0',
+                fieldLabel: D.t('Победитель')
+            },{
+                xtype: 'button',
+                action: 'sendWinLetter',
+                text: D.t('Отправить письмо победителю')
+            }]
         }
     }
     

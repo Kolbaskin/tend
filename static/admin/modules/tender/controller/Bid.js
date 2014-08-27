@@ -31,7 +31,8 @@ Ext.define('Gvsu.modules.tender.controller.Bid', {
             "[action=print]": {click: function() {me.printDoc(win, '')}},
             "[action=download]": {click: function() {me.downloadDoc(win, '')}},
             "[action=print1]": {click: function() {me.printDoc(win,1)}},
-            "[action=download1]": {click: function() {me.downloadDoc(win,1)}}
+            "[action=download1]": {click: function() {me.downloadDoc(win,1)}},
+            "[action=sendWinLetter]": {click: function() {me.sendWinLetter(win)}}
         })
         me.callParent(arguments)
     }
@@ -82,11 +83,20 @@ Ext.define('Gvsu.modules.tender.controller.Bid', {
     }
     
     ,createXls: function(win) {
-        var me = this
-            ,store = win.down('grid').getStore()
+//console.log('win:', win)  
+        //var me = this
+        //    ,store = win.store
+      
+        this.model.exportData(win.store.filters)
         
-        me.model.exportData(store.filters)
-        
+    }
+    
+    ,sendWinLetter: function(win) {
+        win.down('[name=winner]').setValue(true)  
+        this.model.sendWinnerLetter({
+            tid:win.down('[name=pid]').getValue(),
+            bid:win.down('[name=_id]').getValue()
+        })
     }
     
 });

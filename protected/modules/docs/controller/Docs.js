@@ -36,7 +36,20 @@ Ext.define('Gvsu.modules.docs.controller.Docs',{
     ,docsList: function(params, cb) {
         var me = this;
         [
+            
             function(next) {
+                if(params.gpc.del) {
+                    params.cookies.auth = '?'
+                    params.cookies.del = parseInt(params.gpc.del)
+                    if(!isNaN(params.gpc.del)) {
+                        me.callModel('Gvsu.modules.docs.model.Docs.delDoc', params.cookies, function(data) {
+                            next()
+                        })
+                    } else next()
+                } else next()
+            }
+            
+            ,function(next) {
                 params.cookies.auth = '?'
                 me.callModel('Gvsu.modules.docs.model.Docs.list', params.cookies, function(data) {
                     data.each(function(item) {

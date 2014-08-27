@@ -134,7 +134,25 @@ Ext.define('Gvsu.modules.tender.model.BidModel', {
                 cb(out)    
             })
         })
+    }
+    
+    ,sendWinnerLetter: function(data, cb) {
+        this.runOnServer('sendWinnerLetter', data, cb)    
+    }
+    
+    ,$sendWinnerLetter: function(params, cb) {
+        var me = this;
         
+        [
+            function(next) {
+                me.src.db.collection(me.collection).update({_id: parseInt(params.bid)}, {$set: {winner: 1}}, function() {next})
+            }
+            ,function() {
+                me.callModel('Gvsu.modules.mail.controller.Mailer.winnerLetter', params, function(list) {
+                    cb()
+                })    
+            }
+        ].runEach();
         
     }
 })
