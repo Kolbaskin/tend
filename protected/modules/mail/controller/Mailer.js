@@ -152,7 +152,40 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
                 })
             }
         ].runEach()
-        cb()
+    }
+    ,orgStatusDay: function(data, cb) {
+        var me = this;
+        var f = function(i) {
+            if(i>=data.orgs.length) {
+                cb()
+                return;
+            }
+            var o = data.orgs[i];
+            o.warn = warn
+            me.orgStatusDay(o, function() {
+                f(i+1)    
+            })
+        }
+        f(0)
+    }
+    ,orgStatusDay: function(data, cb) {
+        var me = this;
+        [
+            function(next) {
+                me.tplApply('.orgStatusDay', data, next);
+            }
+            ,function(html) {
+                var mess = {
+                    from: me.config.messages.activateMailFrom,
+                    to: data.email,
+                    subject: 'Вам необходимо обновить документы на сайте ГВСУ-Центра.',
+                    html: html
+                }
+                me.src.mailTransport.sendMail(mess, function() {
+                    cb()    
+                })
+            }
+        ].runEach()
     }
     
 });
