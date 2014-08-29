@@ -32,8 +32,10 @@
 	<td width="114">Дата окончания приема заявок</td>
 	<td>{date_doc}</td>
 </tr>
-<tr>
-    <td width="114">Стартовая цена</td>
-	<td>12 000 000</td>
-</tr>
+<tpl if="start_price">
+    <tr>
+        <td width="114">Стартовая цена</td>
+    	<td>{start_price}</td>
+    </tr>
+</tpl>    
 </table>
