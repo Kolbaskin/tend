@@ -11,7 +11,7 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
     ],
     
     width: 750,
-    height: 440,
+    height: 500,
     region: 'center',
     layout: 'border',
     defaults: {
@@ -56,6 +56,7 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
             },
             this.bldFormatCombo(),
             this.bldDatesBlock(),
+            this.bldWorkDatesBlock(),
             {
                 name: 'avance_comp',
                 fieldLabel: D.t('Условия авансирования (%)'),
@@ -77,6 +78,23 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
                 xtype: 'numberfield',
                 labelWidth: 250
             },{
+                xtype: 'fieldcontainer', 
+                hideLabel: true,
+                layout: 'hbox',
+                defaults: {
+                    xtype: 'numberfield',
+                },
+                items: [{
+                    name: 'start_price',
+                    fieldLabel: D.t('Начальная цена'),
+                    margins: '0 20 0 0',
+                    labelWidth: 250
+                },{
+                    name: 'step_price',
+                    fieldLabel: D.t('Шаг торга (% от нач. цены)'),
+                    labelWidth: 200
+                }]
+            },{
                 name: 'prolong',
                 fieldLabel: D.t('Время пролонгации (мин.)'),
                 xtype: 'numberfield',
@@ -89,9 +107,15 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
                 width: 300,
                 buttonText: D.t('Выберите документ...')
             },{
+                name: 'filelink',
+                labelWidth: 250,
+                width: 300,
+                fieldLabel: D.t('Ссылка на файл'),
+                emptyText: 'http://www.gvsu.ru/myfile.zip'
+            },{
                 name: 'descript',
                 xtype: 'textarea',
-                height: 55,
+                height: 35,
                 emptyText: D.t('Описание'),
                 hideLabel: true
             }
@@ -141,6 +165,31 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
             },{
                 name: 'date_fin',
                 fieldLabel: D.t('Дата завершения')
+            }]
+        }
+    }
+    
+    ,bldWorkDatesBlock: function() {
+        return {
+            xtype: 'fieldcontainer', 
+            hideLabel: true,
+            //columnWidth: 0.5,
+            layout: 'hbox',
+            defaults: {
+                xtype: 'datefield',
+                submitFormat: 'c',
+                altFormats: 'c',
+                format: D.t('d.m.Y'),
+                labelWidth: 150,
+                flex: 1                    
+            },
+            items: [{
+                name: 'date_workstart',
+                fieldLabel: D.t('Дата начала работ'),
+                margins: '0 20 0 0'
+            },{
+                name: 'date_workfin',
+                fieldLabel: D.t('Дата завершения работ')
             }]
         }
     }

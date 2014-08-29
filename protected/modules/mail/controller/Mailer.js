@@ -106,10 +106,11 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
     
     ,winnerLetter: function(data, cb) {
         var me = this, email;
-        
+
         [
             function(next) {
                 me.src.db.collection('gvsu_tenderbid').findOne({_id: parseInt(data.bid)}, {orgid: 1}, function(e,d) {
+
                     if(d && d.orgid)
                         next(d.orgid)
                     else
@@ -130,7 +131,7 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
             ,function(next) {
                 me.src.db.collection('gvsu_tender').findOne({_id: parseInt(data.tid)}, {}, function(e,d) {
                     if(d)
-                        next(b)
+                        next(d)
                     else
                         cb()
                 })          
@@ -152,7 +153,40 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
                 })
             }
         ].runEach()
-        cb()
+    }
+    ,orgStatusDay: function(data, cb) {
+        var me = this;
+        var f = function(i) {
+            if(i>=data.orgs.length) {
+                cb()
+                return;
+            }
+            var o = data.orgs[i];
+            o.warn = data.warn
+            me.orgStatusDay1(o, function() {
+                f(i+1)    
+            })
+        }
+        f(0)
+    }
+    ,orgStatusDay1: function(data, cb) {
+        var me = this;
+        [
+            function(next) {
+                me.tplApply('.orgStatusDay', data, next);
+            }
+            ,function(html) {
+                var mess = {
+                    from: me.config.messages.activateMailFrom,
+                    to: data.email,
+                    subject: 'Вам необходимо обновить документы на сайте ГВСУ-Центра.',
+                    html: html
+                }
+                me.src.mailTransport.sendMail(mess, function() {
+                    cb()    
+                })
+            }
+        ].runEach()
     }
     
 });

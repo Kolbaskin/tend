@@ -46,14 +46,14 @@ Ext.define('Gvsu.modules.tender.view.TenderList', {
             },{
                 text: D.t("Дата завершения"),
                 xtype: 'datecolumn',
-                width: 60,
+                width: 100,
                 sortable: true,
                 filter: true,
                 format: D.t('d.m.Y'),
                 dataIndex: 'date_fin'
             },{
                 text: D.t("Публикация"),
-                width: 60,
+                width: 100,
                 sortable: true,
                 filter: true,
                 dataIndex: 'publ',

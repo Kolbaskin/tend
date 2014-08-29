@@ -448,7 +448,7 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
             }
             
             ,function(docs, next) {
-                me.src.db.collection('gvsu_docstypes').find({required: 1}, {_id: 1}).toArray(function(e,d) {
+                me.src.db.collection('gvsu_docstypes').find({required: 1}, {_id: 1, duration: 1}).toArray(function(e,d) {
                     if(d)
                         next(docs, d)
                     else
@@ -461,7 +461,11 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
                 for(var i=0;i<types.length;i++) {
                     log = false;
                     for(var j=0;j<docs.length;j++) {
-                        if(docs[j].doc_type == types[i]._id && (new Date(docs[j].date_fin))>=dt && docs[j].status != 3) {
+                        if(
+                            docs[j].doc_type == types[i]._id && 
+                            ((new Date(docs[j].date_fin))>=dt || !types[i].duration || types[i].duration == '0') && 
+                            ((data.status && docs[j].status == data.status) || docs[j].status != 3)
+                        ) {
                             log = true;
                             break;
                         }
@@ -479,7 +483,6 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
     
     ,delDoc: function(params, cb) {
         var me = this;
-        
         [
             function(next) {
                 if(params.auth) 
@@ -487,10 +490,39 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
                 else
                     cb(null)
             }
+            
             ,function(next) {
-                me.src.db.collection('gvsu_userdocs').remove({_id: params.del, uid: params.auth}, function() {
-                    cb()    
+                if(!params.org) {
+                    me.src.db.collection('gvsu_users').findOne({_id: params.auth}, {org: 1}, function(e, d) {
+                        if(d && d.org) {
+                            params.org = d.org
+                            next()
+                        } else cb()
+                    })
+                } else next()
+            }
+            
+            ,function(next) {
+                me.src.db.collection('gvsu_userdocs').remove({_id: params.del, uid: params.auth}, function(e, d) {
+                    if(!e && d) next()
+                    else cb()
                 })
+            }
+            ,function(next) {
+                exec('rm -R ' + me.config.userDocDir + '/' + params.del, function() {
+                    next()    
+                })
+            }
+            ,function(next) {
+                me.checkOrgDocs({org: params.org, status: 2}, function(log) {
+                    if(!log) next()
+                    else cb()
+                })    
+            }
+            ,function() {
+                me.src.db.collection('gvsu_orgs').update({_id: params.org}, {$set: {active:0}}, function(e, d) {
+                    cb()
+                })    
             }
         ].runEach()
     }

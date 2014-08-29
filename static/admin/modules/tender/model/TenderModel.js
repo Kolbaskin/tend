@@ -17,7 +17,6 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
         name: 'name',
         type: 'string',
         filterable: true,
-        unique: true,
         editable: true,
         visable: true
     },{
@@ -34,6 +33,18 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
         visable: true
     },{
         name: 'date_fin',
+        type: 'date',
+        editable: true,
+        filterable: false,
+        visable: true
+    },{
+        name: 'date_workstart',
+        type: 'date',
+        editable: true,
+        filterable: false,
+        visable: true
+    },{
+        name: 'date_workfin',
         type: 'date',
         editable: true,
         filterable: false,
@@ -94,6 +105,24 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
     },{
         name: 'file',
         type: 'file',
+        editable: true,
+        filterable: false,
+        visable: true
+    },{
+        name: 'filelink',
+        type: 'string',
+        filterable: false,
+        editable: true,
+        visable: true
+    },{
+        name: 'start_price',
+        type: 'float',
+        editable: true,
+        filterable: false,
+        visable: true
+    },{
+        name: 'step_price',
+        type: 'float',
         editable: true,
         filterable: false,
         visable: true
