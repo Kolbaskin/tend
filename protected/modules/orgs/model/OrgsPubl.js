@@ -15,9 +15,9 @@ Ext.define('Gvsu.modules.orgs.model.OrgsPubl', {
         ,fact_address: ['string', false]
         ,www: ['string', false]
         ,contact_person: ['name', false]
-        ,headers_phones: ['phone', true]
-        ,phone: ['phone', true]
-        ,email: ['email', true]
+        ,headers_phones: ['phone', false]
+        ,phone: ['phone', false]
+        ,email: ['email', false]
         ,sro: ['number', false]
         ,info: ['string', false]
     }
@@ -188,16 +188,17 @@ Ext.define('Gvsu.modules.orgs.model.OrgsPubl', {
     // Проверка статусов организаций
     ,checkOranisationsStatus: function() {
         var me = this;
-        
         [
             function(next) {
-                me.checkOranisationsStatusDay(30, 0, next)
+                me.checkOranisationsStatusDay(3, 2, next)
             }
             ,function(next) {
                 me.checkOranisationsStatusDay(15, 1, next)
             }
             ,function(next) {
-                me.checkOranisationsStatusDay(3, 2, next)
+                me.checkOranisationsStatusDay(30, 0, function() {
+                        
+                })
             }
         ].runEach()
         
@@ -209,34 +210,49 @@ Ext.define('Gvsu.modules.orgs.model.OrgsPubl', {
         [
             // ищем доки за 30 дней до конца
             function(next) {
+                
                 var dt = new Date((new Date()).getTime() + days*24*3600000)
-                me.src.db.collection('gvsu_userdocs').find({date_fin: {$lte: dt}, warn: warn}, {_id: 1, doc_name: 1, org: 1}, function(e,d) {
+                me.src.db.collection('gvsu_userdocs').find({date_fin: {$lte: Ext.Date.format(dt, 'Y-m-d')}}, {}, function(e,d) {
                     if(d && d.length) {
-                        next(d)    
+                        var out = [], delta = 24*3600000;
+                        d.each(function(r) {
+                            if((r.date_fin.getTime() - r.date_add.getTime())>delta) out.push(r)    
+                        })
+                        next(out)    
                     } else cb()
                 })
             }
+            
+                    
             ,function(docs, next) {
                 var ids = []
-                docs.each(function(r) {ids.push(r.org)})
+                docs.each(function(r) {if(ids.indexOf(r.org) == -1) ids.push(r.org)})
                 me.src.db.collection('gvsu_orgs').find({_id: {$in: ids}}, {_id: 1, email: 1}, function(e,d) {
                     if(d && d.length) {
                         next(docs, d)    
                     } else cb()
                 })
             }
+            
+            // Удалим документы с истекшим сроком годности
             ,function(docs, orgs, next) {
+                me.checkDeprecatedDocs(docs, orgs, next)    
+            }
+            
+            ,function(docs, orgs, next) {
+                var out = []
                 orgs.each(function(o) {
                     o.docs = []
                     for(var i=0;i<docs.length;i++) {
-                        if(docs[i].org == d._id) {
+                        if(docs[i].warn<warn && docs[i].org == o._id) {
                             o.docs.push(docs[i].doc_name)
                         }
                     }
-                    return o;
-                }, true)
-                next(orgs, docs)
+                    if(o.docs.length) out.push(o)
+                })
+                next(out, docs)
             }
+            
             ,function(orgs, docs, next) {
                 me.callModel('Gvsu.modules.mail.controller.Mailer.orgStatusDay', {
                     orgs: orgs,
@@ -248,10 +264,53 @@ Ext.define('Gvsu.modules.orgs.model.OrgsPubl', {
             ,function(docs) {
                 var ids = []
                 docs.each(function(r) {ids.push(r._id)})
-                me.src.db.collection('gvsu_userdocs').find({_id: {$in: ids}}, {warn: (warn+1)}, function(e,d) {
+                me.src.db.collection('gvsu_userdocs').update({_id: {$in: ids}}, {$set: {warn: (warn+1)}}, function(e,d) {
                     cb()
                 })
             }
         ].runEach()
+    }
+    
+    ,checkDeprecatedDocs: function(docs, orgs, cb) {
+        var me = this
+            ,delIds = []
+            ,normDocs = []
+            ,now = new Date();
+        
+        [
+            function(next) {
+                docs.each(function(d) {
+                    if(d.date_fin<now) {
+                        delIds.push(d)    
+                    } else {
+                        normDocs.push(d)
+                    }
+                }) 
+                next()
+            }
+            ,function(next) {
+                if(delIds.length) next()
+                else cb(docs, orgs)    
+            }
+            // Удалим документ
+            ,function(next) {
+                var f = function(i) {
+                    if(i>=delIds.length) {
+                        cb(normDocs, orgs)
+                        return;
+                    }
+                    me.callModel('Gvsu.modules.docs.model.Docs.delDoc', {del: delIds[i]._id, auth: delIds[i].uid, org: delIds[i].org}, function() {
+                        f(i+1)    
+                    })
+                }
+                f(0)
+            }
+            
+        ].runEach()
+        
+        
+        
+        
+        
     }
 })

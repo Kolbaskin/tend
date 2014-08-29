@@ -13,7 +13,7 @@ ko.validation.configure({
 });
 
 var patterns = {
-    str: {pattern: /^[a-zА-ЯёЁ0-9\s\'\"\.\,\-\+]{0,}$/i},
+    str: {pattern: /^[a-zа-яА-ЯёЁ0-9\s\'\"\.\,\-\+\(\)]{0,}$/i},
     num: {pattern: /^[0-9]{0,}$/i},
     email: {pattern: /@/},
     www: {pattern: /\./},
@@ -30,15 +30,15 @@ var viewModel = {
         ,kpp: ko.observable('').extend(patterns.num)
         ,ogrn: ko.observable('').extend(patterns.num)
         ,legal_address: ko.observable('').extend(patterns.str)
-        ,fact_address: ko.observable('').extend(patterns.str)
-        ,www: ko.observable('').extend(patterns.www)
+        ,fact_address: ko.observable('') //.extend(patterns.str)
+        ,www: ko.observable('') //.extend(patterns.www)
         
         ,contact_person: ko.observable('').extend(patterns.str)
-        ,headers_phones: ko.observable('').extend(patterns.phone)
-        ,phone: ko.observable('').extend(patterns.phone)
+        ,headers_phones: ko.observable('').extend(patterns.str)//phone)
+        ,phone: ko.observable('').extend(patterns.str)//phone)
         ,email: ko.observable('').extend(patterns.email)
-        ,sro: ko.observable('').extend(patterns.num)
-        ,info: ko.observable('').extend(patterns.str)
+        ,sro: ko.observable('')//.extend(patterns.num)
+        ,info: ko.observable('')//.extend(patterns.str)
     }
 };
 
@@ -71,6 +71,7 @@ viewModel.submit = function () {
         }, 'JSON')
     } else {
         alert('Проверьте правильность веденных данных.');
+console.log(viewModel.errors)        
         viewModel.errors.showAllMessages();
     }
 }
