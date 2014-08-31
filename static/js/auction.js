@@ -1,8 +1,10 @@
-viewModel.priceChanged1 = function(item) {
+viewModel.priceChanged1 = function(item, x, y) {
     item.price2(item.price1()*item.counts)
+    recalcSumm(true)
 }
 viewModel.priceChanged2 = function(item) {
     item.price1(Math.round(item.price2()/item.counts))
+    recalcSumm(true)
 }
 
 viewModel.positions = ko.observableArray()
@@ -65,8 +67,45 @@ checkChanges = function() {
         }, 'JSON')
     }, 5000)
 }
-
 checkChanges()
+
+viewModel.finish = false;
+
+if(isNaN(viewModel.start_price)) viewModel.start_price = 0
+if(isNaN(viewModel.step_price)) viewModel.step_price = 0
+else if(viewModel.step_price) {
+    viewModel.step_price *= Math.round(viewModel.start_price/100)
+}
+
+recalcSumm = function(alrt) {
+    var pos = viewModel.positions()
+        ,x
+        ,summ = 0;
+    for(var i=0;i<pos.length;i++) {
+        x = parseFloat(pos[i].price2())
+        if(!isNaN(x)) summ += x;
+    }
+    if(viewModel.start_price && summ>viewModel.start_price) {
+        if(alrt) 
+            alert('Указанная Вами цена превышает стартовую цену лота!\nИзмениете цену.')
+        viewModel.tenderIsActive(false)
+        return false;
+    }
+    if(summ>viewModel.v.price_full()) {
+        if(alrt) alert('Указанная Вами цена превышает предыдущую вашу цену этого лота!\nИзмениете цену.')
+        viewModel.tenderIsActive(false)
+        return false;
+    }
+    if(viewModel.step_price && viewModel.step_price>(viewModel.v.price_full() - summ)) {
+        if(alrt) alert('Шаг изменения цены: ' + viewModel.step_price + '. Цена может изменяться не менее чем на эту величину\nМаксимально возможная цена на текущий момент: ' + (viewModel.v.price_full() - viewModel.step_price) )
+        viewModel.tenderIsActive(false)
+        return false;
+    }
+    if(!viewModel.finish) viewModel.tenderIsActive(true)
+    return true;
+}
+
+
 
 
 /*

@@ -70,11 +70,14 @@ finalCountDown = function() {
             viewModel.finTimePhrase('До завершения торга осталось:')
             viewModel.finTime(h + ':' + m + ':' + s)
             viewModel.tenderIsActive(true)
+            viewModel.finish = false
         } else {
             viewModel.finTimePhrase('Торг завершен.')
             viewModel.finTime('')
             viewModel.tenderIsActive(false)
+            viewModel.finish = true
         }
+        if(!!window.recalcSumm) window.recalcSumm(false)
         finalCountDown()
     }, 1000)
 }

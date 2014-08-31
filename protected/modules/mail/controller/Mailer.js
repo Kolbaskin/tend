@@ -106,10 +106,11 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
     
     ,winnerLetter: function(data, cb) {
         var me = this, email;
-        
+
         [
             function(next) {
                 me.src.db.collection('gvsu_tenderbid').findOne({_id: parseInt(data.bid)}, {orgid: 1}, function(e,d) {
+
                     if(d && d.orgid)
                         next(d.orgid)
                     else
@@ -130,7 +131,7 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
             ,function(next) {
                 me.src.db.collection('gvsu_tender').findOne({_id: parseInt(data.tid)}, {}, function(e,d) {
                     if(d)
-                        next(b)
+                        next(d)
                     else
                         cb()
                 })          
@@ -161,14 +162,14 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
                 return;
             }
             var o = data.orgs[i];
-            o.warn = warn
-            me.orgStatusDay(o, function() {
+            o.warn = data.warn
+            me.orgStatusDay1(o, function() {
                 f(i+1)    
             })
         }
         f(0)
     }
-    ,orgStatusDay: function(data, cb) {
+    ,orgStatusDay1: function(data, cb) {
         var me = this;
         [
             function(next) {

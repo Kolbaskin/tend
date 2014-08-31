@@ -1,17 +1,17 @@
 {{include 'TenderInfo.tpl'}}
 
-
-
 <div class="tndr_form bid_form">
     <p><span data-bind="text: finTimePhrase"></span> <span data-bind="text: finTime"></span></p>
 <form method="post"  method="post" data-bind="submit: submit" enctype='multipart/form-data'>
     <ul class="inlined">
-		<li class="form_text">Дата начала работ</li><li class="form240"><div class="input_wrap"><input type="text" name="date_start" data-bind="value: v.date_start"></div></li>
-		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
-
-		<li class="form_text">Дата окончания работ</li><li class="form240"><div class="input_wrap"><input type="text" name="date_fin" data-bind="value: v.date_fin"></div></li>
-		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
-        
+        <tpl if="!date_workstart">
+    		<li class="form_text">Дата начала работ</li><li class="form240"><div class="input_wrap"><input type="text" name="date_start" data-bind="value: v.date_start"></div></li>
+    		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+        </tpl>    
+        <tpl if="!date_workfin">
+    		<li class="form_text">Дата окончания работ</li><li class="form240"><div class="input_wrap"><input type="text" name="date_fin" data-bind="value: v.date_fin"></div></li>
+    		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
+        </tpl>
         <tpl if="!positions">
     		<li class="form_text two_lines">Предлагаемая цена <br>за единицу</li><li class="form240"><div class="input_wrap"><input type="text" name="price_pos" data-bind="value: v.price_pos"></div></li>
     		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
@@ -72,20 +72,5 @@
 </div>
 
 <!-- Data Model -->
-<script src="/js/ko.validate.js"></script>
-<script src="/js/bid.js"></script>
-<script>
-viewModel.tenderId = '{_id}'
-viewModel.tenderLeftTime = 0;
-viewModel.v.date_start(decodeURIComponent('{bid.date_start}'))
-viewModel.v.date_fin(decodeURIComponent('{bid.date_fin}'))
-viewModel.v.price_pos(decodeURIComponent('{bid.price_pos}'))
-viewModel.v.price_full(decodeURIComponent('{bid.price_full}'))
-viewModel.v.conditions_advance(decodeURIComponent('{bid.conditions_advance}'))
-viewModel.v.max_contract_val(decodeURIComponent('{bid.max_contract_val}'))
-viewModel.v.notes(decodeURIComponent('{bid.notes}'))
-viewModel.v.file_descript(decodeURIComponent('{bid.file_descript}'))
+{{include 'DataModel.inc'}}
 
-</script>
-
-    <script src="/js/auction.js"></script>
