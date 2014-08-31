@@ -939,5 +939,5 @@ h2.folder a.tndr_btn:before {
 	left: -7px;
 }
 
-h2.folder a.tndr_btn:after {content: 'открыть';}
-h2.folder.act a.tndr_btn:after {content: 'закрыть';}
+h2.folder a.tndr_btn:after {content: 'Р Р°Р·РІРµСЂРЅСѓС‚СЊ';}
+h2.folder.act a.tndr_btn:after {content: 'РЎРІРµСЂРЅСѓС‚СЊ';}
