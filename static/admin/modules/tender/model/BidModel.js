@@ -154,4 +154,63 @@ Ext.define('Gvsu.modules.tender.model.BidModel', {
         ].runEach();
         
     }
+    
+    ,$read: function(data, cb) {
+        var me = this;
+        data.fieldSet.push('pid');       
+        [
+            function(next) {
+                me.getPermissions(function(permis) {
+                    if(permis.read)
+                        me.getData(data, function(data) {
+                            next(data, permis)    
+                        })
+                    else
+                        me.error(401)
+                })
+            }
+            
+            ,function(data, permis, next) {
+                
+                if(!data || !data.list || !data.list.length) {
+                    cb(data)
+                    return;
+                }
+                
+                if(permis.modify)
+                    cb(data)
+                else
+                    next(data)
+            }
+            
+            ,function(data, next) {
+                var ids = [];
+                data.list.each(function(d) {if(ids.indexOf(d.pid) == -1) ids.push(d.pid)})
+                me.src.db.collection('gvsu_tender').find({_id:{$in: ids}}, {date_doc: 1, _id: 1}, function(e, tends) {
+                    if(tends && tends.length) 
+                        next(data, tends)
+                    else
+                        cb(data)
+                })
+            }
+            
+            ,function(data, tends) {
+                var now = new Date();
+                tends.each(function(tend) {
+                    if(tend.date_doc > now) {
+                        data.list.each(function(item) {
+                            if(item.pid == tend._id) {
+                                item.orgname = '???'    
+                            }
+                            return item;
+                        }, true)    
+                    }
+                })
+                cb(data)
+            }
+            
+        ].runEach()
+        
+        
+    }
 })
