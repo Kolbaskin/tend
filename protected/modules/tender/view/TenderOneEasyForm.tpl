@@ -1,11 +1,10 @@
 {{include 'TenderInfo.tpl'}}
-
 <div class="tndr_form bid_form">
     <p><span data-bind="text: finTimePhrase"></span> <span data-bind="text: finTime"></span></p>
 <form method="post"  method="post" data-bind="submit: submit" enctype='multipart/form-data'>
     <ul class="inlined">
         <tpl if="!date_workstart">
-    		<li class="form_text">Дата начала работ</li><li class="form240"><div class="input_wrap"><input type="text" name="date_start" data-bind="value: v.date_start"></div></li>
+        	<li class="form_text">Дата начала работ</li><li class="form240"><div class="input_wrap"><input type="text" name="date_start" data-bind="value: v.date_start"></div></li>
     		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
         </tpl>    
         <tpl if="!date_workfin">
@@ -70,7 +69,6 @@
 	</ul>
 </form>
 </div>
-
 <!-- Data Model -->
 {{include 'DataModel.inc'}}
 
