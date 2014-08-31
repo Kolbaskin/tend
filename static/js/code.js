@@ -54,5 +54,8 @@ $(document).ready(
 			height: '274',
 			params: {menu: 'false', wmode: 'transparent'}
 		});
+		$('.folder').children().on('click',function(){
+			$(this).parent().toggleClass('act').next().slideToggle(300);
+		})
 	}
 );

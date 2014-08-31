@@ -894,3 +894,50 @@ label input {
     color: red!important;
     font-weight: bold;
 }
+
+.fold {display: none;}
+
+#tndr_left h2.folder {
+	padding: 0 0 1px 0;
+	/*color: #aabecf;*/
+	position: relative;
+	overflow: hidden;
+}
+
+/*#tndr_left h2.folder.act {color: #3e7fb2;}*/
+
+h2.folder:after {
+	content: '';
+	display: inline-block;
+	height: 2px;
+	width: 1000px;
+	background: #d2d8d1;
+	position: absolute;
+	top: 8px;
+	margin: 0 0 0 6px;
+}
+
+h2.folder a.tndr_btn {
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 11px;
+	width: 75px;
+	height: 15px;
+	line-height: 13px;
+	z-index: 4;
+}
+
+h2.folder a.tndr_btn:before {
+	content: '';
+	display: block;
+	width: 6px;
+	height: 17px;
+	background: #f2f1e1;
+	position: absolute;
+	top: 0;
+	left: -7px;
+}
+
+h2.folder a.tndr_btn:after {content: 'открыть';}
+h2.folder.act a.tndr_btn:after {content: 'закрыть';}
