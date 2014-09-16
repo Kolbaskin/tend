@@ -44,7 +44,7 @@ Ext.define('Gvsu.modules.users.view.PublUsersForm', {
             inputType: 'password',
             name: 'password',
             fieldLabel: D.t('Пароль')
-        },{
+        },/*{
             xtype: 'combo',
             name: 'org',
             fieldLabel: D.t('Организация'),
@@ -55,10 +55,10 @@ Ext.define('Gvsu.modules.users.view.PublUsersForm', {
                 dataModel: 'Gvsu.modules.orgs.model.OrgsModel',
                 fieldSet: '_id,name'
             })
-        },/*{
-            name: 'company',
-            fieldLabel: D.t('Компания')
         },*/{
+            name: 'org',
+            inputType: 'hidden'
+        },{
             name: 'email',
             fieldLabel: D.t('Email')
         },{

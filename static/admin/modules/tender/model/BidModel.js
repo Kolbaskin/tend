@@ -200,7 +200,9 @@ Ext.define('Gvsu.modules.tender.model.BidModel', {
                     if(tend.date_doc > now) {
                         data.list.each(function(item) {
                             if(item.pid == tend._id) {
-                                item.orgname = '???'    
+                                item.orgname = '???'
+                                item.price_pos = '???'
+                                item.price_full = '???'
                             }
                             return item;
                         }, true)    
