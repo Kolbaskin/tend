@@ -1,4 +1,4 @@
-TEXTS = {
+LOCALE = {
     "Gvsu-modules-distinations-model-DistinationsComboModel":"Направления (селектор)",
     "Gvsu-modules-distinations-model-DistinationsModel":"Направления работ",
     "Gvsu-modules-distinations-model-SelWorksModel":"Организации: выбранные направления",
