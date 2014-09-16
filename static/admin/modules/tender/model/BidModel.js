@@ -157,7 +157,7 @@ Ext.define('Gvsu.modules.tender.model.BidModel', {
     
     ,$read: function(data, cb) {
         var me = this;
-        data.fieldSet.push('pid');       
+        if(data && data.fieldSet) data.fieldSet.push('pid');       
         [
             function(next) {
                 me.getPermissions(function(permis) {

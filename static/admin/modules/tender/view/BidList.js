@@ -98,23 +98,27 @@ Ext.define('Gvsu.modules.tender.view.BidList', {
     
     ,buildTbar: function() {
         return [{
-            text: D.t('Add'),
-            tooltip: D.t('Add a new row'),
-            iconCls:'add',
-            action: 'add'
-        }, '-', {
-            text:D.t('Refresh'),
-            tooltip:D.t('Refresh data'),
-            iconCls:'refresh',
-            action: 'refresh'
-        },'-',{
             text: D.t('Экспорт в Excel'),
             tooltip:D.t('Экспорт текущей выборки в Excel'),
-            action: 'xls'
+            action: 'xls',
+            scale: 'medium',
+            ui: 'success'
+        },'-',{
+            text: D.t('Add'),
+            tooltip: D.t('Add a new row'),
+            //iconCls:'add',
+            action: 'add'
+        }, '-', {
+            //text:D.t('Refresh'),
+            tooltip:D.t('Reload data'),
+            //iconCls:'refresh',
+            ui: 'reload',
+            action: 'refresh'
         },'->',{
             text:D.t('Remove'),
             tooltip:D.t('Remove the selected item'),
-            iconCls:'remove',
+            //iconCls:'remove',
+            ui: 'danger',
             action: 'remove'
         }]
     }

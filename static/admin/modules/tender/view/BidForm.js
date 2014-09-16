@@ -75,6 +75,8 @@ Ext.define('Gvsu.modules.tender.view.BidForm', {
             xtype: 'datefield',
             submitFormat: 'c',
             altFormats: 'c',
+            width: 330,
+            anchor: false,
             format: D.t('d.m.Y')
         },{
             name: 'date_fin',
@@ -82,14 +84,20 @@ Ext.define('Gvsu.modules.tender.view.BidForm', {
             xtype: 'datefield',
             submitFormat: 'c',
             altFormats: 'c',
+            width: 330,
+            anchor: false,
             format: D.t('d.m.Y')
         },{
             name: 'price_pos',
             xtype: 'numberfield',
+            width: 300,
+            anchor: false,
             fieldLabel: D.t('Цена за ед.')
         },{
             name: 'price_full',
             xtype: 'numberfield',
+            width: 300,
+            anchor: false,
             fieldLabel: D.t('Полная цена')
         },{
             name: 'conditions_advance',
@@ -211,6 +219,7 @@ Ext.define('Gvsu.modules.tender.view.BidForm', {
             },{
                 xtype: 'button',
                 action: 'sendWinLetter',
+                ui: 'success',
                 text: D.t('Отправить письмо победителю')
             }]
         }
