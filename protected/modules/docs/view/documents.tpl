@@ -1,3 +1,7 @@
+<tpl if="!list">
+<h2>Перед тем как загрузить документы, заполните <a href="/cabinet/company/">профиль организации</a>.</h2>
+</tpl>
+<tpl if="list">
 <table class="tndr_table">
 <tr>
     <th>№</th>
@@ -37,3 +41,4 @@
     </tr>
 </tpl>
 </table>
+</tpl>

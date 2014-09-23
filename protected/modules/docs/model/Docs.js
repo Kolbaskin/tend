@@ -22,8 +22,11 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
             ,function(types, next) {
                 docTypes = types;
                 me.src.db.collection('gvsu_users').findOne({_id: params.auth}, {org: 1}, function(e, user) {
-                    org = user.org
-                    next()
+                    if(user && user.org) {
+                        org = user.org
+                        next()
+                    } else
+                        cb()
                 })
             }
             

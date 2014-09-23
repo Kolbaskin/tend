@@ -4,7 +4,6 @@ Ext.define('Gvsu.modules.docs.controller.Docs',{
     extend: "Core.Controller"
     
     ,docs: function(params, cb) {
-        
         var me = this;
         
         [
@@ -52,13 +51,16 @@ Ext.define('Gvsu.modules.docs.controller.Docs',{
             ,function(next) {
                 params.cookies.auth = '?'
                 me.callModel('Gvsu.modules.docs.model.Docs.list', params.cookies, function(data) {
-                    data.each(function(item) {
-                        if(item.date_add) 
-                            item.date_add = Ext.Date.format(item.date_add, 'd.m.Y')
-                        if(item.date_fin) 
-                            item.date_fin = Ext.Date.format(item.date_fin, 'd.m.Y')
-                        return item;
-                    }, true)
+                    
+                    if(data) {
+                        data.each(function(item) {
+                            if(item.date_add) 
+                                item.date_add = Ext.Date.format(item.date_add, 'd.m.Y')
+                            if(item.date_fin) 
+                                item.date_fin = Ext.Date.format(item.date_fin, 'd.m.Y')
+                            return item;
+                        }, true)
+                    }
                     me.tplApply('.documents', {list: data}, cb)
                 })
             }
