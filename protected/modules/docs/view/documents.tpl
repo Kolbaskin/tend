@@ -1,5 +1,5 @@
 <tpl if="!list">
-<h2>Перед тем как загрузить документы, заполните <a href="/cabinet/company/">профиль организации</a>.</h2>
+<p><strong>Перед тем как загрузить документы, заполните <a href="/cabinet/company/">профиль организации</a>.</strong></p>
 </tpl>
 <tpl if="list">
 <table class="tndr_table">
