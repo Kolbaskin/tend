@@ -1,6 +1,10 @@
 Ext.define('Gvsu.modules.cabinet.controller.Cabinet',{
     extend: "Core.Controller"
     
+    ,publicMethods: {
+        dashboard: 'User dashboard'
+    }
+    
     ,dashboard: function(params, cb) {
         var me = this
             ,data = {status: false, user: {}, doc_days: ''};
@@ -30,7 +34,6 @@ console.log('Dashboard');
                 me.tplApply('.cabinet', data, cb)        
             }
         ].runEach()
-        
     }
     
     

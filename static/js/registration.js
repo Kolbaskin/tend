@@ -65,18 +65,29 @@ viewModel.submit = function () {
         }
         
         $.post(API_URL, out, function(data) {
+            
             if(data && data.response) {
                 for(var i in data.response) {
                     if(!!viewModel.v[i]) {
                         viewModel.v[i]('')    
                     }
                 }
+                var mess = []
                 if(data.response.login == 'dbl') {
-                    alert('Пользователь с таким логином уже зарегистрирован. Выберите другой.')    
+                    mess.push('Пользователь с таким логином уже зарегистрирован.')    
+                } 
+                if(data.response.email == 'dbl') {
+                    mess.push('Пользователь с таким e-mail уже зарегистрирован.')    
                 }
+                if(data.response.company == 'dbl') {
+                    mess.push('Компания с таким названием уже зарегистрирована в системе.')    
+                }
+                alert(mess.join('\n'))
                 viewModel.errors.showAllMessages();
             } else {
-                alert('Регистрация завершена успешно!')    
+                alert('Регистрация завершена успешно!\nДля входя в личный кабинет, введите логин и пароль.') 
+                location = '/login/'
+                
             }
         }, 'JSON')
     } else {

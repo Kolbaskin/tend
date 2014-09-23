@@ -23,9 +23,11 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
         return {
             xtype: 'panel',
             region: 'north',
-            height: 100,
+            height: 115,
             layout: 'anchor',
             bodyStyle: 'padding: 10px;background: none;',
+            border: false,
+            bodyBorder: false,
             defaults: {
                 xtype: 'textfield',
                 labelWidth: 150
@@ -84,12 +86,15 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
             name: 'previewPanel',
             region: 'center',
             layout: 'fit',
+            border: false,
             bodyStyle: 'overflow: auto;padding: 10px;',
             tbar: [{
                 text: D.t('Печать'),
+                ui: 'inverse',
                 action: 'print'
             },'-',{
                 text: D.t('Скачать оригинал'),
+                ui: 'info',
                 action: 'download'
             }       
             ],
