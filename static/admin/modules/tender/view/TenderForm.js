@@ -101,7 +101,7 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
                 labelWidth: 250
             },{
                 name: 'file',
-                fieldLabel: D.t('Файл с тех.заданием (doc, docx, xls, xlsx)'),
+                fieldLabel: D.t('Тендерная документация'),
                 xtype: 'uploadfield',
                 labelWidth: 250,
                 width: 300,
