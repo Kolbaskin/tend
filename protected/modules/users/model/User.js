@@ -42,9 +42,13 @@ Ext.define('Gvsu.modules.users.model.User', {
                 
                 if(params.auth) find._id = {$ne: params.auth}
                 
-                me.src.db.collection('gvsu_users').findOne(find, {_id: 1}, function(e,d) {
+                me.src.db.collection('gvsu_users').findOne(find, {_id: 1, login: 1, email: 1}, function(e,d) {
                     if(d && d._id) {
-                        res.errors = {login:'dbl'}
+                        res.errors = {}
+                        
+                        if(d.login == res.values.login) res.errors.login = 'dbl'
+                        if(d.email == res.values.email) res.errors.email = 'dbl'
+                        
                         cb(res)
                     } else {
                         next()                        
@@ -68,14 +72,26 @@ Ext.define('Gvsu.modules.users.model.User', {
                 var svPass = res.values.password + ''
                 res.values.password = pass
                 res.values.activated = false
-                me.src.db.collection('gvsu_users').insert(res.values, function(e,d) {
-                    if(d && d[0] && d[0]._id) {
-                        res.values._id = d[0]._id
-                        res.values.password = svPass
-                        res.success = true
+                
+                me.checkCompany(res.values, function(org) {
+                    
+                    if(org) {
+                        res.values.org = org
+                        me.src.db.collection('gvsu_users').insert(res.values, function(e,d) {
+                            if(d && d[0] && d[0]._id) {
+                                res.values._id = d[0]._id
+                                res.values.password = svPass
+                                res.success = true                       
+                            }
+                            cb(res)
+                        })   
+                    } else {
+                        res.errors = {company:'dbl'}
+                        res.success = false
+                        res.values = null
+                        cb(res)    
                     }
-                    cb(res)
-                })    
+                })
             }
             ,function(next) {
                 me.src.db.collection('gvsu_users').update({_id: params.auth}, {$set:res.values}, function(e,d) {
@@ -91,6 +107,21 @@ Ext.define('Gvsu.modules.users.model.User', {
             }
             
         ].runEach()
+    }
+    
+    ,checkCompany: function(data, cb) {
+        var me = this;
+        me.src.db.collection('gvsu_orgs').findOne({name: data.company}, {_id:1}, function(e,d) {
+            if(d && d._id) cb(0)
+            else {
+                me.src.db.collection('gvsu_orgs').insert({name: data.company}, function(e,d) {
+                    if(d && d[0] && d[0]._id) 
+                        cb(d[0]._id)
+                    else
+                        cb(0)
+                })
+            }
+        })    
     }
     
     ,activate: function(params, cb) {
