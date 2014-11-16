@@ -2,6 +2,7 @@
 <html>
     <head>
     <title>{[values.metatitle? values.metatitle:values.name]}</title>
+    <meta http-equiv="Cache-Control" content="no-cache">
     <script src="/js/ko.js"></script>
     </head>
 

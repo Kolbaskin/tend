@@ -37,5 +37,18 @@
         <td width="114">Стартовая цена</td>
     	<td>{start_price}</td>
     </tr>
-</tpl>    
+</tpl>  
+<tpl if="file">
+    <tr>
+        <td width="114">Тендерная документация</td>
+        <td><a href="/Admin.Data.getFile/?name={file.name}&file={file.file}">{file.name}</a></td>
+    </tr>
+</tpl> 
+
+<tpl if="filelink">
+    <tr>
+        <td width="114">Тендерная документация</td>
+        <td><a href="{filelink}">скачать</a></td>
+    </tr>
+</tpl>  
 </table>

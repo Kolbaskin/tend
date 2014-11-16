@@ -23,8 +23,8 @@ ko.validation.configure({
 
 var viewModel = {
     v:{
-        date_start: ko.observable('').extend({ required: {message: mess.req}})
-        ,date_fin: ko.observable('').extend({ required: {message: mess.req}})
+        date_start: ko.observable('')//.extend({ required: {message: mess.req}})
+        ,date_fin: ko.observable('')//.extend({ required: {message: mess.req}})
         ,price_pos: ko.observable('')
         ,price_full: ko.observable('')
         ,conditions_advance: ko.observable('')

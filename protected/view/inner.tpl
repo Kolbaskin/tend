@@ -1,8 +1,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>ОАО ХК ГВСУ «Центр» - Тендеры - {[values.metatitle? values.metatitle:values.name]}</title>
+	<title>АО ХК ГВСУ «Центр» - Тендеры - {[values.metatitle? values.metatitle:values.name]}</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta http-equiv="Cache-Control" content="no-cache">
 	<meta name="keywords" content="">
 	<meta name="description" content="">
 	<meta http-equiv="imagetoolbar" content="no">
@@ -132,7 +133,7 @@
 <div id="shame_line"></div>
 <div id="footer_in">
 	<div id="btm_info"><span>Контактная информация:</span> Россия, 109147, г. Москва, ул. Воронцовская, д. 21А, стр. 1<br>Тел: +7 (495) 912-31-00</div>
-	<div id="copyright">&copy; 1998—2010<br>ОАО Холдинговая компания «ГВСУ «Центр»<br><a href="http://www.statpro.ru" target="_blank">Разработка сайта</a>: <img src="/images/statpro.gif" width="11" height="8" alt=""> Статпро</div>
+	<div id="copyright">&copy; 1998—2010<br>АО Холдинговая компания «ГВСУ «Центр»<br><a href="http://www.statpro.ru" target="_blank">Разработка сайта</a>: <img src="/images/statpro.gif" width="11" height="8" alt=""> Статпро</div>
 	<div id="counter"></div>
 </div>
 </div><!--/footer -->

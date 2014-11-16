@@ -61,6 +61,11 @@ Ext.define('Gvsu.modules.tender.controller.Tender',{
             }
             
             ,function(data, next) {
+                if(!data || !data.date_doc) {
+                    cb()
+                    return;
+                    
+                }
                 data.date_doc = Ext.Date.format(data.date_doc, 'd.m.Y')
                 data.status = 1;
                 if(data.date_fin < new Date()) data.status = 2;
@@ -79,7 +84,7 @@ Ext.define('Gvsu.modules.tender.controller.Tender',{
             }
             
             ,function(data, next) {
-                if(params.gpc.date_start && data.allowed)
+                if(params.gpc.max_contract_val && data.allowed)
                     me.callModel('.TenderPubl.saveBid', params, function(bidData) {
                         data.bid = bidData
                         next(data)

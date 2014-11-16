@@ -56,6 +56,16 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
                 })
                 .sort({date_doc: 1})
                 .toArray(function(e, data) {
+                    
+                    data.each(function(r) {
+                        if(r.file) {
+                            try {
+                                r.file = JSON.parse(r.file)    
+                            } catch(e) {}
+                        }
+                        return r;
+                    }, true)
+                    
                     if(data && data.length) next(data)
                     else cb([])
                 })
@@ -140,6 +150,13 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
             
             // Выберем предметы активных тендеров
             ,function(data, next) {
+                
+                if(data.file) {
+                    try {
+                        data.file = JSON.parse(data.file)    
+                    } catch(e) {}
+                }
+                
                 me.src.db.collection('gvsu_tendersubj').find({pid: data._id}, {_id: 1, object: 1, dist: 1})
                 .sort({indx: 1})
                 .toArray(function(e, subjects) {
@@ -221,7 +238,7 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
              // проверим наличие необходимых направлений
              ,function(next) {
                  me.src.db.collection('gvsu_worksorg').find({pid: params.user.org, status: 2}, {workid: 1}).toArray(function(e, works) {
-                     allowedWorks = []
+                     var allowedWorks = []
                      works.each(function(work) {
                          allowedWorks.push(work.workid)   
                      })
