@@ -97,9 +97,8 @@ Ext.define('Gvsu.modules.tender.controller.Tender',{
             }
             
             // Поищем готовую заявку этой организации на этот тендер
-            ,function(data, saved, next) {
+            ,function(data, next) {
                 if(data.allowed) {
-                    
                     me.callModel('.TenderPubl.getMyBid', {
                         tender: data._id,
                         org: params.pageData.user.org
@@ -110,11 +109,13 @@ Ext.define('Gvsu.modules.tender.controller.Tender',{
                             data.bid.date_start = Ext.Date.format(bid.date_start, 'Y-m-d')
                             data.bid.date_fin = Ext.Date.format(bid.date_fin, 'Y-m-d')
                             me.tplApply('.TenderOneEasyForm', data, cb)
-                        } else
+                        } else {
                             next(data)
+                        }
                     })
-                } else
+                } else {
                     next(data)
+                }
             }
             
             ,function(data) {
