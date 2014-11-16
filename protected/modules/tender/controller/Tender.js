@@ -87,14 +87,17 @@ Ext.define('Gvsu.modules.tender.controller.Tender',{
                 if(params.gpc.max_contract_val && data.allowed)
                     me.callModel('.TenderPubl.saveBid', params, function(bidData) {
                         data.bid = bidData
+                        data.saved = true
                         next(data)
                     })
-                else 
+                else {
+                    data.saved = false
                     next(data)
+                }
             }
             
             // Поищем готовую заявку этой организации на этот тендер
-            ,function(data, next) {
+            ,function(data, saved, next) {
                 if(data.allowed) {
                     
                     me.callModel('.TenderPubl.getMyBid', {

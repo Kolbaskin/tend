@@ -799,7 +799,7 @@ label input {
 
 .tndr_form li.form_alert {
 	width: 145px;
-	font-size: 11px !important;
+	font-size: 14px !important;
 	color: #c22f3d;
 	line-height: 1;
 }
@@ -941,3 +941,9 @@ h2.folder a.tndr_btn:before {
 
 h2.folder a.tndr_btn:after {content: 'Развернуть';}
 h2.folder.act a.tndr_btn:after {content: 'Свернуть';}
+
+.green {
+    font-weight: 'bold';
+    font-size: 16px;
+    color: green;
+}

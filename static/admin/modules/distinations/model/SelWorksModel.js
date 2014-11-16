@@ -31,4 +31,24 @@ Ext.define('Gvsu.modules.distinations.model.SelWorksModel', {
         editable: true,
         visable: true
     }]
+    
+    ,acceptAll: function(params) {
+        this.runOnServer('acceptAll', params, function() {})    
+    }
+    
+    ,$acceptAll: function(params) {
+        var me = this;
+        me.getPermissions(function(permis) {
+            if(permis.modify) {
+                me.src.db.fieldTypes.ObjectID.StringToValue(params.parentCode, function(pid) {
+                    me.src.db.collection(me.collection).update({pid: pid}, {$set: {status: 2}}, function() {
+                        me.changeModelData(Object.getPrototypeOf(me).$className, 'ins', {})
+                    })
+                })
+                console.log(params)
+            }
+            else
+                me.error(401)
+        })    
+    }
 })

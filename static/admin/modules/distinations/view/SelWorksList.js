@@ -38,4 +38,33 @@ Ext.define('Gvsu.modules.distinations.view.SelWorksList', {
         }]        
     }
     
+    ,buildTbar: function() {
+        return [{
+            text: D.t('Add'),
+            tooltip: D.t('Add a new row'),
+            scale: 'medium',
+            ui: 'success',
+            action: 'add'
+        }, '-', {
+            //text:D.t('Reload'),
+            tooltip:D.t('Reload data'),
+            ui: 'reload',
+            //scale: 'medium',
+            //iconCls:'refresh',
+            action: 'refresh'
+        }, '-', {
+            text:D.t('Одобрить все'),
+            //tooltip:D.t('Reload data'),
+            //ui: 'reload',
+            //scale: 'medium',
+            //iconCls:'refresh',
+            action: 'acceptall'
+        },'->',{
+            //text:D.t('Remove'),
+            tooltip:D.t('Remove selected items'),
+            ui:'remove',
+            action: 'remove'
+        }]
+    }
+    
 })

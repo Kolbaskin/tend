@@ -13,5 +13,21 @@ Ext.define('Gvsu.modules.distinations.controller.SelWorks', {
         iconCls:'distinations'        
     }
     
+    ,addControls: function(win) {
+        var me = this
+
+        me.control(win,{
+            "[action=acceptall]": {click: function() {me.acceptAll(win)}}
+        })
+        me.callParent(arguments)
+    }
+    
+    ,acceptAll: function() {
+        
+        if(this.parentParams) {
+            this.model.acceptAll(this.parentParams)    
+        }
+    }
+    
 });
 

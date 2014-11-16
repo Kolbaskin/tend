@@ -1,5 +1,9 @@
 <h2>{name}</h2>
 
+<tpl if="saved">
+    <p class="green">Заявка отправлена!</p>
+</tpl>
+
 <table class="tndr_table">
 <tr>
     <td width="114">Номер тендера</td>
@@ -38,6 +42,14 @@
     	<td>{start_price}</td>
     </tr>
 </tpl>  
+
+<tpl if="descript">
+    <tr>
+        <td width="114">Описание</td>
+        <td>{descript}</td>
+    </tr>
+</tpl>  
+
 <tpl if="file">
     <tr>
         <td width="114">Тендерная документация</td>
