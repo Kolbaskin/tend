@@ -18,7 +18,8 @@ Ext.define('Gvsu.modules.tender.view.BidList', {
         
         var setDateStyle = function(v,m,r) {
             m.tdCls = (r.data.status? '':'graycell')
-            return Ext.Date.format(new Date(v), D.t('d.m.Y'));
+            if(v && (v+'').substr(0,3) != '000') return Ext.Date.format(new Date(v), D.t('d.m.Y'));
+            return '';
         }
         
         return [

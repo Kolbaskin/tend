@@ -288,6 +288,7 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
                     ,notes: params.gpc.notes
                     ,file_descript: params.gpc.file_descript     
                 }
+
                 if(params.files && params.files.file)
                     bid.file_name = params.files.file.name
                 if(params.files && params.files.file1)

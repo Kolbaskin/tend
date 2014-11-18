@@ -26,7 +26,7 @@
 		<li class="form_text two_lines">Максимальная стоимость договора, указанная в СРО</li><li class="form240"><div class="input_wrap"><input type="text" name="max_contract_val" data-bind="value: v.max_contract_val"></div></li>
 		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
 
-		<li class="form_text">Примечание</li><li class="form240"><div class="input_wrap"><textarea name="notes" data-bind="value: v.notes"></textarea></div></li>
+		<li class="form_text">2Примечание</li><li class="form240"><div class="input_wrap"><textarea name="notes" data-bind="value: v.notes"></textarea></div></li>
 		<li class="form_alert" style="display: none;">Обязательное поле</li><br>
         
         <li class="form_text">Описание файла</li><li class="form240"><div class="input_wrap"><textarea name="file_descript" data-bind="value: v.file_descript"></textarea></div></li>

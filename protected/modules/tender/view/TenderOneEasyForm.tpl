@@ -1,4 +1,5 @@
 {{include 'TenderInfo.tpl'}}
+
 <div class="tndr_form bid_form">
     <p><span data-bind="text: finTimePhrase"></span> <span data-bind="text: finTime"></span></p>
 <form method="post"  method="post" data-bind="submit: submit" enctype='multipart/form-data'>

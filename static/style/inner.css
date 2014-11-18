@@ -944,6 +944,11 @@ h2.folder.act a.tndr_btn:after {content: 'Свернуть';}
 
 .green {
     font-weight: 'bold';
-    font-size: 16px;
+    font-size: 20px;
     color: green;
+}
+
+.form_alert, .validationMessage {	
+	color: red;
+	font-size: 14px;
 }

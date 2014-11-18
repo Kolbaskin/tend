@@ -72,21 +72,29 @@ Ext.define('Gvsu.modules.tender.controller.Bid', {
     }
     
     ,downloadDoc: function(form, n) {
+		  if(n === undefined) return;     
         var me = this
             ,doc = form.down('[name=_id]').value
             ,id = localStorage.getItem('uid')
             ,token = localStorage.getItem('token')
-            ,fn = form.down('[name=file'+n+'_name]').value;
-        
+            ,fn = form.down('[name=file'+n+'_name]').getValue();
+      
         if(doc) 
            location = '/Gvsu.modules.docs.controller.Docs.getDocSrc/?doc=bid'+n+'-' + doc + '&id='+id+'&token='+token+'&fn='+encodeURIComponent(fn)
     }
     
     ,createXls: function(win) {
 //console.log('win:', win)  
-        //var me = this
+        var me = this
         //    ,store = win.store
-      
+        if(me.parentParams) {
+            if(!win.store.filters) win.store.filters = {items:[]}   
+            win.store.filters.items.push({
+					property: me.parentParams.parentField,
+					value:  me.parentParams.parentCode,
+					operator: 'eq'            
+            })     
+        }
         this.model.exportData(win.store.filters)
         
     }
