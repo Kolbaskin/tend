@@ -51,7 +51,7 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
         visable: true
     },{
         name: 'avance_comp',
-        type: 'int',
+        type: 'string',
         editable: true,
         filterable: true,
         visable: true
@@ -126,17 +126,24 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
         editable: true,
         filterable: false,
         visable: true
+    },{
+        name: 'sent',
+        type: 'boolean',
+        editable: true,
+        filterable: false,
+        visable: true
     }
     ]
     
     ,sendMessages: function() {
         var me = this;
+			console.log('Start sending:');        
         [
             function(next) {
                 me.src.db.collection(me.collection).find({
                     publ: 1, 
-                    inv_date:{$lte:Ext.Date.format(new Date(),'c')}, 
-                    sent: {$is: null}
+                    inv_date:{$lte:Ext.Date.format(new Date(),'c')} 
+                    ,sent: {$is: null}
                 }, {})
                 .toArray(function(e, tenders) {
                     if(tenders && tenders.length) {
@@ -162,6 +169,15 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
     
     ,sendMess2Users: function(tenders, cb) {
         var me = this;
+
+        var insEmail = function(emails, r) {
+        	if(r.email) {
+        		var x = r.email.replace(/;/g,',').split(',')
+        		x.forEach(function(e) {
+        			if(emails.indexOf(e.email) == -1) emails.push(e)
+        		})
+        	}
+        }        
         
         var func = function(i) {
             if(i>=tenders.length) {
@@ -198,14 +214,35 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
                         else
                             find = {_id:{$in: orgs}}
                     }
-                    me.src.db.collection('gvsu_orgs').find(find, {}).toArray(function(e, users) {
-                        if(users && users.length) {
-                            me.callModel('Gvsu.modules.mail.controller.Mailer.newTenderMessage', {
-                                tender: tenders[i],
-                                users: users
-                            }, function() {
-                                func(i+1)    
-                            })
+                    
+                      
+                    me.src.db.collection('gvsu_orgs').find(find, {email: 1}).toArray(function(e, orgs) {
+                        if(orgs && orgs.length) {
+
+									var emails = []
+									orgs.forEach(function(o) {
+										insEmail(emails, o)
+								   })
+									                        	
+                        	             	
+                        	me.src.db.collection('gvsu_users').find({org: {$in: orgs}}, {email: 1}).toArray(function(e, users) {
+                        		if(users) {
+	                        		users.forEach(function(o) {
+												insEmail(emails, o)
+										   })
+										}
+                        		
+                        	
+                        
+	                            me.callModel('Gvsu.modules.mail.controller.Mailer.newTenderMessage', {
+	                                tender: tenders[i],
+	                                users: emails
+	                            }, function() {
+	                                func(i+1)    
+	                            })
+	                            
+	                            
+	                        })
                         } else func(i+1)
                     })
                 }

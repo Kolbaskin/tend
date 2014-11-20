@@ -4,7 +4,8 @@ Ext.define('Gvsu.modules.distinations.view.SelWorksList', {
     extend: 'Core.grid.GridWindow',
     
     //filterable: true,
-    sortManually: true,
+    filterbar: true,
+    //sortManually: true,
     
     requires: ['Core.grid.ComboColumn'],
     
@@ -26,7 +27,17 @@ Ext.define('Gvsu.modules.distinations.view.SelWorksList', {
             text: D.t("Вид работ"),
             model: 'Gvsu.modules.distinations.model.WorksModel',
             guideKeyField: '_id',
-            guideValueField: 'name'
+            guideValueField: 'name',
+            filter: {
+           		xtype: 'combo',
+           		valueField: '_id',
+        			displayField: 'name',
+        			queryMode: 'local',
+           		store: Ext.create('Core.data.ComboStore',{
+                   dataModel: 'Gvsu.modules.distinations.model.WorksModel',
+                   fieldSet: '_id,name'
+               })
+            }
         },{
             text: D.t("Статус"),
             width: 100,

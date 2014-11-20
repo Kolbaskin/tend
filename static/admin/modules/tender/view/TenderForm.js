@@ -51,6 +51,11 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
                 uncheckedValue: 0,
                 fieldLabel: D.t('Публиковать')
             },{
+                name: 'sent',
+                xtype: 'checkbox',
+                uncheckedValue: 0,
+                fieldLabel: D.t('Рассылка уведомлений производилась')
+            },{
                 name: 'name',
                 fieldLabel: D.t('Название')
             },
@@ -60,7 +65,7 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
             {
                 name: 'avance_comp',
                 fieldLabel: D.t('Условия авансирования (%)'),
-                xtype: 'numberfield',
+                xtype: 'textfield',
                 labelWidth: 250,
                 width: 350
             },{

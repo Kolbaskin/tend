@@ -8,8 +8,6 @@ Ext.define('Gvsu.modules.cabinet.controller.Cabinet',{
     ,dashboard: function(params, cb) {
         var me = this
             ,data = {status: false, user: {}, doc_days: ''};
-
-console.log('Dashboard');
             
         [
             // Getting user profile

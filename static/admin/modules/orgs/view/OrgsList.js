@@ -15,6 +15,13 @@ Ext.define('Gvsu.modules.orgs.view.OrgsList', {
         
         return [
             {
+                text: D.t("ID"),
+                width: 50,
+                sortable: true,
+                filter: true,
+                dataIndex: '_id',
+                renderer: setStyle
+            },{
                 text: D.t("Название"),
                 flex: 1,
                 sortable: true,

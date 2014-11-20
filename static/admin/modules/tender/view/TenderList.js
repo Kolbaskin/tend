@@ -60,7 +60,16 @@ Ext.define('Gvsu.modules.tender.view.TenderList', {
                 renderer: function(v) {
                     return v? 'опубликован':''    
                 }
-            } 
+            },{
+                text: D.t("Рассылка"),
+                width: 100,
+                sortable: true,
+                filter: true,
+                dataIndex: 'sent',
+                renderer: function(v) {
+                    return v? 'была':''    
+                }
+            }  
         ]        
     }
 })

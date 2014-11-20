@@ -85,10 +85,12 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
                         if(!!cb) cb()
                         return;    
                     }
-                    //console.log('Tender ', data.name, ' sent to ',data.users[i].email)
+                    console.log('Tender ', data.tender.name, ' sent to ',data.users[i])
+      
+                    
                     var mess = {
                         from: me.config.messages.activateMailFrom,
-                        to: data.users[i].email,
+                        to: data.users[i],
                         subject: 'ГВСУ-Центр сообщает о новом тендере',
                         html: html
                     }

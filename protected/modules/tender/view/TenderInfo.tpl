@@ -43,6 +43,13 @@
     </tr>
 </tpl>  
 
+<tpl if="avance_comp">
+    <tr>
+        <td width="114">Условия авансирования</td>
+        <td>{avance_comp}</td>
+    </tr>
+</tpl>
+
 <tpl if="descript">
     <tr>
         <td width="114">Описание</td>

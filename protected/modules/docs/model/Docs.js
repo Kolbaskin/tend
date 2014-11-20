@@ -422,10 +422,7 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
                     cb(null)
             }
             ,function(next) {
-                me.src.db.collection('gvsu_userdocs').find({uid: params.auth, status: 2}, {date_fin: 1})
-                .sort({date_fin: 1})
-                .limit(1)
-                .toArray(function(e,d) {
+                me.src.db.conn.query("SELECT date_fin FROM gvsu_userdocs WHERE uid=" + params.auth + " and status='2' and date_fin != date_add and doc_type in (SELECT _id FROM gvsu_docstypes WHERE removed != '1' and duration!=0)",{}, function(e, d) {
                     if(d && d[0]) next(d[0].date_fin)
                     else cb(null)
                 })
