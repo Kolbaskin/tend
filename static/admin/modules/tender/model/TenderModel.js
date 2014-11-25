@@ -137,7 +137,7 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
     
     ,sendMessages: function() {
         var me = this;
-			console.log('Start sending:');        
+console.log('Start sending:');        
         [
             function(next) {
                 me.src.db.collection(me.collection).find({
@@ -146,6 +146,8 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
                     ,$or: [{sent: {$is: null}}, {sent: 0}, {sent: ''}]
                 }, {})
                 .toArray(function(e, tenders) {
+console.log('e:', e) 
+console.log('tenders.length:', tenders.length) 
                     if(tenders && tenders.length) {
                         me.sendMess2Users(tenders, function() {
                             next(tenders)    
@@ -156,13 +158,16 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
             ,function(tenders) {
                 var ids = []
                 tenders.each(function(t) {ids.push(t._id)})
+                
+                console.log('ids:', ids)
+                
                 me.src.db.collection(me.collection).update({
                     _id: {$in: ids}
                 },{ 
                     sent: 1
-                }, function() {
-                    
-                    })
+                }, function(e,d) {
+console.log('e1:', e)                    
+                })
             }
         ].runEach()
     }
@@ -178,7 +183,7 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
         		})
         	}
         }        
-        
+console.log('count:', tenders.length)        
         var func = function(i) {
             if(i>=tenders.length) {
                 cb()
@@ -188,12 +193,15 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
             
             [
                 function(next) {
+console.log(1)  
                     if(tenders[i].inv_sro) {
                         find.sro = {$gte: tenders[i].inv_sro}    
                     }
                     next()
                 }
                 ,function(next) {
+console.log(2)                
+                
                     if(tenders[i].inv_dir) {
                         me.getOrgsByDir(tenders[i], function(items) {
                             if(items) find._id = {$in: items}
@@ -202,12 +210,14 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
                     } else next()
                 }
                 ,function(next) {
+console.log(3)
                     if(tenders[i].inv_orgs) {
                         orgs = tenders[i].inv_orgs.split(',')  
                     }
                     next()    
                 }
                 ,function(next) {
+console.log('orgs ids:', orgs)
                     if(orgs) {
                         if(Object.keys(find).length)
                             find = {$or: [find, {_id:{$in: orgs}}]}
@@ -217,6 +227,7 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
                     
                       
                     me.src.db.collection('gvsu_orgs').find(find, {email: 1}).toArray(function(e, orgs) {
+console.log('orgs emails:', orgs)                        
                         if(orgs && orgs.length) {
 
 									var emails = []
@@ -227,13 +238,11 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
                         	             	
                         	me.src.db.collection('gvsu_users').find({org: {$in: orgs}}, {email: 1}).toArray(function(e, users) {
                         		if(users) {
-	                        		users.forEach(function(o) {
-												insEmail(emails, o)
-										   })
-										}
-                        		
-                        	
-                        
+                    		            users.forEach(function(o) {
+										insEmail(emails, o)
+								   })
+								}
+console.log('To mail model')
 	                            me.callModel('Gvsu.modules.mail.controller.Mailer.newTenderMessage', {
 	                                tender: tenders[i],
 	                                users: emails
