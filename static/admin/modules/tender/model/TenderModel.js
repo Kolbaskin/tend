@@ -143,7 +143,7 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
                 me.src.db.collection(me.collection).find({
                     publ: 1, 
                     inv_date:{$lte:Ext.Date.format(new Date(),'c')} 
-                    ,sent: {$is: null}
+                    ,$or: [{sent: {$is: null}}, {sent: 0}, {sent: ''}]
                 }, {})
                 .toArray(function(e, tenders) {
                     if(tenders && tenders.length) {
@@ -290,7 +290,7 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
         ].runEach()
     }
     
-    /*
+    /* 123
     ,beforeSave: function(data, cb) {
         var me = this;
         
