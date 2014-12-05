@@ -66,7 +66,8 @@ Ext.define('Gvsu.modules.tender.controller.Tender',{
                     return;
                     
                 }
-                data.date_doc = Ext.Date.format(data.date_doc, 'd.m.Y')
+                data.date_doc = Ext.Date.format(data.date_doc, 'd.m.Y H:i')
+                data.curTime = (new Date()).getTime()
                 data.status = 1;
                 if(data.date_fin < new Date()) data.status = 2;
                 next(data)

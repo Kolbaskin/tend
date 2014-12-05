@@ -250,10 +250,12 @@ Ext.define('Gvsu.modules.tender.view.TenderForm', {
             },{
                 xtype: 'checkbox',
                 name: 'inv_sro',
+                uncheckedValue: 0,
                 fieldLabel: D.t('Всех с подходящим СРО')
             },{
                 xtype: 'checkbox',
                 name: 'inv_dir',
+                uncheckedValue: 0,
                 fieldLabel: D.t('Всех по направлениям')
             },{
                 xtype: 'label',

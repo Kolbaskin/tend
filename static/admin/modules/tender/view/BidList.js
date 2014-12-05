@@ -24,6 +24,13 @@ Ext.define('Gvsu.modules.tender.view.BidList', {
         
         return [
                 {
+                    text: D.t("Тендер"),
+                    width: 55,
+                    sortable: true,
+                    dataIndex: 'pid',
+                    filter: true,
+                    renderer: setStyle
+                },{
                     text: D.t("Организация"),
                     flex: 1,
                     sortable: true,

@@ -146,8 +146,6 @@ console.log('Start sending:');
                     ,$or: [{sent: {$is: null}}, {sent: 0}, {sent: ''}]
                 }, {})
                 .toArray(function(e, tenders) {
-console.log('e:', e) 
-console.log('tenders.length:', tenders.length) 
                     if(tenders && tenders.length) {
                         me.sendMess2Users(tenders, function() {
                             next(tenders)    
@@ -166,7 +164,6 @@ console.log('tenders.length:', tenders.length)
                 },{ 
                     sent: 1
                 }, function(e,d) {
-console.log('e1:', e)                    
                 })
             }
         ].runEach()
@@ -183,7 +180,6 @@ console.log('e1:', e)
         		})
         	}
         }        
-console.log('count:', tenders.length)        
         var func = function(i) {
             if(i>=tenders.length) {
                 cb()
@@ -193,14 +189,12 @@ console.log('count:', tenders.length)
             
             [
                 function(next) {
-console.log(1)  
                     if(tenders[i].inv_sro) {
                         find.sro = {$gte: tenders[i].inv_sro}    
                     }
                     next()
                 }
                 ,function(next) {
-console.log(2)                
                 
                     if(tenders[i].inv_dir) {
                         me.getOrgsByDir(tenders[i], function(items) {
@@ -210,14 +204,12 @@ console.log(2)
                     } else next()
                 }
                 ,function(next) {
-console.log(3)
                     if(tenders[i].inv_orgs) {
                         orgs = tenders[i].inv_orgs.split(',')  
                     }
                     next()    
                 }
                 ,function(next) {
-console.log('orgs ids:', orgs)
                     if(orgs) {
                         if(Object.keys(find).length)
                             find = {$or: [find, {_id:{$in: orgs}}]}
@@ -227,7 +219,6 @@ console.log('orgs ids:', orgs)
                     
                       
                     me.src.db.collection('gvsu_orgs').find(find, {email: 1}).toArray(function(e, orgs) {
-console.log('orgs emails:', orgs)                        
                         if(orgs && orgs.length) {
 
 									var emails = []
@@ -242,7 +233,6 @@ console.log('orgs emails:', orgs)
 										insEmail(emails, o)
 								   })
 								}
-console.log('To mail model')
 	                            me.callModel('Gvsu.modules.mail.controller.Mailer.newTenderMessage', {
 	                                tender: tenders[i],
 	                                users: emails

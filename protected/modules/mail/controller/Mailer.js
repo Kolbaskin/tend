@@ -97,13 +97,27 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
                     if(file) {
                         mess.attachments = [file]
                     }
-                    me.src.mailTransport.sendMail(mess, function() {
+                    me.src.mailTransport.sendMail(mess, function(e,d) {
+
                         f(i+1)    
                     })
                 }
                 f(0)
             }
         ].runEach()
+    }
+    
+    ,$testMail: function(data, cb) {
+        var me = this;
+        var mess = {
+            from: me.config.messages.activateMailFrom,
+            to: 'maximtushev@gmail.com',
+            subject: 'ГВСУ-Центр тест',
+            html: 'blah-blah-blah'
+        }
+        me.src.mailTransport.sendMail(mess, function(e) {
+            me.sendHTML('error:' + (e? JSON.stringify(e):''))    
+        })
     }
     
     ,winnerLetter: function(data, cb) {

@@ -1,3 +1,4 @@
+<script src="/js/tender_info.js"></script>
 <h2>{name}</h2>
 
 <tpl if="saved">
@@ -34,7 +35,7 @@
 </tr>
 <tr>
 	<td width="114">Дата окончания приема заявок</td>
-	<td>{date_doc}</td>
+	<td>{date_doc} <span id="curTime" data="{curTime}"></span></td>
 </tr>
 <tpl if="start_price">
     <tr>

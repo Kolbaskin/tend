@@ -16,6 +16,7 @@ Ext.define('Gvsu.modules.orgs.model.OrgsModel', {
     },{
         name: 'name',
         type: 'string',
+        sort: 1,
         filterable: true,
         unique: true,
         editable: true,

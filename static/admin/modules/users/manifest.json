@@ -1,0 +1,6 @@
+{ 
+    "name": "My Users", 
+    "iconCls": "users", 
+    "module": "users", 
+    "controller": "Desktop.modules.users.controller.Main" 
+}
