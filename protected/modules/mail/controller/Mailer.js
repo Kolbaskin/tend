@@ -218,7 +218,7 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
                 var mess = {
                     from: me.config.messages.activateMailFrom,
                     to: data.email,
-                    subject: 'Востановление пароля на сайте ГВСУ-Центра.',
+                    subject: 'Восстановление пароля на сайте ГВСУ-Центра.',
                     html: html
                 }
                 

@@ -65,7 +65,7 @@
     <tpl if="remind">
         <script type="text/javascript" src="/js/remind.js"></script>
         <div class="tndr_form login_form" id="remindform">
-        <h2>Востановление пароля</h2>
+        <h2>Восстановление пароля</h2>
         <form onsubmit="return false;">
             <ul class="inlined">
             	<li class="form_text">E-mail</li><li class="form180"><div class="input_wrap"><input id="remail" type="text" value="" /></div></li><li><a href="./">Авторизация</a></li><br>

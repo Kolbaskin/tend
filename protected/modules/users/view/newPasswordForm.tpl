@@ -1,5 +1,5 @@
 <div class="tndr_form login_form">
-<h2>Востановление пароля</h2>
+<h2>Восстановление пароля</h2>
 
 <tpl if="!success">
     <form method="post">
