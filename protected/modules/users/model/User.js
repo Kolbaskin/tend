@@ -95,8 +95,11 @@ Ext.define('Gvsu.modules.users.model.User', {
             }
             ,function(next) {
                 me.src.db.collection('gvsu_users').update({_id: params.auth}, {$set:res.values}, function(e,d) {
-                    res.success = true
-                    next(res)
+                    if(d) {
+                        res.success = true
+                        next(res)
+                    } else
+                        cb({success: false})
                 })
             }
             
@@ -200,5 +203,59 @@ Ext.define('Gvsu.modules.users.model.User', {
             });
         } else 
             cb(null);    
+    }
+    
+    ,remind: function(params, cb) {
+        var me = this;
+    
+        [
+            function(next) {
+                me.src.db.collection("gvsu_users").findOne({email: params.email}, {_id: 1, login: 1}, function(e,d) {
+                    if(!d)
+                        cb({success: false})
+                    else
+                        next(d)
+                })
+            }
+            
+            ,function(user, next) {
+                var code = Math.random()
+                me.src.db.collection("gvsu_users").update({_id: user._id}, {$set: {remindcode: code}}, function() {
+                    next(code, user)    
+                })
+            }
+            
+            ,function(code, user) {
+                me.callModel('Gvsu.modules.mail.controller.Mailer.remaindPassword', {
+                    code: code,
+                    _id: user._id,
+                    login: user.login,
+                    email: params.email 
+                }, function() {
+                    cb({success: true})
+                })
+            }
+        ].runEach()
+    }
+    
+    ,saveNewPassword: function(data, cb) {
+        var me = this;
+        
+        [
+            function(next) {
+                me.passwordField.getValueToSave(data.pass, function(pass) {
+                    next(pass)
+                })
+            }
+            ,function(pass, next) {
+                me.src.db.collection('gvsu_users').update({_id: data._id, remindcode: data.code}, {$set: {password: pass, remindcode: null}}, function(e, d) {
+                    if(d)
+                        cb({success: true}) 
+                    else
+                        cb({success: false})
+                })   
+            }
+            
+        ].runEach()
     }
 })

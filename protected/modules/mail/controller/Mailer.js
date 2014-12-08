@@ -205,4 +205,31 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
         ].runEach()
     }
     
+    ,remaindPassword: function(data, cb) {
+        var me = this;
+        [
+            function(next) {
+                me.tplApply('.remindPassword', data, next);
+            }
+            ,function(html) {
+                
+                
+                
+                var mess = {
+                    from: me.config.messages.activateMailFrom,
+                    to: data.email,
+                    subject: 'Востановление пароля на сайте ГВСУ-Центра.',
+                    html: html
+                }
+                
+                
+                //console.log('send-to:', mess)
+                
+                me.src.mailTransport.sendMail(mess, function() {
+                    cb()    
+                })
+            }
+        ].runEach()
+    }
+    
 });

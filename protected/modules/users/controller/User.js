@@ -73,7 +73,7 @@ Ext.define('Gvsu.modules.users.controller.User',{
             }
             
             ,function() {
-                me.tplApply('.loginForm', {success: false}, cb)
+                me.tplApply('.loginForm', {success: false, remind: (params.gpc.remind === '')}, cb)
             }
             
         ].runEach()
@@ -110,8 +110,31 @@ Ext.define('Gvsu.modules.users.controller.User',{
             me.params.gpc.auth = '?'
             me.callModel('.User.changePassword', me.params.gpc).sendJSON()
         } else {
-            me.sentJSON({success: false})
+            me.sendJSON({success: false})
         }    
+    }
+    
+    ,$remind: function() {
+        var me = this;
+        me.callModel('.User.remind', {
+            email: me.params.gpc.remind
+        }, function(data) {
+            me.sendJSON(data)
+        })
+    }
+    
+    ,setNewPassword: function(params, cb) {
+        var me = this;
+        
+        if(params.gpc.code && params.gpc._id && params.gpc.pass && params.gpc.pass == params.gpc.pass1) {
+            me.callModel('.User.saveNewPassword', params.gpc, function(data) {
+                params.gpc.success = true;
+                me.tplApply('.newPasswordForm', params.gpc, cb)
+            })
+        } else {
+            params.gpc.success = false;
+            this.tplApply('.newPasswordForm', params.gpc, cb)
+        }
     }
         
 })

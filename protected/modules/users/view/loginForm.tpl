@@ -44,20 +44,36 @@
         </div>
     </tpl>
     
-    <script type="text/javascript" src="/js/login_publ.js"></script>
     
-    <div class="tndr_form login_form">
-    <h2>Вход в личный кабинет</h2>
-    <form onsubmit="return false;">
-    	<ul class="inlined">
-    		<li class="form_text">Логин</li><li class="form180"><div class="input_wrap"><input id="login" type="text" value="" /></div></li><br>
-    		<li class="form_text">Пароль</li><li class="form180"><div class="input_wrap"><input type="password" id="pass" value="" /></div></li><li><a href="#">Забыли пароль?</a></li><br>
-            <li class="form_text"></li><li class="form180" style="display: none" id="error">Ошибка в логине или пароле</li><br>
-    		<li class="form_text"></li><li><label><input type="checkbox">Запомнить меня</label></li><br>
-    		<li class="form_text"></li><li class="form120"><button type="submit" id="submit"><span class="tndr_btn">Войти</span></button></li>
-    	</ul>
-    </form>
-    </div>
+    
+    <tpl if="!remind">
+        <script type="text/javascript" src="/js/login_publ.js"></script>
+        <div class="tndr_form login_form" id="loginform">
+        <h2>Вход в личный кабинет</h2>
+        <form onsubmit="return false;">
+            <ul class="inlined">
+        		<li class="form_text">Логин</li><li class="form180"><div class="input_wrap"><input id="login" type="text" value="" /></div></li><br>
+        		<li class="form_text">Пароль</li><li class="form180"><div class="input_wrap"><input type="password" id="pass" value="" /></div></li><li><a href="./?remind">Забыли пароль?</a></li><br>
+                <li class="form_text"></li><li class="form180" style="display: none" id="error">Ошибка в логине или пароле</li><br>
+        		<li class="form_text"></li><li><label><input type="checkbox">Запомнить меня</label></li><br>
+        		<li class="form_text"></li><li class="form120"><button type="submit" id="submit"><span class="tndr_btn">Войти</span></button></li>
+        	</ul>
+        </form>
+        </div>
+    </tpl>
+    
+    <tpl if="remind">
+        <script type="text/javascript" src="/js/remind.js"></script>
+        <div class="tndr_form login_form" id="remindform">
+        <h2>Востановление пароля</h2>
+        <form onsubmit="return false;">
+            <ul class="inlined">
+            	<li class="form_text">E-mail</li><li class="form180"><div class="input_wrap"><input id="remail" type="text" value="" /></div></li><li><a href="./">Авторизация</a></li><br>
+        		<li class="form_text"></li><li class="form120"><button type="button" id="submit"><span class="tndr_btn">Отправить</span></button></li>
+        	</ul>
+        </form>
+        </div>
+    </tpl>
     
     <div class="reg_form">
     <h2>Регистрация</h2>
