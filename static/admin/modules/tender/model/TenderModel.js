@@ -137,7 +137,6 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
     
     ,sendMessages: function() {
         var me = this;
-console.log('Start sending:');        
         [
             function(next) {
                 me.src.db.collection(me.collection).find({

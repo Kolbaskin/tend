@@ -4,6 +4,7 @@ Ext.define('Gvsu.modules.orgs.view.OrgsList', {
     extend: 'Core.grid.GridWindow'
     
     ,filtrable: true
+    ,filterbar: true
     //,sortManually: true
     
     ,buildColumns: function() {
@@ -60,7 +61,15 @@ Ext.define('Gvsu.modules.orgs.view.OrgsList', {
                 text: D.t("Активир."),
                 width: 60,
                 sortable: true,
-                filter: true,
+                filter: {
+                    xtype: 'combo',
+                    valueField: 'key',
+                    displayField: 'val',
+                    store: Ext.create('Ext.data.ArrayStore', {
+                        fields: ['key', 'val'],
+                        data: [[1,'Актив'],[0,'Не актив']]
+                    })
+                },
                 dataIndex: 'active',
                 renderer: setStyle
             } 

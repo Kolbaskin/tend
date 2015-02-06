@@ -10,7 +10,7 @@ Ext.define('Gvsu.modules.distinations.view.SelWorksList', {
     requires: ['Core.grid.ComboColumn'],
     
     buildColumns: function() {
-        return [{
+        return [/*{
             xtype: 'combocolumn',
             dataIndex: 'pid',
             sortable: true,    
@@ -19,7 +19,7 @@ Ext.define('Gvsu.modules.distinations.view.SelWorksList', {
             model: 'Gvsu.modules.orgs.model.OrgsModel',
             guideKeyField: '_id',
             guideValueField: 'name'
-        },{
+        },*/{
             xtype: 'combocolumn',
             dataIndex: 'workid',
             sortable: true,    
