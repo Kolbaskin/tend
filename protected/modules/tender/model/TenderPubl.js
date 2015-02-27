@@ -1,4 +1,4 @@
-var fs = require("fs")
+var fs = require("fs-extra")
     ,exec = require('child_process').exec;
 
 Ext.define('Gvsu.modules.tender.model.TenderPubl', {    
@@ -402,8 +402,11 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
             
             // копируем исходный файл
             ,function(next) {
-                fs.rename(file.path, dir + '/' + file.name, function(e, d) {
-                    next() 
+                fs.copy(file.path, dir + '/' + file.name, function(e, d) {
+                    fs.unlink(file.path, function() {
+                       next()
+                    })
+                     
                 })               
             }
             
@@ -414,8 +417,10 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
                         next() 
                         return;
                     }
-                    fs.rename(filesTmp[i], dir + '/' + i + '.png', function(e, d) {
-                        func(i+1)    
+                    fs.copy(filesTmp[i], dir + '/' + i + '.png', function(e, d) {
+                        fs.unlink(filesTmp[i], function() {                        
+			    func(i+1)    
+			})
                     })
                 }
                 func(0)

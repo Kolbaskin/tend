@@ -28,6 +28,11 @@ Ext.define('Gvsu.modules.distinations.controller.SelWorks', {
             this.model.acceptAll(this.parentParams)    
         }
     }
+
+    ,beforeModify: function(form, data) {
+        if(data.pid) data.pid = data.pid._id
+        return true;
+    }
     
 });
 

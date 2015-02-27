@@ -12,7 +12,8 @@ Ext.define('Gvsu.modules.distinations.model.SelWorksModel', {
         type: 'int',
         visable: true,
         filterable: true,
-        editable: true
+        editable: true,
+        bindTo: {collection: 'gvsu_orgs', keyField: '_id', fields: {name:1, _id:1}}
     },{
         name: 'workid',
         type: 'int',

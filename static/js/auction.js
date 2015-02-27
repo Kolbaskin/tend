@@ -85,12 +85,14 @@ recalcSumm = function(alrt) {
         x = parseFloat(pos[i].price2())
         if(!isNaN(x)) summ += x;
     }
+/*    
     if(viewModel.start_price && summ>viewModel.start_price) {
         if(alrt) 
             alert('Указанная Вами цена превышает стартовую цену лота!\nИзмениете цену.')
         viewModel.tenderIsActive(false)
         return false;
     }
+*/
     if(summ>viewModel.v.price_full()) {
         if(alrt) alert('Указанная Вами цена превышает предыдущую вашу цену этого лота!\nИзмениете цену.')
         viewModel.tenderIsActive(false)

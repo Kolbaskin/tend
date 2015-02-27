@@ -10,16 +10,23 @@ Ext.define('Gvsu.modules.distinations.view.SelWorksList', {
     requires: ['Core.grid.ComboColumn'],
     
     buildColumns: function() {
-        return [/*{
-            xtype: 'combocolumn',
+        return [{
             dataIndex: 'pid',
-            sortable: true,    
             flex: 1,
             text: D.t("Организация"),
-            model: 'Gvsu.modules.orgs.model.OrgsModel',
-            guideKeyField: '_id',
-            guideValueField: 'name'
-        },*/{
+            renderer: function(v) {return (v? v.name:'')},
+            filter: {
+                   xtype: 'combo',
+                   valueField: '_id',
+                   displayField: 'name',
+                   queryMode: 'local',
+                   store: Ext.create('Core.data.ComboStore',{
+                       dataModel: 'Gvsu.modules.orgs.model.OrgsModel',
+                       fieldSet: '_id,name'
+                   })
+            }
+
+        },{
             xtype: 'combocolumn',
             dataIndex: 'workid',
             sortable: true,    
