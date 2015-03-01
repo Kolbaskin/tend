@@ -74,6 +74,7 @@ Ext.define('Gvsu.modules.docs.controller.OrgDocs', {
             alert('Укажите причину отказа');
             form.down('[action=formsave]').setDisabled(false)
             form.down('[action=formapply]').setDisabled(false)
+            form.down('[name=notes]').focus()
             return false;
         } else {
             cb(data)
