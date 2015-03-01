@@ -34,6 +34,12 @@ Ext.define('Gvsu.modules.docs.model.OrgDocsModel', {
         editable: true,
         visable: true
     },{
+        name: 'notes',
+        type: 'string',
+        filterable: false,
+        editable: true,
+        visable: true
+    },{
         name: 'doc_type',
         type: 'int',
         filterable: false,

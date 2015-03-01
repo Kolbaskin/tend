@@ -3,8 +3,8 @@ Ext.define('Gvsu.modules.distinations.view.SelWorksForm', {
     
     titleIndex: '_id',
     
-    width: 350,
-    height: 180,
+    width: 550,
+    height: 200,
     region: 'center',
     layout: 'anchor',
     defaults: {

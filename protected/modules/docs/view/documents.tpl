@@ -11,6 +11,7 @@
     <th>Дней до обновления</th>
     <th>Требуется для&nbsp;участия в&nbsp;торгах</th>
     <th>Статус</th>
+    <th>Примечание</th>
     <th>Действия</th>
 </tr>    
 
@@ -32,6 +33,7 @@
             <tpl if="status==3">отклонен</tpl>
             <tpl if="status==-1">не&nbsp;загружен</tpl>
         </td>
+        <td>{[values.notes? values.notes:'']}</td>
         <td>
             <tpl if="status==0"><a href="./?del={_id}" class="tndr_btn" onclick="return confirm('Удалить этот файл?')">Удалить</a></tpl>
             <tpl if="status==1"></tpl>

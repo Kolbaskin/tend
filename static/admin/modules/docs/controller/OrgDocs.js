@@ -69,5 +69,17 @@ Ext.define('Gvsu.modules.docs.controller.OrgDocs', {
            location = '/Gvsu.modules.docs.controller.Docs.getDocSrc/?doc=' + me.dirPrefix + doc + '&id='+id+'&token='+token+'&fn='+encodeURIComponent(fn)
     }
     
+    ,beforeSave: function(form, data, cb) {
+        if(data.status == 3 && !data.notes) {
+            alert('Укажите причину отказа');
+            form.down('[action=formsave]').setDisabled(false)
+            form.down('[action=formapply]').setDisabled(false)
+            return false;
+        } else {
+            cb(data)
+            return true;
+        }
+    }
+    
 });
 

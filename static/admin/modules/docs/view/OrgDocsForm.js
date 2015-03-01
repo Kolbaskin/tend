@@ -23,7 +23,7 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
         return {
             xtype: 'panel',
             region: 'north',
-            height: 115,
+            height: 155,
             layout: 'anchor',
             bodyStyle: 'padding: 10px;background: none;',
             border: false,
@@ -77,6 +77,9 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
         },{
             name: 'file_name',
             inputType: 'hidden'
+        },{
+            name: 'notes',
+            fieldLabel: D.t('Примечание')
         }]
     }
     

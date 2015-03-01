@@ -29,6 +29,7 @@ Ext.define('Gvsu.modules.distinations.model.SelWorksModel', {
     },{
         name: 'notes',
         type:  'string',
+        filterable: false,
         editable: true,
         visable: true
     }]

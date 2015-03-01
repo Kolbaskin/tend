@@ -28,10 +28,23 @@ Ext.define('Gvsu.modules.distinations.controller.SelWorks', {
             this.model.acceptAll(this.parentParams)    
         }
     }
-
+/*
     ,beforeModify: function(form, data) {
+console.log('data pid:', data)        
         if(data.pid) data.pid = data.pid._id
         return true;
+    }
+*/    
+    ,beforeSave: function(form, data, cb) {
+        if(data.status == 3 && !data.notes) {
+            alert('Укажите причину отказа');
+            form.down('[action=formsave]').setDisabled(false)
+            form.down('[action=formapply]').setDisabled(false)
+            return false;
+        } else {
+            cb(data)
+            return true;
+        }
     }
     
 });
