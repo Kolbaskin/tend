@@ -54,7 +54,7 @@ Ext.define('Gvsu.modules.distinations.view.SelWorksForm', {
             name: 'status',
             fieldLabel: D.t('Статус'),
             store: Ext.create('Ext.data.ArrayStore',{
-                data: [[1, 'проверка'], [2, 'одобрено'], [3, 'ошибка']],
+                data: [[1, 'проверка'], [2, 'одобрено'], [3, 'отклонено']],
                 fields: ['_id', 'name']
             })
         }
