@@ -11,7 +11,7 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
     ,height: 420
     
     ,buildItems: function() {
-        var me = this;
+       var me = this;
         return [
             me.buildFormPanel(),
             me.buldPreviewPanel()

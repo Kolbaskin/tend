@@ -7,7 +7,7 @@
 
 Ext.define('Gvsu.modules.docs.controller.OrgDocs', {
     extend: 'Core.controller.Controller',
-    id:'docstypes-win',   
+//    id:'docs-win',   
     
     dirPrefix: '',
 
@@ -17,6 +17,7 @@ Ext.define('Gvsu.modules.docs.controller.OrgDocs', {
     }
     
     ,addFormControls: function(win) {
+
         var me = this
         me.control(win,{
             "[action=print]": {click: function() {me.printDoc(win)}},
