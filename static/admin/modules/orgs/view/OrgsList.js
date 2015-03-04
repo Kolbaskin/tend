@@ -72,6 +72,13 @@ Ext.define('Gvsu.modules.orgs.view.OrgsList', {
                 },
                 dataIndex: 'active',
                 renderer: setStyle
+            },{
+                dataIndex: 'notes',
+                flex: 1,
+                sortable: true,
+                filter: false,
+                renderer: setStyle,
+                text: D.t('Notes')
             } 
         ]        
     }

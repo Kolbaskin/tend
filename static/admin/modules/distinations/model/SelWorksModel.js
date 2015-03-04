@@ -53,4 +53,18 @@ Ext.define('Gvsu.modules.distinations.model.SelWorksModel', {
                 me.error(401)
         })    
     }
+    
+    ,$write: function(data, callback) {
+        var me = this
+        if(data.status == 3) {
+            me.src.db.collection(me.collection).findOne({_id: data._id}, {pid: 1}, function(e,d) {
+                if(d) {
+                   me.src.db.collection('gvsu_orgs').update({_id: d.pid}, {$set:{notes: data.notes}}, function(e,d) { 
+                      
+                   })
+                }
+            })
+        }
+        this.callParent(arguments)
+    }
 })

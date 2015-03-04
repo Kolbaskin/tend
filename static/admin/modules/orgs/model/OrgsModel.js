@@ -117,6 +117,12 @@ Ext.define('Gvsu.modules.orgs.model.OrgsModel', {
         editable: true,
         filterable: false,
         visable: true
+    },{
+        name: 'notes',
+        type: 'string',
+        editable: true,
+        filterable: false,
+        visable: true
     }
     ]
     

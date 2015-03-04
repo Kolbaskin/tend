@@ -85,6 +85,20 @@ Ext.define('Gvsu.modules.docs.model.OrgDocsModel', {
         func(0)
     }
     
+    ,$write: function(data, callback) {
+        var me = this
+        if(data.status == 3) {
+            me.src.db.collection(me.collection).findOne({_id: data._id}, {org: 1}, function(e,d) {
+                if(d) {
+                   me.src.db.collection('gvsu_orgs').update({_id: d.org}, {$set:{notes: data.notes}}, function(e,d) { 
+                      
+                   })
+                }
+            })
+        }
+        this.callParent(arguments)
+    }
+    
     ,$getDocPreviewCount: function(data, cb) {
         if(!data || !data._id) {
             cb({pages: 0})
