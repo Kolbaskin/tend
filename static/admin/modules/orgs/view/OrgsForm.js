@@ -100,7 +100,13 @@ Ext.define('Gvsu.modules.orgs.view.OrgsForm', {
                 name: 'info',
                 xtype: 'textarea',
                 fieldLabel: D.t('Как узнали о торговой площадке')
+            },{
+                name: 'notes',
+                xtype: 'textarea',
+                readOnly: true,
+                fieldLabel: D.t('Примечание')
             }
+            //,
             ]
         }
     }
