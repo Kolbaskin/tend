@@ -1,4 +1,4 @@
-var fs = require('fs')
+var fs = require('fs-extra')
     ,exec = require('child_process').exec
 
 Ext.define('Gvsu.modules.docs.model.Docs', {    
@@ -174,8 +174,12 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
             
             // Копируем исходный файл
             ,function(files, dir, next) {  
-                fs.rename(params.files.file.path, dir + params.files.file.name, function(e, d) {
-                    next(files, dir) 
+                fs.copy(params.files.file.path, dir + params.files.file.name, function(e, d) {
+                    exec('rm -R ' + params.files.file.path, function() {
+                        next(files, dir)
+                    })
+
+                    //next(files, dir) 
                 })
             }
             
@@ -186,8 +190,10 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
                         next() 
                         return;
                     }
-                    fs.rename(files[i], dir + i + '.png', function(e, d) {
-                        func(i+1)    
+                    fs.copy(files[i], dir + i + '.png', function(e, d) {
+                        exec('rm -R ' + files[i], function() {
+                           func(i+1)
+                        })                        
                     })
                 }
                 func(0)
