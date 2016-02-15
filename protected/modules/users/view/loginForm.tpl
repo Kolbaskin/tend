@@ -32,6 +32,7 @@
 <ul>
     <li><a href="/help/conditions/">Условия участия</a></li>
     <li><a href="/help/info/">Справочная информация</a></li>
+    
 </ul>
 <a href="/registration/">Регистрация</a>-->
 <!-- / Registration text block -->
@@ -78,10 +79,12 @@
     <div class="reg_form">
     <h2>Регистрация</h2>
     <p>Для участия в тендерах АО ХК ГВСУ «Центр» необходимо зарегистрироваться.</p>
-    <p><a href="/help/conditions/">Условия участия в тендерах</a><br><a href="/help/info/">Термины и определения</a></p>
+    <p><a href="/help/conditions/">Условия участия в тендерах</a><br>
+    <a href="/help/info/">Термины и определения</a><br>
+    <a href="/uploads/Instructsiya.pdf"><strong>Инструкция по регистрации</strong></a></p>
     <a href="/registration/" class="tndr_btn">Регистрация</a>
     </div>
     
     <div class="clear"></div>
 
-    <h2>По всем вопросам обращайтесь по телефону горячей линии: 8 909 697-90-64</h2>
+    <h2>По всем вопросам обращайтесь по телефону горячей линии: 8 909 697-90-64,<br>либо 8 495 912-31-00, доб. 189, Синявская Ксения Анатольевна</h2>

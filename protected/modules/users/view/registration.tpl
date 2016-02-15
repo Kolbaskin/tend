@@ -46,4 +46,4 @@
 
 <!-- Data Model -->
 <script src="/js/ko.validate.js"></script>
-<script src="/js/registration.js?v=2"></script>
+<script src="/js/registration.js?v=3"></script>

@@ -85,7 +85,7 @@ viewModel.submit = function () {
                 alert(mess.join('\n'))
                 viewModel.errors.showAllMessages();
             } else {
-                alert('Регистрация завершена успешно!\nДля входя в личный кабинет, введите логин и пароль.') 
+                alert('Регистрация завершена успешно!\nДля входа в личный кабинет, введите логин и пароль.') 
                 location = '/login/'
                 
             }

@@ -171,7 +171,7 @@ Ext.define('Gvsu.modules.orgs.model.OrgsPubl', {
     ,sendMessageToModerator: function(org) {
         var me = this;
 
-        org.url = 'http://' + me.request.headers.host + '/admin/#' + encodeURIComponent(JSON.stringify({
+        org.url = 'http://' + me.config.hostName + '/admin/#' + encodeURIComponent(JSON.stringify({
            controller: 'Gvsu.modules.orgs.controller.Orgs',
            data: {
                _id: org._id,
