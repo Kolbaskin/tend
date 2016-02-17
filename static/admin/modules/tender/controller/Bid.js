@@ -84,7 +84,6 @@ Ext.define('Gvsu.modules.tender.controller.Bid', {
     }
     
     ,createXls: function(win) {
-//console.log('win:', win)  
         var me = this
         //    ,store = win.store
         if(me.parentParams) {

@@ -85,7 +85,7 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
                         if(!!cb) cb()
                         return;    
                     }
-                    console.log('Tender ', data.tender.name, ' sent to ',data.users[i])
+                    //console.log('Tender ', data.tender.name, ' sent to ',data.users[i])
       
                     
                     var mess = {

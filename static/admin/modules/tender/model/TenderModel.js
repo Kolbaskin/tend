@@ -156,8 +156,6 @@ Ext.define('Gvsu.modules.tender.model.TenderModel', {
                 var ids = []
                 tenders.each(function(t) {ids.push(t._id)})
                 
-                console.log('ids:', ids)
-                
                 me.src.db.collection(me.collection).update({
                     _id: {$in: ids}
                 },{ 

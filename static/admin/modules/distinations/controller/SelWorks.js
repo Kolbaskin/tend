@@ -30,7 +30,6 @@ Ext.define('Gvsu.modules.distinations.controller.SelWorks', {
     }
 /*
     ,beforeModify: function(form, data) {
-console.log('data pid:', data)        
         if(data.pid) data.pid = data.pid._id
         return true;
     }

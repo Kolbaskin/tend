@@ -47,7 +47,7 @@ Ext.define('Gvsu.modules.distinations.model.SelWorksModel', {
                         me.changeModelData(Object.getPrototypeOf(me).$className, 'ins', {})
                     })
                 })
-                console.log(params)
+                //console.log(params)
             }
             else
                 me.error(401)

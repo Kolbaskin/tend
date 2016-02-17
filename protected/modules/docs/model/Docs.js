@@ -397,9 +397,6 @@ Ext.define('Gvsu.modules.docs.model.Docs', {
                 var cmd = me.config.convertors.office2pdf.replace('{srcPath}', file.path).replace('{distPath}', file.path + '_pdf') 
                 
                 exec(cmd, function(e, stdout, stderr) {
-//console.log('e:', e)  
-//console.log('stdout:', stdout)  
-//console.log('stderr:', stderr)  
                     next()
                 })
             }
