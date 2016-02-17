@@ -139,6 +139,7 @@
 </div><!--/footer -->
 
 </div><!--/page_wrapper -->
+<div id="loader-mask" style="display: none"></div>
 </body>
 </html>
 

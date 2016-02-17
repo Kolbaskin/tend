@@ -74,7 +74,7 @@ Ext.define('Gvsu.modules.docs.controller.Docs',{
         [
             function(add, next) {
                 me.callModel('Gvsu.modules.docs.model.Docs.getTypes', {}, function(data) {
-                    me.tplApply('.documentAddForm', {list:data, type: type, addStatus: add}, cb)
+                    me.tplApply('.documentAddForm', {list:data, type: type, addStatus: add, maxSize: me.config.maxUploadSize}, cb)
                 })
             }
         ].runEach()
@@ -114,6 +114,7 @@ Ext.define('Gvsu.modules.docs.controller.Docs',{
     }
     
     ,$getDocPreview: function() {
+
         var me = this
             ,fs = require('fs')
             ,params = me.params;
@@ -208,14 +209,45 @@ Ext.define('Gvsu.modules.docs.controller.Docs',{
             }
             
             ,function(path, fn) {
-                fs.readFile(path, function(e, data) {
-                    me.headers['Content-Disposition'] = 'attachment; filename="'+encodeURIComponent(fn)+'"'
-                    me.headers['Content-Length'] = data.length
-                    me.end(data)
+                me.getFileCont(path, fn, function() {
+                    me.error(404)    
                 })
             }
             
         ].runEach();
+    }
+    
+    ,getFileCont: function(path, fn, callback) {
+        var me = this
+            ,head = {code: 200, status: 'OK', heads: {}}
+            
+        fs.stat(path, function(err,s) {
+            if(err) {
+                callback(null, {code: 404})
+            } else {
+                head.heads['Content-Type'] = 'application/force-download';    
+                head.heads['Content-Length'] = s.size;
+                head.heads['Content-Description'] = 'File Transfer';
+                head.heads['Content-Disposition'] = 'attachment; filename="'+encodeURIComponent(fn)+'"'
+    
+                var data = fs.createReadStream(path)
+                        
+                me.response.writeHeader(200, head.heads);
+                    
+                data.on('data', function (chunk) {
+                   if(!me.response.write(chunk)){
+                       data.pause();
+                   }
+                });
+                data.on('end', function () {
+                   me.response.end();
+    
+                });
+                me.response.on("drain", function () {
+                   data.resume();
+                });
+            }
+        })    
     }
     
 })

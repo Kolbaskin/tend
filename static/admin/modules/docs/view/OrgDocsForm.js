@@ -84,6 +84,73 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
     }
     
     ,buldPreviewPanel: function() {
+        
+        var me = this;
+        
+        me.previewStore = Ext.create('Ext.data.Store', {
+            fields: ['img', 'id'],
+            data: []
+        })
+        
+        return {
+            xtype: 'panel',
+            region: 'center',
+            layout: 'border',
+            tbar: [{
+                text: D.t('Печать'),
+                ui: 'inverse',
+                action: 'print'
+            },'-',{
+                text: D.t('Скачать оригинал'),
+                ui: 'info',
+                action: 'download'
+            }       
+            ],
+            border: false,
+            bodyBorder: false,
+            items: [
+            
+                Ext.create('Ext.view.View', {
+                    width: 170,
+                    region: 'west',
+                    store: me.previewStore,
+                    id: 'images-view',
+                    style: 'overflow-y: auto;',
+                    tpl: [
+                        '<tpl for=".">',
+                            '<div class="thumb-wrap" id="{id}">',
+                                '<div class="thumb"><img src="{img}" title="страница {id}"></div>',
+                                '<span class="x-editable">страница {id}</span>',
+                            '</div>',
+                        '</tpl>',
+                        '<div class="x-clear"></div>'
+                    ],
+                    multiSelect: false,
+                    trackOver: true,
+                    overItemCls: 'x-item-over',
+                    itemSelector: 'div.thumb-wrap',
+                    emptyText: 'No preview to display',            
+                    listeners: {
+                        selectionchange: function(dv, nodes ){
+                            if(nodes && nodes[0]) {
+                                me.down('[name=previewPanel]').body.update('<img src="'+nodes[0].data.img+'" style="width:100%;" />')
+                            }
+                        }
+                    }
+                }), {
+                    xtype: 'panel',
+                    name: 'previewPanel',
+                    region: 'center',
+                    layout: 'fit',
+                    border: false,
+                    bodyStyle: 'overflow: auto;padding: 10px;',
+                    html: ''
+                }
+            ]
+        }
+    }
+    
+    /*,buldPreviewPanel: function() {
         return {
             xtype: 'panel',
             name: 'previewPanel',
@@ -103,6 +170,6 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
             ],
             html: ''
         }    
-    }
+    }*/
     
 })
