@@ -43,10 +43,10 @@ Ext.define('Gvsu.modules.docs.controller.OrgDocs', {
         form.docID = data._id
         
         me.model.getDocPreview(data, function(res) {
-            var str = []
+            var str = [];
             var domain = location.href.split('/')
             domain = domain[0] + '//' + domain[2]
-            for(var i=0;i<res.pages;i++) {                
+            for(var i=0;i<res.pages;i++) {  
                 str.push({id: i+1, img: domain + '/Gvsu.modules.docs.controller.Docs.getDocPreview/doc.png?doc=' + me.dirPrefix + data._id + '&page=' + i + '&id=' + id + '&token=' + token })  
             }
             form.previewStore.loadData(str)

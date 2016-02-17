@@ -10,6 +10,11 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
     ,width: 750
     ,height: 420
     
+    ,newCurSize: 0
+    ,curSize: 50
+    ,curW: 0
+    ,curH: 0
+    
     ,buildItems: function() {
        var me = this;
         return [
@@ -85,19 +90,24 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
     
     ,buldPreviewPanel: function() {
         
-        var me = this
-            ,newCurSize
-            ,curSize = 50
-            ,curW, curH;
+        var me = this;           
         
         me.previewImage = Ext.create('Ext.Img', {
-            width: curSize + '%',
+            width: me.curSize + '%',
             style: 'background: #ffffff;padding: 10px;'
         })
         
         me.previewStore = Ext.create('Ext.data.Store', {
             fields: ['img', 'id'],
-            data: []
+            data: [],
+            listeners: {
+                load: function(el) {
+                    setTimeout(function() {
+                        if(el.data && el.data.length) 
+                            me.changePageImg(el.data.items[0].data)    
+                    }, 1000)
+                }
+            }
         })
         
         return {
@@ -141,12 +151,8 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
                     listeners: {
                         selectionchange: function(dv, nodes ){
                             if(nodes && nodes[0]) {
-                                var d = me.previewImage.getEl().dom;
-                                me.previewImage.setSrc(nodes[0].data.img)//+'" style="width:100%;" />')
-                                curW = d.width;
-                                curH = d.height;
-                                if(newCurSize) curSize = newCurSize;
-                                me.previewImage.setHeight(curH)
+                                me.changePageImg(nodes[0].data)                               
+                                
                             }
                         }
                     }
@@ -156,17 +162,21 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
                         labelWidth: 70,
                         xtype: 'slider',
                         width: 170,
-                        value: curSize,
+                        value: me.curSize,
                         action: 'sizeslider',
                         listeners: {
                             change: function(el, v) {
-                                me.previewImage.setSize(v * curW/curSize,v * curH/curSize)
-                                newCurSize = v;
+                                me.previewImage.setSize(v * me.curW/me.curSize,v * me.curH/me.curSize)
+                                me.newCurSize = v;
                             }
                         }
                     },'-',{
                         text: 'Повернуть',
                         action: 'rotate'
+                    },'->',{
+                        xtype: 'label',
+                        width: 100,
+                        action: 'curpage'
                     }],
                     xtype: 'panel',
                     region: 'center',
@@ -184,26 +194,26 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
         }
     }
     
-    /*,buldPreviewPanel: function() {
-        return {
-            xtype: 'panel',
-            name: 'previewPanel',
-            region: 'center',
-            layout: 'fit',
-            border: false,
-            bodyStyle: 'overflow: auto;padding: 10px;',
-            tbar: [{
-                text: D.t('Печать'),
-                ui: 'inverse',
-                action: 'print'
-            },'-',{
-                text: D.t('Скачать оригинал'),
-                ui: 'info',
-                action: 'download'
-            }       
-            ],
-            html: ''
-        }    
-    }*/
+    ,changePageImg: function(data) {
+        var me = this
+            ,h,w,k
+            ,d = this.previewImage.getEl().dom
+            ,img = document.createElement("img")
+        
+        img.onload = function() {                        
+            me.previewImage.setSrc(data.img)
+            k = d.width / img.width
+            if(k) me.curH = img.height * k;
+            else me.curH = d.height
+            me.curW = d.width;
+            if(me.newCurSize) me.curSize = me.newCurSize;
+            me.previewImage.setHeight(me.curH)
+        }
+        
+        img.src = data.img
+    
+        this.down('[action=curpage]').setText('Страница: ' + data.id)
+    }
+
     
 })
