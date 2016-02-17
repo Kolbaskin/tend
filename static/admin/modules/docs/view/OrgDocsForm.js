@@ -85,7 +85,15 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
     
     ,buldPreviewPanel: function() {
         
-        var me = this;
+        var me = this
+            ,newCurSize
+            ,curSize = 50
+            ,curW, curH;
+        
+        me.previewImage = Ext.create('Ext.Img', {
+            width: curSize + '%',
+            style: 'background: #ffffff;padding: 10px;'
+        })
         
         me.previewStore = Ext.create('Ext.data.Store', {
             fields: ['img', 'id'],
@@ -133,18 +141,44 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
                     listeners: {
                         selectionchange: function(dv, nodes ){
                             if(nodes && nodes[0]) {
-                                me.down('[name=previewPanel]').body.update('<img src="'+nodes[0].data.img+'" style="width:100%;" />')
+                                var d = me.previewImage.getEl().dom;
+                                me.previewImage.setSrc(nodes[0].data.img)//+'" style="width:100%;" />')
+                                curW = d.width;
+                                curH = d.height;
+                                if(newCurSize) curSize = newCurSize;
+                                me.previewImage.setHeight(curH)
                             }
                         }
                     }
                 }), {
+                    bbar: [{
+                        fieldLabel: D.t('Масштаб'),
+                        labelWidth: 70,
+                        xtype: 'slider',
+                        width: 170,
+                        value: curSize,
+                        action: 'sizeslider',
+                        listeners: {
+                            change: function(el, v) {
+                                me.previewImage.setSize(v * curW/curSize,v * curH/curSize)
+                                newCurSize = v;
+                            }
+                        }
+                    },'-',{
+                        text: 'Повернуть',
+                        action: 'rotate'
+                    }],
                     xtype: 'panel',
-                    name: 'previewPanel',
                     region: 'center',
-                    layout: 'fit',
+                    layout: {
+                        type: 'vbox',
+                        align: 'center',
+                        pack: 'center'
+                    },
                     border: false,
-                    bodyStyle: 'overflow: auto;padding: 10px;',
-                    html: ''
+                    bodyStyle: 'padding: 10px;background: #aaaaaa;',
+                    autoScroll: true,
+                    items: me.previewImage
                 }
             ]
         }

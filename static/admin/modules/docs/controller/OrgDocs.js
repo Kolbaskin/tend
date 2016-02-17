@@ -21,7 +21,9 @@ Ext.define('Gvsu.modules.docs.controller.OrgDocs', {
         var me = this
         me.control(win,{
             "[action=print]": {click: function() {me.printDoc(win)}},
-            "[action=download]": {click: function() {me.downloadDoc(win)}}
+            "[action=download]": {click: function() {me.downloadDoc(win)}},
+            "[action=rotate]": {click: function() {me.rotatePage(win)}}
+            
         })
         me.callParent(arguments)
     }
@@ -82,6 +84,48 @@ Ext.define('Gvsu.modules.docs.controller.OrgDocs', {
             cb(data)
             return true;
         }
+    }
+    
+    ,rotatePage: function(win, img) {
+        var me = this
+            ,img = win.down('form').previewImage;
+            
+        me.rotate(180, img.getEl().dom)    
+    }
+    
+    ,rotate: function(deg, src) {
+        var me = this
+            ,ctx
+            ,canvas = document.createElement("canvas")
+            ,img = document.createElement("img");
+        
+        function drawRotated(degrees){
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.save();
+            ctx.translate(canvas.width/2,canvas.height/2);
+            ctx.rotate(degrees*Math.PI/180);
+            ctx.drawImage(img,-img.width/2,-img.height/2);
+            ctx.restore();
+        }
+        
+        
+        img.onload = function() {
+            var x = 0, y = 0;
+            canvas.width = img.width;
+            canvas.height = img.height;    
+            
+            ctx=canvas.getContext("2d");
+            ctx.drawImage(img,canvas.width,canvas.height);
+            drawRotated(deg)
+            var tempCanvas = document.createElement("canvas");
+            tempCanvas.width = img.width;
+            tempCanvas.height = img.height;
+            var tCtx=tempCanvas.getContext("2d");
+            tCtx.drawImage(canvas,x,y,tempCanvas.width, tempCanvas.height, 0, 0, tempCanvas.width, tempCanvas.height);
+            src.src = tempCanvas.toDataURL("image/png");
+        }
+        
+        img.src = src.src;
     }
     
 });
