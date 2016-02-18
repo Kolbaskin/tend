@@ -57,13 +57,15 @@ Ext.define('Gvsu.modules.users.model.User', {
             }
             ,function(next) {
                 if(params.auth) {
-                    next(null)    
+                    next(null) 
+                    return;
                 }
                 res.values.token = Math.random()
                 me.passwordField.getValueToSave(res.values.password, function(pass) {
                     next(pass)
                 })
             }
+            
             ,function(pass, next) {
                 if(!pass && params.auth) {
                     next()
@@ -73,8 +75,7 @@ Ext.define('Gvsu.modules.users.model.User', {
                 res.values.password = pass
                 res.values.activated = false
                 
-                me.checkCompany(res.values, function(org) {
-                    
+                me.checkCompany(res.values, function(org) {                    
                     if(org) {
                         res.values.org = org
                         me.src.db.collection('gvsu_users').insert(res.values, function(e,d) {
@@ -103,10 +104,52 @@ Ext.define('Gvsu.modules.users.model.User', {
                 })
             }
             
-            ,function() {
-                me.callModel('Gvsu.modules.mail.controller.Mailer.orgActivateRequest', res, function() {
+            
+            // Закомментированные функции снимают активацию с соответствующей компании
+            // и проверяют наличие необходимых документов и направлений
+            // и отпровляют сообщение модератора
+            // Закоментировано для того, что бы не отправлялись уведомления при изменении 
+            // пользовательского профиля
+            
+            /*
+            ,function(next) {
+                me.src.db.conn.query('SELECT gvsu_orgs.* FROM gvsu_users, gvsu_orgs WHERE gvsu_users._id = ' +params.auth+ ' AND gvsu_users.org = gvsu_orgs._id', function(e,d) {
+                    if(d)
+                        next(d)
+                    else
+                        cb({success: true})
+                })
+                
+            }
+            
+            ,function(org, next) {
+                me.callModel('Gvsu.modules.docs.model.Docs.checkOrgDocs', {org: org._id}, function(log) {
+                    org.docsComplite = log
+                    next(org)
+                })
+            }
+            
+            // проверим выбрано ли хотя бы одно направление
+            ,function(org, next) {
+                me.callModel('Gvsu.modules.distinations.model.DistinationsPubl.checkOrgDist', {org: org._id}, function(log) {
+                    org.distComplite = log
+                    next(org)
+                })
+            }
+            
+            ,function(org, next) {
+                me.src.db.collection('gvsu_orgs').update({_id: org._id}, {$set:{active: 0}}, function(e,d) {
+                    next(org)
+                })
+            }
+            
+            ,function(org, next) {
+                me.callModel('Gvsu.modules.orgs.model.OrgsPubl.sendMessageToModerator', org, function() {
                     cb(res)
                 })
+            }*/
+            ,function() {
+                cb(res)
             }
             
         ].runEach()
