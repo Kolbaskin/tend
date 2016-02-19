@@ -90,8 +90,12 @@ Ext.define('Gvsu.modules.docs.model.OrgDocsModel', {
         if(data.status == 3) {
             me.src.db.collection(me.collection).findOne({_id: data._id}, {org: 1}, function(e,d) {
                 if(d) {
-                   me.src.db.collection('gvsu_orgs').update({_id: d.org}, {$set:{notes: data.notes}}, function(e,d) { 
-                      
+                   me.src.db.collection('gvsu_orgs').update({_id: d.org}, {$set:{notes: data.notes}}, function(e,x) { 
+                      Ext.create('Gvsu.modules.history.model.HistoryModel', {scope: me}).write({
+                          obj: 'docs',
+                          mess: data.notes,
+                          pid: d.org
+                      },function() {})     
                    })
                 }
             })

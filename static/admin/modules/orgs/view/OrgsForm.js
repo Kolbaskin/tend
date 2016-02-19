@@ -27,7 +27,8 @@ Ext.define('Gvsu.modules.orgs.view.OrgsForm', {
                 me.userForm(),
                 me.docsForm(),
                 me.worksForm(),
-                me.bidList()
+                me.bidList(),
+                me.historyForm()
             ]
         }]
     }
@@ -120,6 +121,18 @@ Ext.define('Gvsu.modules.orgs.view.OrgsForm', {
                 controller: 'Gvsu.modules.users.controller.PublUsers',
                 outKey: '_id',
                 inKey: 'org'
+            }
+        }
+    }
+    ,historyForm: function() {
+        return {
+            xtype: 'panel',
+            title: D.t('Отказы'),
+            layout: 'border',
+            childModule: {
+                controller: 'Gvsu.modules.history.controller.History',
+                outKey: '_id',
+                inKey: 'pid'
             }
         }
     }
