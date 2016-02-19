@@ -35,4 +35,8 @@ Ext.define('Gvsu.modules.history.view.HistoryList', {
             ]        
     }
     
+    ,buildTbar: function() {
+        return null;
+    }
+    
 })

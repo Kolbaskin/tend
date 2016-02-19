@@ -59,8 +59,18 @@ Ext.define('Gvsu.modules.distinations.model.SelWorksModel', {
         if(data.status == 3) {
             me.src.db.collection(me.collection).findOne({_id: data._id}, {pid: 1}, function(e,d) {
                 if(d) {
-                   me.src.db.collection('gvsu_orgs').update({_id: d.pid}, {$set:{notes: data.notes}}, function(e,d) { 
+                   me.src.db.collection('gvsu_orgs').update({_id: d.pid}, {$set:{notes: data.notes}}, function(e,x) { 
                       
+                      me.src.db.collection('gvsu_distworks').findOne({
+                          _id: data.workid
+                      },{name:1},function(e,w) {
+                      
+                          Ext.create('Gvsu.modules.history.model.HistoryModel', {scope: me}).write({
+                              obj: 'Вид работы: ' + w.name || 'work',
+                              mess: data.notes,
+                              pid: d.pid
+                          },function() {})
+                      })
                    })
                 }
             })
