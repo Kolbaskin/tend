@@ -3,7 +3,7 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
     
     ,titleIndex: 'doc_name'
     
-    ,layout: 'border'    
+    ,layout: 'fit'    
     ,defaults: {
         margin: '0'
     }
@@ -16,11 +16,40 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
     ,curH: 0
     
     ,buildItems: function() {
+        return [{
+            xtype: 'tabpanel',
+            layout: 'fit',
+            border: false,
+            items: [{
+                xtype: 'panel',
+                title: 'Документ',
+                layout: 'border',
+                items: this.buildFormItems()
+            },
+            this.commensForm()
+            ]
+        }]
+    }
+    
+    ,buildFormItems: function() {
        var me = this;
         return [
             me.buildFormPanel(),
             me.buldPreviewPanel()
         ]
+    }
+    
+    ,commensForm: function() {
+        return {
+            xtype: 'panel',
+            title: D.t('Комментарии'),
+            layout: 'border',
+            childModule: {
+                controller: 'Gvsu.modules.comments.controller.Comments',
+                outKey: '_id',
+                inKey: 'pid'
+            }
+        }
     }
     
     ,buildFormPanel: function() {
@@ -84,7 +113,7 @@ Ext.define('Gvsu.modules.docs.view.OrgDocsForm', {
             inputType: 'hidden'
         },{
             name: 'notes',
-            fieldLabel: D.t('Примечание')
+            fieldLabel: D.t('Комментарий для контрагента')
         }]
     }
     
