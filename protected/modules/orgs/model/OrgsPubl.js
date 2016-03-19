@@ -79,7 +79,16 @@ Ext.define('Gvsu.modules.orgs.model.OrgsPubl', {
             }
             
             ,function(org, next) {
-                var find = {$or: [{name: res.values.name}, {fullname: res.values.fullname}, {inn: res.values.inn}]};
+                var find = {$or: []};
+                
+                if(res.values.name) find.$or.push({name: res.values.name})
+                if(res.values.fullname) find.$or.push({name: res.values.fullname})
+                if(res.values.inn) find.$or.push({name: res.values.inn})
+                
+                if(!find.$or.length) {
+                    next(org)
+                    return;
+                }
                 
                 if(org) find._id = {$ne: org}
                 

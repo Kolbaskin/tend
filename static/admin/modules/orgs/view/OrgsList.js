@@ -71,7 +71,21 @@ Ext.define('Gvsu.modules.orgs.view.OrgsList', {
                     })
                 },
                 dataIndex: 'active',
-                renderer: setStyle
+                renderer: function(v,m,r) {setStyle(v,m,r);return v}
+            },{
+                dataIndex: 'date_reg',
+                flex: 1,
+                sortable: false,
+                filter: false,
+                renderer: function(v,m,r) {setStyle(v,m,r);return v? Ext.Date.format(new Date(v),'d.m.Y'):'';},
+                text: D.t('Регистрация')
+            },{
+                dataIndex: 'date_act',
+                flex: 1,
+                sortable: false,
+                filter: false,
+                renderer: function(v,m,r) {setStyle(v,m,r);return v? Ext.Date.format(new Date(v),'d.m.Y'):'';},
+                text: D.t('Активизация')
             },{
                 dataIndex: 'notes',
                 flex: 1,

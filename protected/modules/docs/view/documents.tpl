@@ -43,4 +43,13 @@
     </tr>
 </tpl>
 </table>
+<div style="margin: 0 0 20px 0">
+    <ul class="inlined">
+        <li class="form_text"></li><li>
+            <button type="button" onclick="location='/cabinet/company/'"><span class="tndr_btn more">&lt; назад</span></button>
+            <button type="button" onclick="location='/cabinet/workscat/'"><span class="tndr_btn more">далее &gt;</span></button>
+        </li>
+    </ul>
+</div>
 </tpl>
+

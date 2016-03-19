@@ -32,7 +32,10 @@
     </tpl>
 </tpl>
 <tr class="tndr_table_subhead">
-	<td class="tndr_table_subhead" colspan="4"><button type="submit"><span class="tndr_btn">Cохранить</span></button></td>
+	<td class="tndr_table_subhead" colspan="4">
+        <button type="button" onclick="location='/cabinet/documents/'"><span class="tndr_btn more">&lt; назад</span></button>
+        <button type="submit"><span class="tndr_btn">Cохранить</span></button>
+    </td>
 </tr>
 </table>
 <input type="hidden" name="works" value='' />

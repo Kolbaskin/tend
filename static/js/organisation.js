@@ -44,7 +44,11 @@ var viewModel = {
 
 viewModel.errors = ko.validation.group(viewModel.v);
 
-viewModel.submit = function () {
+viewModel.nextmark = function() {
+    viewModel.submit(true)
+}
+
+viewModel.submit = function (goNext) {
     
     if(!confirm('Внимание!\n\nПри любых изменениях данных доступ к торгам автоматически блокируется!\nДоступ востанавливается после одобрения службы безопасности.\n\nПродолжить?')) return false;
     
@@ -65,13 +69,15 @@ viewModel.submit = function () {
                     alert('Организация с такими данными уже зарегистрирована в системе. Обратитесь к администрации.')    
                 }
                 viewModel.errors.showAllMessages();
-            } else {
-                alert('Информация сохранена!')    
+            } else {                 
+                if(goNext) {
+                    location = '/cabinet/documents/'    
+                } else
+                    alert('Информация сохранена!')
             }
         }, 'JSON')
     } else {
-        alert('Проверьте правильность веденных данных.');
-console.log(viewModel.errors)        
+        alert('Проверьте правильность веденных данных.');        
         viewModel.errors.showAllMessages();
     }
 }
