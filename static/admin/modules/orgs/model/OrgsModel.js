@@ -26,12 +26,6 @@ Ext.define('Gvsu.modules.orgs.model.OrgsModel', {
         editable: true,
         visable: true
     },{
-        name: 'active',
-        type: 'boolean',
-        filterable: true,
-        editable: true,
-        visable: true
-    },{
         name: 'name',
         type: 'string',
         sort: 1,
@@ -143,7 +137,7 @@ Ext.define('Gvsu.modules.orgs.model.OrgsModel', {
         visable: true
     }
     ]
-    
+   
     ,beforeSave: function(data, cb) {
         if(data.active === 'on' || data.active === true) {
             this.src.db.collection(this.collection).findOne({_id: data._id}, {active: 1}, function(e,d) {
@@ -156,6 +150,7 @@ Ext.define('Gvsu.modules.orgs.model.OrgsModel', {
         } else
             cb(data);
     }
+
     ,afterSave: function(data, cb) {
         var me = this;
         [
