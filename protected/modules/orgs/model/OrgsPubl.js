@@ -103,6 +103,7 @@ Ext.define('Gvsu.modules.orgs.model.OrgsPubl', {
             }
             ,function(org, next) {
                 res.values.active = false
+                
                 if(org) {
                     me.src.db.collection('gvsu_orgs').update({_id: org}, {$set:res.values}, function(e,d) {
                         next(org, false)
@@ -159,7 +160,12 @@ Ext.define('Gvsu.modules.orgs.model.OrgsPubl', {
             }
             
             ,function(org, next) {
-                me.src.db.collection('gvsu_orgs').update({_id: org._id}, {$set:{active: active}}, function(e,d) {
+                
+                var set = {active: active};
+                if(!active)
+                    set.date_reg = Ext.Date.format(new Date(), 'c');
+                
+                me.src.db.collection('gvsu_orgs').update({_id: org._id}, {$set:set}, function(e,d) {
                     org.active = active
                     me.changeModelData('Gvsu.modules.orgs.model.OrgsModel', 'ins', org)
                     if(!!cb) cb()

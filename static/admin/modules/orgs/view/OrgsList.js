@@ -78,7 +78,7 @@ Ext.define('Gvsu.modules.orgs.view.OrgsList', {
                 sortable: false,
                 filter: false,
                 renderer: function(v,m,r) {setStyle(v,m,r);return v? Ext.Date.format(new Date(v),'d.m.Y'):'';},
-                text: D.t('Регистрация')
+                text: D.t('Запрос акт.')
             },{
                 dataIndex: 'date_act',
                 flex: 1,

@@ -57,7 +57,7 @@ Ext.define('Gvsu.modules.orgs.view.OrgsForm', {
                 name: 'date_reg',
                 xtype: 'datefield',
                 readOnly: true,
-                fieldLabel: D.t('Дата регистрации')
+                fieldLabel: D.t('Дата запроса активации')
             },{
                 name: 'date_act',
                 xtype: 'datefield',

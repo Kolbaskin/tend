@@ -161,8 +161,7 @@ Ext.define('Gvsu.modules.users.model.User', {
             if(d && d._id) cb(0)
             else {
                 me.src.db.collection('gvsu_orgs').insert({
-                    name: data.company,
-                    date_reg: Ext.Date.format(new Date(), 'c')
+                    name: data.company
                 }, function(e,d) {
                     if(d && d[0] && d[0]._id) 
                         cb(d[0]._id)
