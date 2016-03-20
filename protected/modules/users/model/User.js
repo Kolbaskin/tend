@@ -77,7 +77,7 @@ Ext.define('Gvsu.modules.users.model.User', {
                 
                 me.checkCompany(res.values, function(org) {                    
                     if(org) {
-                        res.values.org = org
+                        res.values.org = org                        
                         me.src.db.collection('gvsu_users').insert(res.values, function(e,d) {
                             if(d && d[0] && d[0]._id) {
                                 res.values._id = d[0]._id
@@ -160,7 +160,10 @@ Ext.define('Gvsu.modules.users.model.User', {
         me.src.db.collection('gvsu_orgs').findOne({name: data.company}, {_id:1}, function(e,d) {
             if(d && d._id) cb(0)
             else {
-                me.src.db.collection('gvsu_orgs').insert({name: data.company}, function(e,d) {
+                me.src.db.collection('gvsu_orgs').insert({
+                    name: data.company,
+                    date_reg: Ext.Date.format(new Date(), 'c')
+                }, function(e,d) {
                     if(d && d[0] && d[0]._id) 
                         cb(d[0]._id)
                     else
