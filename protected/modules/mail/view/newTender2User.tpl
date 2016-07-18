@@ -5,12 +5,14 @@
 
 <p>Компания ГВСУ сообщает о новом тендере.</p>
 <tpl if="file">
-    <p>Все необходимая информация находится в присоединенном файле.</p>
+    <p>Всю необходимую информацию можно скачать по <a href="http://tenders.gvsu.ru/Admin.Data.getFile/?name={file.name}&file={file.file}">ссылке</a>.</p>
 </tpl>
 
 <tpl if="filelink">
     <p>Дополнительная информация по тендеру находится по <a href="{filelink}">ссылке</a>.</p>
 </tpl>
+
+
 
 <p><a href="http://tenders.gvsu.ru">Торговая площадка "ГВСУ Центр"</a></p>
 

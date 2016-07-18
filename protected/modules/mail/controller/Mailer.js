@@ -70,13 +70,15 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
                 next()
             }
             ,function(next) {
-                if(data.tender.file) {
+                /*if(data.tender.file) {
                     fs.readFile(me.config.staticDir + me.config.userFilesDir + '/' + data.tender.file.file, function (err, d) {
                         if(d)
                             file = {filename: data.tender.file.name, contents: d}
                         next()
                     })
-                } else next()
+                } else
+                */
+                next()
             }
             ,function(next) {
                 me.tplApply('.newTender2User', data.tender, next);
@@ -89,16 +91,15 @@ Ext.define('Gvsu.modules.mail.controller.Mailer',{
                     }
                     //console.log('Tender ', data.tender.name, ' sent to ',data.users[i])
       
-                    
                     var mess = {
                         from: me.config.messages.activateMailFrom,
                         to: data.users[i],
                         subject: 'ГВСУ-Центр сообщает о новом тендере',
                         html: html
                     }
-                    if(file) {
-                        mess.attachments = [file]
-                    }
+                    //if(file) {
+                    //    mess.attachments = [file]
+                    //}
                     me.src.mailTransport.sendMail(mess, function(e,d) {
 
                         f(i+1)    
