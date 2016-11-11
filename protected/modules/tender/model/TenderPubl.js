@@ -321,7 +321,8 @@ Ext.define('Gvsu.modules.tender.model.TenderPubl', {
                             priceStep = parseFloat(d.step_price);
                             if(isNaN(priceStep)) priceStep = 0;
                             else {
-                                priceStep = d.start_price / 100 * priceStep
+                                if(priceStep<1)
+                                    priceStep = d.start_price * priceStep
                             } 
                         }
                         isAuction = (d.form > 2? true:false);
