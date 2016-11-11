@@ -964,3 +964,17 @@ h2.folder.act a.tndr_btn:after {content: 'Свернуть';}
 	color: red;
 	font-size: 14px;
 }
+
+div.best-price {
+    line-height: 20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+div.best-price h2 {
+    font-size: 16px;
+}
+
+div.best-price span {
+    color: red;
+}

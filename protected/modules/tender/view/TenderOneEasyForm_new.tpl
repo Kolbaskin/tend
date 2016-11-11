@@ -1,4 +1,5 @@
 {{include 'TenderInfo.tpl'}}
+1
 <a name="block"></a>
 <form method="post"  method="post" data-bind="submit: submit" enctype='multipart/form-data'>
 <h2 class="folder">Основные данные<a href="#block" class="tndr_btn" onclick="return false"></a></h2>

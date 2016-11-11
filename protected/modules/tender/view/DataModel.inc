@@ -1,5 +1,5 @@
 <script src="/js/ko.validate.js"></script>
-<script src="/js/bid.js?_dc=1"></script>
+<script src="/js/bid.js?_dc=3"></script>
 <script>
 viewModel.tenderId = '{_id}'
 viewModel.tenderLeftTime = 0;
@@ -14,4 +14,4 @@ viewModel.v.max_contract_val(decodeURIComponent('{bid.max_contract_val}'))
 viewModel.v.notes(decodeURIComponent('{bid.notes}'))
 viewModel.v.file_descript(decodeURIComponent('{bid.file_descript}'))
 </script>
-<script src="/js/auction.js?_dc=1"></script>
+<script src="/js/auction.js?_dc=5"></script>

@@ -12,7 +12,7 @@
     <script src="/js/ko.js"></script>
 	<script src="/js/code.js" type="text/javascript"></script>
 	<script src="/js/swfobject.js" type="text/javascript"></script>
-	<link rel="stylesheet" href="/style/inner.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="/style/inner.css?v=1" type="text/css" media="screen">
 	<link rel="stylesheet" href="/style/print.css" type="text/css" media="print">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>

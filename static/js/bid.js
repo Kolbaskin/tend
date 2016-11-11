@@ -28,9 +28,9 @@ var viewModel = {
         ,price_pos: ko.observable('')
         ,price_full: ko.observable('')
         ,conditions_advance: ko.observable('')
-        ,max_contract_val: ko.observable('').extend({ required: {message: mess.req}})
-        ,notes: ko.observable('').extend({ required: {message: mess.req}})
-        ,file_descript: ko.observable('').extend({ required: {message: mess.req}})
+        ,max_contract_val: ko.observable('')//.extend({ required: {message: mess.req}})
+        ,notes: ko.observable('')//.extend({ required: {message: mess.req}})
+        ,file_descript: ko.observable('')//.extend({ required: {message: mess.req}})
     }
 };
 
@@ -63,12 +63,13 @@ finalCountDown = function() {
         if(viewModel.tenderLeftTime>0) {
             var h = parseInt(viewModel.tenderLeftTime / 3600)
                 ,m = parseInt((viewModel.tenderLeftTime - h*3600)/60)
-                ,s = viewModel.tenderLeftTime - h*3600 - m*60;
-            if(h<10) h = '0' + h
-            if(m<10) m = '0' + m
-            if(s<10) s = '0' + s
+                ,s = viewModel.tenderLeftTime - h*3600 - m*60
+                ,d = Math.floor(h/24)
+            
+            h = h - d * 24;    
+                
             viewModel.finTimePhrase('До завершения торга осталось:')
-            viewModel.finTime(h + ':' + m + ':' + s)
+            viewModel.finTime((d? d+'дн. ':'') + (h? h + 'ч. ':'') + (m? m + 'мин. ':'') + s + 'сек.')
             viewModel.tenderIsActive(true)
             viewModel.finish = false
         } else {

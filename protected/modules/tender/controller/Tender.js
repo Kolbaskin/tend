@@ -85,13 +85,13 @@ Ext.define('Gvsu.modules.tender.controller.Tender',{
             }
             
             ,function(data, next) {
-                if(params.gpc.max_contract_val && data.allowed)
+                if((params.gpc.max_contract_val && data.allowed) || params.gpc.price2) {
                     me.callModel('.TenderPubl.saveBid', params, function(bidData) {
                         data.bid = bidData
                         data.saved = true
                         next(data)
                     })
-                else {
+                } else {
                     data.saved = false
                     next(data)
                 }

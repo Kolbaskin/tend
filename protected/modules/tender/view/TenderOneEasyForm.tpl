@@ -1,8 +1,10 @@
 {{include 'TenderInfo.tpl'}}
-
 <div class="tndr_form bid_form">
     <p><span data-bind="text: finTimePhrase"></span> <span data-bind="text: finTime"></span></p>
 <form method="post"  method="post" data-bind="submit: submit" enctype='multipart/form-data'>
+
+    
+
     <ul class="inlined">
         <tpl if="!date_workstart">
         	<li class="form_text">Дата начала работ</li><li class="form240"><div class="input_wrap"><input type="text" name="date_start" data-bind="value: v.date_start"></div></li>
@@ -20,46 +22,45 @@
     		<li class="form_alert" style="display: none;">Обязательное поле!</li><br>
         </tpl>
         <tpl if="avance_comp">
-    		<li class="form_text">Условие аванса</li><li class="form240"><div class="input_wrap"><input type="text" name="conditions_advance" data-bind="value: v.conditions_advance"></div></li>
-    		<li class="form_alert" style="display: none;">Обязательное поле!</li><br>
+    		<!--<li class="form_text">Условие аванса</li><li class="form240"><div class="input_wrap"><input type="text" name="conditions_advance" data-bind="value: v.conditions_advance"></div></li>
+    		<li class="form_alert" style="display: none;">Обязательное поле!</li><br>-->
         </tpl>
 
-		<li class="form_text two_lines">Максимальная стоимость договора, указанная в СРО</li><li class="form240"><div class="input_wrap"><input type="text" name="max_contract_val" data-bind="value: v.max_contract_val"></div></li>
-		<li class="form_alert" style="display: none;">Обязательное поле!</li><br>
+    <tpl if="form!=4">
+		    <li class="form_text two_lines">Максимальная стоимость договора, указанная в СРО</li><li class="form240"><div class="input_wrap"><input type="text" name="max_contract_val" data-bind="value: v.max_contract_val"></div></li>
+		    <li class="form_alert" style="display: none;">Обязательное поле!</li><br>
 
-		<li class="form_text">Примечание</li><li class="form240"><div class="input_wrap"><textarea name="notes" data-bind="value: v.notes"></textarea></div></li>
-		<li class="form_alert" style="display: none;">Обязательное поле!</li><br>
-        
-        <li class="form_text">Описание файла</li><li class="form240"><div class="input_wrap"><textarea name="file_descript" data-bind="value: v.file_descript"></textarea></div></li>
-    	<li class="form_alert" style="display: none;">Обязательное поле!</li><br>
+		    <li class="form_text">Примечание</li><li class="form240"><div class="input_wrap"><textarea name="notes" data-bind="value: v.notes"></textarea></div></li>
+		    <li class="form_alert" style="display: none;">Обязательное поле!</li><br>
+            
+            <li class="form_text">Описание файла</li><li class="form240"><div class="input_wrap"><textarea name="file_descript" data-bind="value: v.file_descript"></textarea></div></li>
+        	<li class="form_alert" style="display: none;">Обязательное поле!</li><br>
 
-		<li class="form_text two_lines">Скан заявки на тендер <br>по типовой форме</li><li class="form240"><div class="input_wrap file_wrap"><input type="file" name="file"><div class="file_dummy">Выберите файл...</div></div></li><br>
-        
-        <li class="form_text two_lines">Предложение </li><li class="form240"><div class="input_wrap file_wrap"><input type="file" name="file1"><div class="file_dummy">Выберите файл...</div></div></li><br>
-        
-		
+		    <li class="form_text two_lines">Скан заявки на тендер <br>по типовой форме</li><li class="form240"><div class="input_wrap file_wrap"><input type="file" name="file"><div class="file_dummy">Выберите файл...</div></div></li><br>
+            
+            <li class="form_text two_lines">Предложение </li><li class="form240"><div class="input_wrap file_wrap"><input type="file" name="file1"><div class="file_dummy">Выберите файл...</div></div></li><br>
+            
+    </tpl>		
     
         <tpl if="positions">
             </ul>
-            <h2>Предлагаемые цены по позициям тендера</h2>
-            <p><span data-bind="text: finTimePhrase"></span> <span data-bind="text: finTime"></span></p>
             <for data-bind="foreach: positions">
+                <div class="best-price">
+                <h2 data-bind="text: uname" style="margin:20px 0 0 0;"></h2>
+                
+                <if data-bind="if: bestPrice">
+                
+		            <span>Лучшая цена: <text data-bind="text: bestPrice"></text> (<text data-bind="text: bestPriceDate"></text>)</span><br>
+                    Изменение цены: -<text data-bind="text: deltaPrice"></text>%<br>
+		        
+                </if>
+                </div>
                 <ul class="inlined bid_price">
-            		<li class="form18"><text data-bind="text: ($index() + 1)"></text>.</li>
-            		<li class="form136">
-                        <text data-bind="text: name"></text>,
-                        <br><text data-bind="text: uname"></text>, 
-                        <text data-bind="text: counts"></text>
-                    </li>
-            		<li class="form108"><span>за единицу</span><div class="input_wrap"><input type="text" data-bind="value: price1, attr: {['{']}name: iname1{['}']}, event:{['{']}change: $parent.priceChanged1{['}']}"></div></li>
-            		<li class="form108"><span>полная цена</span><div class="input_wrap"><input type="text" data-bind="value: price2, attr: {['{']}name: iname2{['}']}, event:{['{']}change: $parent.priceChanged2{['}']}"></div></li>
+
+            		<li class="form240"><span>Ваше последнее ценовое предложение</span><div class="input_wrap" data-bind="text: price2" ></div></li>
+            		<li class="form240"><span>Подать новое предложение</span><div class="input_wrap"><input type="text" data-bind="value: price_new, attr: {['{']}name: iname2{['}']}, event:{['{']}change: $parent.priceChanged2{['}']}"></div></li>
             
-                    <for data-bind="foreach: otherprices">
-                		<li class="form18"></li>
-                		<li class="form136 gray_text" data-bind="text: name"></li>
-                		<li class="form108 gray_text" data-bind="text: price1"></li>
-                		<li class="form108 gray_text" data-bind="text: price2"></li>
-            		</for>
+
             
             	</ul>
             </for>    
